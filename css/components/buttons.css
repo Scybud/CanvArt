@@ -55,3 +55,12 @@ font-family: inherit;
   display: none;
 }
 }
+
+.cardActions {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+}
+.cardActions .btn {
+    flex: 1;
+}
