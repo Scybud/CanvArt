@@ -60,17 +60,26 @@ a:hover {
   text-decoration: underline;
 }
 .logo {
-  font-weight: 700;
-  font-size: 1.6rem;
-  color: #fff;
-}
-a .logo:hover {
-  text-decoration: none;
+  font-size: 2rem;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  text-align: center;
+  margin-top: var(--space-md);
 }
 .logo span {
   background: var(--gradient);
   background-clip: text;
   color: transparent;
+}
+.divider {
+  background: var(--muted);
+  color: var(--muted);
+  display: block;
+  width: 100%;
+  height: 1px;
+}
+a .logo:hover {
+  text-decoration: none;
 }
 .emptyStateImg {
   width: 100%;
