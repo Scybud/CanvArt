@@ -85,11 +85,6 @@ a:hover {
 a .logo:hover {
   text-decoration: none;
 }
-.emptyStateImg {
-  width: 100%;
-  max-width: 500px;
-  height: 100%;
-  margin: 0 auto;
-  display: block;
-  border-radius: var(--radius-sm);
+.sidebar {
+  z-index: 1;
 }
