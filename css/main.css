@@ -5,7 +5,6 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-padding-bottom: var(--space-md);
     background: var(--surface-primary);
 }
 
@@ -49,7 +48,6 @@ font-family: inherit;
     color: #000000;
     text-decoration: none;
     background: var(--primary-light);
-    border: none;
 }
 .btn-pill {
     border-radius: var(--radius-lg);
@@ -96,3 +94,26 @@ font-family: inherit;
     mask-image: linear-gradient(to right, black 60%, transparent 100%);
 }
 
+.upper-content {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: var(--space-md);
+align-items: center; /* horizontal */
+}
+hr {
+  border: 1px solid #2d2d2d;
+
+    min-height: 200px;
+}
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: first baseline;
+    width: 100%;
+}
+.section-title {
+    font-size: clamp(var(--text-lg), 5vw, var(--text-3xl));
+}
+.section {
+    min-height: 200px;
+}
