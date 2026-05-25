@@ -23,22 +23,25 @@
 /*HTML AND BODY*/
 html,
 body {
+  width: 100%;
+  height: 100%;
   color: var(--text-primary);
 }
 
-.main-content {
+/*Smooth text rendering*/
+body {
+  color: #fff;
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
   font-family: "Chewy", sans-serif;  background: var(--bg);
+  -moz-osx-font-smoothing: grayscale;
+}
+.main-content {
     padding: 0;
   }
   .main-content-inner {
   padding: 0 var(--space-lg);
 
-}
-/*Smooth text rendering*/
-body {
-  color: #fff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
  
 /*TYPOGRAPHY */
@@ -67,7 +70,6 @@ a:hover {
 .logo {
   font-size: 2rem;
   font-family: "Chewy", sans-serif;  
-  background: var(--surface-secondary);
   font-weight: 600;
   text-align: center;
   margin-top: var(--space-md);

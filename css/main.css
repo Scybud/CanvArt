@@ -1,6 +1,5 @@
 .hero-banner {
     overflow: hidden;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,55 +29,6 @@ img.logo-img {
 }
 .hero-banner-right {
     margin-right: var(--space-sm);
-}
-button.btn {
-    border: none;
-    padding: calc(var(--space-sm) + 2px) var(--space-lg);
-font-family: inherit;
-}
-.btn:active, button:active {
-    transform: scale(0.95);
-}
-.btn {
-    display: inline-block;
-    background: var(--primary);
-    padding: var(--space-xs) var(--space-lg);
-    color: #000000;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: background var(--transition-slow);
-}
-.btn:hover {
-    color: #000000;
-    text-decoration: none;
-    background: var(--primary-light);
-}
-.btn-pill {
-    border-radius: var(--radius-lg);
-}
-.btn-no-bg {
-    background: none;
-    border: 1px solid #959595;
-    color: #ffffff;
-}
-.closeModalBtn {
-    cursor: pointer;
-    background: var(--surface-secondary);
-    border: none;
-    color: var(--accent);
-    transition: color var(--transition-fast);
-}
-.closeModalBtn:hover {
-    color: var(--accent-dark);
-}
-.closeModalBtn svg{
-    width: 30px;
-    height: 30px;
-}
-@media (min-width: 800px) {
-  .toggle-sidebar {
-  display: none;
-}
 }
 
 

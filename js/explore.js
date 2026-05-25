@@ -10,3 +10,17 @@ if(showArtistsListModalBtn) {
        );
     });
 }
+
+const uploadArtwork = document.querySelectorAll(".upload-artwork");
+if(uploadArtwork) {
+
+    uploadArtwork.forEach((btn) => {
+
+        btn.addEventListener("click", async () => {
+            await loadComponent(
+                "../components/modals/create/upload-artwork.html",
+                "modalContainer",
+            );
+        })
+    })
+}
