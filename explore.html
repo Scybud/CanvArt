@@ -57,6 +57,9 @@
       </svg>
     </button>
 
+    <div id="modalContainer">
+    </div>
+
     <main class="main">
       <!--SIDEBAR-->
       <aside class="sidebar">
@@ -73,7 +76,7 @@
       </aside>
 
       <!--MAIN CONTENT-->
-      <article class="main-content">
+      <article id="mainContent" class="main-content">
         <!--HERO-->
         <section class="hero">
           <!--HERO BANNER-->
@@ -133,7 +136,7 @@
 <div class="section">
 <div class="section-header">
                   <h2 class="section-title">Featured Artists</h2>
-                  <a href="collections.html" class="link">See all</a>
+                  <button type="button" id="showArtistsListModal" href="collections.html" class="link">See all</button>
                 </div>
 
                 <div  id="featuredArtists">
@@ -160,5 +163,6 @@
    
     <!--JS-->
     <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/explore.js"></script>
   </body>
 </html>

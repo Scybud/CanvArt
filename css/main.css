@@ -36,6 +36,9 @@ button.btn {
     padding: calc(var(--space-sm) + 2px) var(--space-lg);
 font-family: inherit;
 }
+.btn:active, button:active {
+    transform: scale(0.95);
+}
 .btn {
     display: inline-block;
     background: var(--primary);
@@ -129,6 +132,20 @@ hr {
 .section-title {
     font-size: clamp(var(--text-lg), 5vw, var(--text-3xl));
 }
+.link {
+    background: none;
+    display: inline;
+    border: none;
+    color: var(--link);
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+}
+.link:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
 .section {
     min-height: 200px;
 }
