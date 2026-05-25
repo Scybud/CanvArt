@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore | Feel the Art</title>
+
+    <!--CSS LINKS-->
+
+    <!--SCYBUD UI-->
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/css/variables.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/css/layout.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/components/sidebar/sidebar.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/components/buttons/nav-buttons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/css/typography.css"
+    />
+
+    <!--APP SPECIFIC CSS-->
+    <link rel="stylesheet" href="css/base.css" />
+  </head>
+  <body>
+    <!--SIDEBAR TOGGLE BUTTON-->
+    <button class="toggle-sidebar" id="toggleSidebar">
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+    </button>
+
+    <main class="main">
+      <!--SIDEBAR-->
+      <aside class="sidebar">
+        <header class="sidebarHeader">
+          <div class="logo">Canv<span>Art</span></div>
+        </header>
+        <div class="divider"></div>
+
+        <nav class="sidebarNav">
+          <a href="explore.html" class="nav-btn">Explore</a>
+          <a href="collections.html" class="nav-btn">Collections</a>
+          <a href="profile.html" class="nav-btn">Profile</a>
+        </nav>
+      </aside>
+
+      <!--MAIN CONTENT-->
+      <article class="main-content"></article>
+    </main>
+
+    <!--JS-->
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

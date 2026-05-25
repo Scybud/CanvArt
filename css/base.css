@@ -1,0 +1,82 @@
+/*RESET*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*VARIABLES*/
+
+/*DEFAULT THEME*/
+:root {
+  --primary: #ffd21f;
+  --primary-light: #fcd846;
+
+  --accent: #ff751f;
+  --accent-light: #ff8336;
+
+  --gradient: linear-gradient(to right, var(--primary), var(--accent));
+}
+
+/*HTML AND BODY*/
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+/*Smooth text rendering*/
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+ 
+/*TYPOGRAPHY */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.statsName {
+  font-weight: 600;
+  color: var(--color);
+}
+h2 {
+  text-align: center;
+}
+p {
+  margin-bottom: var(--space-md);
+}
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.logo {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #fff;
+}
+a .logo:hover {
+  text-decoration: none;
+}
+.logo span {
+  background: var(--gradient);
+  background-clip: text;
+  color: transparent;
+}
+.emptyStateImg {
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  margin: 0 auto;
+  display: block;
+  border-radius: var(--radius-sm);
+}
