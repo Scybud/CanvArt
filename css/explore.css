@@ -1,28 +1,28 @@
 #explore {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--space-sm);
+  gap: var(--space-lg);
   padding-bottom: var(--space-xl);
 }
 
 .artworkItem {
-padding: 0;
-overflow: auto;
-gap: 0;
-border-radius: var(--radius-md);
+  padding: 0;
+  overflow: auto;
+  gap: 0;
+  border-radius: var(--radius-md);
 }
 .imgContainer {
   position: relative;
   width: 100%;
   overflow: hidden;
-    width: 100%;
+  width: 100%;
   height: 260px;
 }
 .imgContainer:hover .ownerInfo {
-    opacity: 1;
+  opacity: 1;
 }
 .artwork {
-    width: 100%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
 }
@@ -36,7 +36,7 @@ border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
   border-radius: 8px;
   backdrop-filter: blur(4px);
   transition: opacity var(--transition-slow);
@@ -67,9 +67,10 @@ border-radius: var(--radius-md);
 }
 
 .artworkContent {
-    flex: 1;
-    margin: 0 var(--space-md) var(--space-sm);
+  flex: 1;
+  margin: 0 var(--space-md) var(--space-sm);
 }
-.artworkContent h3, .artworkContent p {
-    margin: 0;
+.artworkContent h3,
+.artworkContent p {
+  margin: 0;
 }

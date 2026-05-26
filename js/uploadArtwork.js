@@ -2,9 +2,7 @@ import { toastMsg } from "./components/toast.js";
 import { supabase } from "./supabase.js";
 import { compressImage } from "./utils/compressImg.js";
 import { sessionState } from "./session.js";
-import {
-  closeModal,
-} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+import { closeModal } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
 
 export async function uploadArtwork(
   artworkInputId,
@@ -120,6 +118,6 @@ export async function uploadArtwork(
       toastMsg("Something went wrong", "error");
     }
 
-    closeModal()
+    closeModal();
   });
 }
