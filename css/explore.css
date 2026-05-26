@@ -1,8 +1,10 @@
 #explore {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 350px));
-    padding-bottom: var(--space-xl);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-sm);
+  padding-bottom: var(--space-xl);
 }
+
 .artworkItem {
 padding: 0;
 overflow: auto;
@@ -13,9 +15,16 @@ border-radius: var(--radius-md);
   position: relative;
   width: 100%;
   overflow: hidden;
+    width: 100%;
+  height: 260px;
 }
 .imgContainer:hover .ownerInfo {
     opacity: 1;
+}
+.artwork {
+    width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .ownerInfo {
@@ -57,10 +66,8 @@ border-radius: var(--radius-md);
   margin: 0;
 }
 
-.artwork {
-    width: 100%;
-}
 .artworkContent {
+    flex: 1;
     margin: 0 var(--space-md) var(--space-sm);
 }
 .artworkContent h3, .artworkContent p {

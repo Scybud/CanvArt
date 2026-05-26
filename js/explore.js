@@ -1,4 +1,4 @@
-import {loadComponent} from "https://scybud.github.io/scybud-ui/js/utils/modal.js"
+import {loadComponent, closeModal} from "https://scybud.github.io/scybud-ui/js/utils/modal.js"
 import { sessionState } from "./session.js";
 import { uploadArtwork } from "./uploadArtwork.js";
 import { fetchArtworks } from "./data/artworks.js";
