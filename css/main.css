@@ -174,12 +174,12 @@ gap: var(--space-sm);
 .userAvatar:hover {
     transform: rotate(360deg);
 }
-.accountName {
+.sidebarName {
     font-size: clamp(0.8rem, 1vw, 0.8rem);
     margin-bottom: 0;
     display: block;
 }
-.username {
+.sidebarUsername {
         font-size: clamp(0.7rem, 1vw, 0.8rem);
         margin-top: 0;
             display: block;
