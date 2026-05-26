@@ -168,6 +168,11 @@ gap: var(--space-sm);
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    transition: transform var(--transition-fast);
+    border: 2px solid var(--primary);
+}
+.userAvatar:hover {
+    transform: rotate(360deg);
 }
 .accountName {
     font-size: clamp(0.8rem, 1vw, 0.8rem);
