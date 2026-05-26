@@ -1,9 +1,18 @@
 import {loadComponent} from "https://scybud.github.io/scybud-ui/js/utils/modal.js"
 import { sessionState } from "./session.js";
+import { uploadArtwork } from "./uploadArtwork.js";
+import { fetchArtworks } from "./data/artworks.js";
+import { createArtworkCard } from "./components/artworkCard.js";
+
 
 async function initExplore() {
     
-    await handleArtworkUpload()
+    await handleArtworkUpload();
+
+    const artworksData = await fetchArtworks();
+
+    const exploreContainer = document.getElementById("explore");
+    createArtworkCard(exploreContainer, artworksData)
 }
 
 async function handleArtworkUpload() {
@@ -21,27 +30,31 @@ async function handleArtworkUpload() {
     });
 }
 
-const uploadArtwork = document.querySelectorAll(".upload-artwork");
-if(uploadArtwork) {
+const uploadArtworkBtns = document.querySelectorAll(".upload-artwork");
+if (uploadArtworkBtns) {
+  uploadArtworkBtns.forEach(async (btn) => {
+    btn.addEventListener("click", async () => {
+      if (!sessionState.user) {
+        await loadComponent(
+          "./components/modals/request-auth.html",
+          "modalContainer",
+        );
 
-    uploadArtwork.forEach(async(btn) => {
-
-        
-        btn.addEventListener("click", async () => {
-            if (!sessionState.user)  {
+        return;
+      }
       await loadComponent(
-        "./components/modals/request-auth.html",
+        "./components/modals/create/upload-artwork.html",
         "modalContainer",
       );
-    
-      return;
-    }  
-            await loadComponent(
-                "./components/modals/create/upload-artwork.html",
-                "modalContainer",
-            );
-        })
-    })
+      await uploadArtwork(
+        "artworkInput",
+        "imagePreview",
+        "artworkTitle",
+        "artworkDescription",
+        "uploadArtworkBtn",
+      );
+    });
+  });
 }
 }
 

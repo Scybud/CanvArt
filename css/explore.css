@@ -1,0 +1,68 @@
+#explore {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 350px));
+    padding-bottom: var(--space-xl);
+}
+.artworkItem {
+padding: 0;
+overflow: auto;
+gap: 0;
+border-radius: var(--radius-md);
+}
+.imgContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.imgContainer:hover .ownerInfo {
+    opacity: 1;
+}
+
+.ownerInfo {
+  position: absolute;
+  opacity: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,0.55);
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  transition: opacity var(--transition-slow);
+}
+
+.ownerAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.ownerText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.ownerName {
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+}
+
+.ownerUsername {
+  font-size: 0.8rem;
+  color: #ddd;
+  margin: 0;
+}
+
+.artwork {
+    width: 100%;
+}
+.artworkContent {
+    margin: 0 var(--space-md) var(--space-sm);
+}
+.artworkContent h3, .artworkContent p {
+    margin: 0;
+}
