@@ -33,23 +33,21 @@ export function createArtworkCard(container, artworks) {
     const ownerText = document.createElement("div");
     ownerText.classList.add("ownerText");
 
-    const ownerName = document.createElement("a");
+    const ownerName = document.createElement("p");
     ownerName.classList.add("ownerName");
     ownerName.textContent = artwork.profiles.name;
-    ownerName.href = `/profile.html?user=${artwork.profiles.id}`;
     ownerText.appendChild(ownerName);
-
-    const ownerUsername = document.createElement("p");
+    
+    const ownerUsername = document.createElement("a");
     ownerUsername.classList.add("ownerUsername");
     ownerUsername.textContent = `@${artwork.profiles.username}`;
+    ownerUsername.href = `/profile.html/${artwork.profiles.username}`;
     ownerText.appendChild(ownerUsername);
 
     ownerInfo.appendChild(ownerText);
     imgContainer.appendChild(ownerInfo);
 
-    // -----------------------------
     // ARTWORK CONTENT
-    // -----------------------------
     const artworkContent = document.createElement("div");
     artworkContent.classList.add("artworkContent");
 
@@ -64,6 +62,6 @@ export function createArtworkCard(container, artworks) {
     artworkItem.appendChild(artworkContent);
 
     // Append card to container
-    container.appendChild(artworkItem);
+    container.prepend(artworkItem);
   });
 }

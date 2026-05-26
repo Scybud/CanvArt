@@ -1,4 +1,5 @@
 .hero-banner {
+    font-family: var(--font-chewy);
     overflow: hidden;
     display: flex;
     justify-content: space-between;
@@ -31,8 +32,8 @@ img.logo-img {
     margin-right: var(--space-sm);
 }
 
-
 .hero-content {
+    font-family: var(--font-chewy);
     background: url("../assets/images/hero-img.png");
     background-size: cover;
     background-repeat: no-repeat;
@@ -67,6 +68,15 @@ img.logo-img {
     grid-template-columns: 1fr 1px 1fr;
     gap: var(--space-md);
 align-items: center; /* horizontal */
+}
+@media (max-width: 600px) {
+    .upper-content {
+    display: grid;
+    grid-template-columns: 1fr ;
+}
+.upper-content .verticalDivider {
+    display:  none;
+}
 }
 hr {
   border: 1px solid #2d2d2d;
@@ -135,4 +145,48 @@ padding: var(--space-lg) 0;
 #imagePreview {
     border-radius: var(--radius-md);
     aspect-ratio: 2 / 1;
+}
+
+.sidebarBottom {
+    overflow: hidden;
+
+    margin: auto var(--space-md) var(--space-md);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    background: var(--surface-secondary);
+
+    display: flex;
+    justify-content: space-between;
+}
+.userInfo {
+height: 100%;
+display: flex;
+align-items: center;
+gap: var(--space-sm);
+}
+.userAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.accountName {
+    font-size: clamp(0.8rem, 1vw, 0.8rem);
+    margin-bottom: 0;
+    display: block;
+}
+.username {
+        font-size: clamp(0.7rem, 1vw, 0.8rem);
+        margin-top: 0;
+            display: block;
+cursor: pointer;
+}
+.logoutBtn {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+.logoutBtn:hover {
+    color: var(--danger);
+    width: fit-content;
 }

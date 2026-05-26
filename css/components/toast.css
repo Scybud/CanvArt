@@ -1,5 +1,4 @@
 #toast {
-  font-family: "Poppins", sans-serif; 
   position: fixed;
   z-index: 9999;
   display: flex;

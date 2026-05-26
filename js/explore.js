@@ -1,61 +1,114 @@
-import {loadComponent, closeModal} from "https://scybud.github.io/scybud-ui/js/utils/modal.js"
+import {
+  loadComponent,
+  closeModal,
+} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
 import { sessionState } from "./session.js";
 import { uploadArtwork } from "./uploadArtwork.js";
 import { fetchArtworks } from "./data/artworks.js";
 import { createArtworkCard } from "./components/artworkCard.js";
-
+import { fetchFeaturedArtists, loadArtists } from "./data/artists.js"; // adjust path if needed
 
 async function initExplore() {
-    
-    await handleArtworkUpload();
+  await handleArtworkUpload();
 
-    const artworksData = await fetchArtworks();
+  const artworksData = await fetchArtworks();
 
-    const exploreContainer = document.getElementById("explore");
-    createArtworkCard(exploreContainer, artworksData)
+  const exploreContainer = document.getElementById("explore");
+  createArtworkCard(exploreContainer, artworksData);
+
+  await renderFeaturedArtists();
 }
 
 async function handleArtworkUpload() {
-
-
-    const showArtistsListModalBtn = document.getElementById("showArtistsListModal");
-    if(showArtistsListModalBtn) {
-
+  const showArtistsListModalBtn = document.getElementById(
+    "showArtistsListModal",
+  );
+  if (showArtistsListModalBtn) {
     showArtistsListModalBtn.addEventListener("click", async () => {
-
-       await loadComponent(
-         "./components/modals/artists-list.html",
-         "modalContainer",
-       );
-    });
-}
-
-const uploadArtworkBtns = document.querySelectorAll(".upload-artwork");
-if (uploadArtworkBtns) {
-  uploadArtworkBtns.forEach(async (btn) => {
-    btn.addEventListener("click", async () => {
-      if (!sessionState.user) {
-        await loadComponent(
-          "./components/modals/request-auth.html",
-          "modalContainer",
-        );
-
-        return;
-      }
       await loadComponent(
-        "./components/modals/create/upload-artwork.html",
+        "./components/modals/artists-list.html",
         "modalContainer",
       );
-      await uploadArtwork(
-        "artworkInput",
-        "imagePreview",
-        "artworkTitle",
-        "artworkDescription",
-        "uploadArtworkBtn",
-      );
+
+      await renderFeaturedArtistsList();
     });
+  }
+
+  const uploadArtworkBtns = document.querySelectorAll(".upload-artwork");
+  if (uploadArtworkBtns) {
+    uploadArtworkBtns.forEach(async (btn) => {
+      btn.addEventListener("click", async () => {
+        if (!sessionState.user) {
+          await loadComponent(
+            "./components/modals/request-auth.html",
+            "modalContainer",
+          );
+
+          return;
+        }
+        await loadComponent(
+          "./components/modals/create/upload-artwork.html",
+          "modalContainer",
+        );
+        await uploadArtwork(
+          "artworkInput",
+          "imagePreview",
+          "artworkTitle",
+          "artworkDescription",
+          "uploadArtworkBtn",
+        );
+      });
+    });
+  }
+}
+
+async function renderFeaturedArtists() {
+  const container = document.getElementById("featuredArtists");
+  container.innerHTML = ""; // clear
+
+  const artists = await fetchFeaturedArtists(4);
+
+  if (!artists || artists.length === 0) {
+    container.innerHTML = "<p>No featured artists this week.</p>";
+    return;
+  }
+
+  artists.forEach((artist) => {
+    const card = document.createElement("a");
+    card.href = `/profile/${artist.username}`;
+    card.className = "featured-artist-card";
+
+    card.innerHTML = `
+      <img src="${artist.avatar_url}" class="featured-artist-avatar" alt="${artist.username}">
+      <span class="featured-artist-name">${artist.name}</span>
+      <span class="featured-artist-username">@${artist.username}</span>
+    `;
+
+    container.appendChild(card);
   });
 }
+
+async function renderFeaturedArtistsList() {
+  const container = document.getElementById("artistsListBody");
+  container.innerHTML = "";
+
+  const artists = await fetchFeaturedArtists(10);
+
+  artists.forEach((artist) => {
+    const row = document.createElement("a");
+    row.href = `/profile/${artist.username}`;
+    row.className = "artist-row";
+
+    row.innerHTML = `
+      <img src="${artist.avatar_url}" class="artist-avatar" alt="${artist.username}">
+      <div class="artist-info">
+        <span class="artist-name">${artist.name}</span>
+        <span class="artist-username">@${artist.username}</span>
+      </div>
+    `;
+
+    container.appendChild(row);
+  });
 }
 
 initExplore();

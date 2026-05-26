@@ -16,7 +16,8 @@
 
   --accent: #ff751f;
   --accent-dark: #ff6201;
-
+--font-chewy: "Chewy", sans-serif;
+--font-poppins: "Poppins", sans-serif;
   --gradient: linear-gradient(to right, var(--primary), var(--accent));
 }
 
@@ -33,7 +34,8 @@ body {
   color: #fff;
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
-  font-family: "Chewy", sans-serif;  background: var(--bg);
+  font-family: var(--font-poppins);  
+  background: var(--bg);
   -moz-osx-font-smoothing: grayscale;
 }
 .main-content {
@@ -69,7 +71,7 @@ a:hover {
 }
 .logo {
   font-size: 2rem;
-  font-family: "Chewy", sans-serif;  
+  font-family: var(--font-chewy);  
   font-weight: 600;
   text-align: center;
   margin-top: var(--space-md);
@@ -91,4 +93,6 @@ a .logo:hover {
 }
 .sidebar {
   z-index: 1;
+  display: flex;
+  flex-direction: column;
 }
