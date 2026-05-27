@@ -70,10 +70,12 @@ export async function uploadArtwork(
       return;
     }
 
+    /*
     if (!artworkDesc) {
       toastMsg("Tell us why you want to share this art", "error");
       return;
     }
+*/
 
     try {
       const artworkId = crypto.randomUUID();
