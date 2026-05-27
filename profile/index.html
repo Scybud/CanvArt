@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore | Feel the Art</title>
+
+    <!--CSS LINKS-->
+
+    <!--SCYBUD UI-->
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/css/variables.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/css/layout.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/components/sidebar/sidebar.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/components/buttons/nav-buttons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/css/typography.css"
+    />
+
+    <!--APP SPECIFIC CSS-->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/components/forms.css">
+<link rel="stylesheet" href="../css/components/buttons.css">
+<link rel="stylesheet" href="../css/components/toast.css">
+<link rel="stylesheet" href="../css/profile.css">
+
+    <!--FAVICONS-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicons/favicon-16x16.png">
+
+
+<style>
+    .profile-header {
+    width: 100%;
+    background: var(--surface-primary);
+}
+
+.profile-cover {
+    width: 100%;
+    height: 180px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(255,140,0,0.08),
+            transparent 40%
+        ),
+        var(--surface-secondary);
+
+    border-bottom: 1px solid var(--border);
+}
+
+.user-profile-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 0 20px;
+
+    margin-top: -55px;
+}
+
+.profile-avatar {
+    width: 110px;
+    height: 110px;
+
+    border-radius: 50%;
+
+    border: 4px solid var(--surface-primary);
+
+    object-fit: cover;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.profile-name {
+    margin-top: 14px;
+    text-align: center;
+}
+
+.profile-username {
+    margin-top: 4px;
+    margin-bottom: var(--space-md);
+
+    color: var(--text-secondary);
+}
+
+.profile-bio-container {
+    width: 100%;
+    max-width: 650px;
+}
+
+.profile-bio {
+    width: 100%;
+
+    font-size: var(--text-sm);
+
+    text-align: center;
+
+    color: var(--text-secondary);
+
+    background: rgba(255,255,255,0.03);
+
+    border: 1px solid rgba(255,255,255,0.05);
+
+    backdrop-filter: blur(10px);
+
+    padding: 18px;
+
+    border-radius: var(--radius-md);
+}
+
+.profile-body {
+    margin-top: 36px;
+}
+
+.view-switcher {
+    display: flex;
+    width: 100%;
+}
+
+.view-btn {
+    flex: 1;
+
+    background: none;
+    border: none;
+
+    padding: 18px 12px;
+
+    font-size: var(--text-md);
+
+    color: var(--text-secondary);
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.view-btn.active {
+    color: var(--text-primary);
+    font-weight: var(--font-bold);
+
+    border-bottom: 3px solid var(--accent);
+}
+</style>
+  </head>
+  <body>
+            <!--TOAST MESSAGES-->
+            <div id="toast"></div>
+            <!--MODAL CONTAINER-->
+            <div id="modalContainer">
+            </div>
+
+
+    <!--SIDEBAR TOGGLE BUTTON-->
+    <button class="toggle-sidebar" id="toggleSidebar">
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+    </button>
+
+
+    <main class="main">
+      <!--SIDEBAR-->
+      <aside class="sidebar" id="sidebar">
+        
+      </aside>
+
+
+      <!--MAIN CONTENT-->
+      <article id="mainContent" class="main-content">
+        
+          <!--PROFLE HEADER-->
+          <section class="profile-header">
+              <div class="profile-cover"></div>
+              
+              <div class="user-profile-data">
+                  <img src="../assets/images/canvart-logo.png" alt="Profile image" id="profileAvatar" class="profile-avatar">
+                  <h2 class="profile-name" id="profileName">Abdulroqib Oladipo</h2>
+                  <span class="profile-username" id="profileUsername">@abdulroqib</span>
+                  
+                  <div class="profile-bio-container">
+                      <p id="profileBio" class="profile-bio">I make art for fun. Simple, bold, and full of color.
+Architect by trade, creator by instinct. I build tools like CanvArt and LogHue to make creativity effortless and expressive.
+Every stroke, every pixel, every idea — it’s all play turned into purpose.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!--PROFLE BODY-->
+            <section class="profile-body">
+                <div class="view-switcher">
+                    <button class="view-btn active" id="viewArtworksBtn">Artworks</button>
+                    <button type="button" class="view-btn" id="viewCollectionsBtn">Collections</button>
+                </div>
+          </section>
+      </article>
+    </main>
+
+   
+    <!--JS-->
+    <script type="module" src="../js/app.js"></script>
+    <script type="module" src="../js/profile.js"></script>
+  </body>
+</html>

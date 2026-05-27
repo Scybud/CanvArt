@@ -6,7 +6,7 @@ import { sessionState } from "./session.js";
 import { uploadArtwork } from "./uploadArtwork.js";
 import { fetchArtworks } from "./data/artworks.js";
 import { createArtworkCard } from "./components/artworkCard.js";
-import { fetchFeaturedArtists, loadArtists } from "./data/artists.js"; // adjust path if needed
+import { fetchFeaturedArtists, fetchAllArtists } from "./data/artists.js"; // adjust path if needed
 
 async function initExplore() {
   await handleArtworkUpload();

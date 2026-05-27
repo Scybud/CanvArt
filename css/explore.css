@@ -135,7 +135,7 @@ flex-direction: column;
 .featured-artist-card {
   display: flex;
   flex-direction: column;
-
+flex: 0 0 auto;
   align-items: center;
   text-align: center;
   cursor: pointer;

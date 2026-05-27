@@ -2,7 +2,10 @@ import { loadComponent } from "https://scybud.github.io/scybud-ui/js/utils/modal
 
 export async function toastMsg(message, typeClass) {
   // Load modal only when needed
-  await loadComponent("./../components/modals/toast", "toast");
+  await loadComponent(
+    "https://joincanvart.vercel.app/components/modals/toast",
+    "toast",
+  );
 
   const msg = document.querySelector(".modalMessage");
   const toast = document.getElementById("toast");
