@@ -1,15 +1,46 @@
+.upper-content {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: var(--space-md);
+margin-bottom: var(--space-md);
+    width: 100%;
+}
+@media (max-width: 960px) {
+    .upper-content {
+    display: flex;
+flex-direction: column;
+}
+.upper-content .verticalDivider {
+    display:  none;
+}
+}
+
 #explore {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--space-lg);
-  padding-bottom: var(--space-xl);
+    column-count: 4;
+    padding-bottom: var(--space-lg);
+    margin-top: var(--space-md);
 }
 
 .artworkItem {
+   break-inside: avoid;      /* prevent card from being split */
+  margin-bottom: 1.5rem;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+
   padding: 0;
-  overflow: auto;
   gap: 0;
   border-radius: var(--radius-md);
+}
+/* Responsive */
+@media (max-width: 1200px) {
+  #explore { column-count: 3; }
+}
+@media (max-width: 900px) {
+  #explore { column-count: 2; }
+}
+@media (max-width: 600px) {
+  #explore { column-count: 1; }
 }
 .imgContainer {
   position: relative;
@@ -17,9 +48,6 @@
   overflow: hidden;
   width: 100%;
   height: 260px;
-}
-.imgContainer:hover .ownerInfo {
-  opacity: 1;
 }
 .artwork {
   width: 100%;
@@ -41,6 +69,16 @@
   backdrop-filter: blur(4px);
   transition: opacity var(--transition-slow);
 }
+.imgContainer:hover .ownerInfo {
+  opacity: 1;
+}
+@media (hover: none) {
+  /* Devices where hover doesn't exist */
+  .ownerInfo {
+    opacity: 1;
+  }
+}
+
 
 .ownerAvatar {
   width: 60px;
@@ -80,11 +118,12 @@
 
 #featuredArtists {
   display: flex;
+  justify-content: space-evenly;
   gap: var(--space-sm);
   padding: 1rem 0;
   overflow-x: auto;
   max-width: 100%;
-
+  
     /* Hide scrollbar (Chrome, Edge, Safari) */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge Legacy */
@@ -96,7 +135,7 @@
 .featured-artist-card {
   display: flex;
   flex-direction: column;
-  flex: 0 0 auto;
+
   align-items: center;
   text-align: center;
   cursor: pointer;
@@ -142,7 +181,7 @@
 }
 
 .artist-row:hover {
-  background: rgba(255,255,255,0.05);
+  background: var(--hover-bg);
 }
 
 .artist-avatar {

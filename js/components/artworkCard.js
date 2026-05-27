@@ -51,7 +51,8 @@ export function createArtworkCard(container, artworks) {
     const artworkContent = document.createElement("div");
     artworkContent.classList.add("artworkContent");
 
-    const title = document.createElement("h3");
+    const title = document.createElement("span");
+    title.classList.add("text-bold")
     title.textContent = artwork.title;
     artworkContent.appendChild(title);
 

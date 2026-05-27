@@ -26,7 +26,7 @@ async function handleArtworkUpload() {
   if (showArtistsListModalBtn) {
     showArtistsListModalBtn.addEventListener("click", async () => {
       await loadComponent(
-        "./components/modals/artists-list",
+        "https://joincanvart.vercel.app/components/modals/artists-list",
         "modalContainer",
       );
 

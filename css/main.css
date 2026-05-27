@@ -63,21 +63,6 @@ img.logo-img {
     mask-image: linear-gradient(to right, black 60%, transparent 100%);
 }
 
-.upper-content {
-    display: grid;
-    grid-template-columns: 1fr 1px 1fr;
-    gap: var(--space-md);
-align-items: center; /* horizontal */
-}
-@media (max-width: 600px) {
-    .upper-content {
-    display: grid;
-    grid-template-columns: 1fr ;
-}
-.upper-content .verticalDivider {
-    display:  none;
-}
-}
 hr {
   border: 1px solid #2d2d2d;
 

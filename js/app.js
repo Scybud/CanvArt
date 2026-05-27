@@ -7,7 +7,10 @@ import { loadSidebarUser } from "./user.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   // 1. Load sidebar HTML
-  await loadComponent("./components/sidebar", "sidebar");
+  await loadComponent(
+    "https://joincanvart.vercel.app/components/sidebar",
+    "sidebar",
+  );
 
   // 2. Initialize session FIRST
   await initSession();
