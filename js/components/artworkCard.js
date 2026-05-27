@@ -41,7 +41,7 @@ export function createArtworkCard(container, artworks) {
     const ownerUsername = document.createElement("a");
     ownerUsername.classList.add("ownerUsername");
     ownerUsername.textContent = `@${artwork.profiles.username}`;
-    ownerUsername.href = `/profile.html/${artwork.profiles.username}`;
+    ownerUsername.href = `/profile/${artwork.profiles.username}`;
     ownerText.appendChild(ownerUsername);
 
     ownerInfo.appendChild(ownerText);
