@@ -7,7 +7,7 @@ import { loadSidebarUser } from "./user.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   // 1. Load sidebar HTML
-  await loadComponent("./components/sidebar.html", "sidebar");
+  await loadComponent("./components/sidebar", "sidebar");
 
   // 2. Initialize session FIRST
   await initSession();

@@ -106,7 +106,7 @@ const success = await signup(username, name, email, password);
           window.location.href = decodeURIComponent(redirectTo);
         } else {
           // Default behavior
-          window.location.href = "../explore.html";
+          window.location.href = "../explore";
         }
       }
     } finally {

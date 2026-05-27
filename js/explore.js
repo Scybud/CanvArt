@@ -26,7 +26,7 @@ async function handleArtworkUpload() {
   if (showArtistsListModalBtn) {
     showArtistsListModalBtn.addEventListener("click", async () => {
       await loadComponent(
-        "./components/modals/artists-list.html",
+        "./components/modals/artists-list",
         "modalContainer",
       );
 
@@ -40,14 +40,14 @@ async function handleArtworkUpload() {
       btn.addEventListener("click", async () => {
         if (!sessionState.user) {
           await loadComponent(
-            "./components/modals/request-auth.html",
+            "./components/modals/request-auth",
             "modalContainer",
           );
 
           return;
         }
         await loadComponent(
-          "./components/modals/create/upload-artwork.html",
+          "./components/modals/create/upload-artwork",
           "modalContainer",
         );
         await uploadArtwork(
