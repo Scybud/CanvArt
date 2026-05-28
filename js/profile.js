@@ -3,22 +3,13 @@ import { toastMsg } from "./components/toast.js";
 
 // Extract username from either /profile/<username> or ?user=<username>
 function getUsername() {
-  const url = new URL(window.location.href);
+  const parts = window.location.pathname.split("/").filter(Boolean);
 
-  // 1. Try query param first: profile.html?user=abdul
-  const queryUser = url.searchParams.get("user");
-  if (queryUser) return queryUser.trim();
-
-  // 2. Try path: /profile/abdul
-  const parts = url.pathname.split("/").filter(Boolean);
-  let last = parts.pop();
-
-  // Remove .html if present
-  if (last && last.endsWith(".html")) {
-    last = last.replace(".html", "");
+  if (parts[0] === "profile" && parts[1]) {
+    return parts[1];
   }
 
-  return last || null;
+  return null;
 }
 
 async function initProfile() {
@@ -39,8 +30,21 @@ async function initProfile() {
       return;
     }
 
-    // Render profile (your function)
+    // Render profile
     renderProfile(profile);
+
+    showArtworks(profile);
+
+    artworksBtn.addEventListener("click", () => {
+      setActive(artworksBtn);
+      showArtworks(profile);
+    });
+
+    collectionsBtn.addEventListener("click", () => {
+      setActive(collectionsBtn);
+      showCollections(profile);
+    });
+
   } catch (err) {
     console.error("Profile loading error:", err);
     toastMsg("Something went wrong loading the profile", "error");
@@ -48,3 +52,29 @@ async function initProfile() {
 }
 
 await initProfile();
+
+const artworksBtn = document.getElementById("viewArtworksBtn");
+const collectionsBtn = document.getElementById("viewCollectionsBtn");
+const content = document.getElementById("profileContent");
+
+function setActive(button) {
+  document.querySelectorAll(".view-btn").forEach((btn) => {
+    btn.classList.remove("active");
+  });
+  button.classList.add("active");
+}
+
+function showArtworks(profile) {
+  content.innerHTML = `
+    <h3>Artworks</h3>
+    <p>No artworks yet.</p>
+  `;
+}
+
+function showCollections(profile) {
+  content.innerHTML = `
+    <h3>Collections</h3>
+    <p>No collections yet.</p>
+  `;
+}
+
