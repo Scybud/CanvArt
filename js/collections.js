@@ -3,18 +3,18 @@ import {
   closeModal,
 } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
 import { sessionState } from "./session.js";
-import { uploadArtwork } from "./create/uploadArtwork.js";
-import { fetchAllArtworks } from "./data/artworks.js";
-import { createArtworkCard } from "./components/artworkCard.js";
-import { fetchFeaturedArtists, fetchAllArtists } from "./data/artists.js"; // adjust path if needed
+import { createCollection } from "./create/createCollection.js";
+import { fetchFeaturedArtists } from "./data/artists.js";
+import { fetchAllCollections } from "./data/collections.js";
+import { createCollectionCard } from "./components/collectionCard.js";
 
-async function initExplore() {
+async function initCollections() {
   await handleArtworkUpload();
 
-  const artworksData = await fetchAllArtworks();
+  const collectionsData = await fetchAllCollections();
 
-  const exploreContainer = document.getElementById("explore");
-  createArtworkCard(exploreContainer, artworksData);
+  const collectionsContainer = document.getElementById("collectionsGrid");
+  createCollectionCard(collectionsContainer, collectionsData);
 
   await renderFeaturedArtists();
 }
@@ -34,9 +34,9 @@ async function handleArtworkUpload() {
     });
   }
 
-  const uploadArtworkBtns = document.querySelectorAll(".upload-artwork");
-  if (uploadArtworkBtns) {
-    uploadArtworkBtns.forEach(async (btn) => {
+  const createCollectionBtn = document.querySelectorAll(".create-collection");
+  if (createCollectionBtn) {
+    createCollectionBtn.forEach(async (btn) => {
       btn.addEventListener("click", async () => {
         if (!sessionState.user) {
           await loadComponent(
@@ -47,15 +47,15 @@ async function handleArtworkUpload() {
           return;
         }
         await loadComponent(
-          "./components/modals/create/upload-artwork",
+          "./components/modals/create/create-collection",
           "modalContainer",
         );
-        await uploadArtwork(
-          "artworkInput",
+        await createCollection(
+          "collectionThumbnailInput",
           "imagePreview",
-          "artworkTitle",
-          "artworkDescription",
-          "uploadArtworkBtn",
+          "collectionName",
+          "collectionDescription",
+          "createCollectionBtn",
         );
       });
     });
@@ -111,4 +111,4 @@ async function renderFeaturedArtistsList() {
   });
 }
 
-initExplore();
+initCollections();

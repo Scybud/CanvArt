@@ -1,27 +1,27 @@
-import { toastMsg } from "./components/toast.js";
-import { supabase } from "./supabase.js";
-import { compressImage } from "./utils/compressImg.js";
-import { sessionState } from "./session.js";
+import { toastMsg } from "../components/toast.js";
+import { supabase } from "../supabase.js";
+import { compressImage } from "../utils/compressImg.js";
+import { sessionState } from "../session.js";
 import { closeModal } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
 
-export async function uploadArtwork(
-  artworkInputId,
+export async function createCollection(
+  thumbnailInputId,
   previewId,
-  titleId,
+  nameId,
   descriptionId,
   btnId,
 ) {
-  const artworkInput = document.getElementById(artworkInputId);
+  const thumbnailInput = document.getElementById(thumbnailInputId);
   const previewImg = document.getElementById(previewId);
-  const artworkTitleInput = document.getElementById(titleId);
-  const artworkDescInput = document.getElementById(descriptionId);
+  const collectionName = document.getElementById(nameId);
+  const collectionDescription = document.getElementById(descriptionId);
   const uploadBtn = document.getElementById(btnId);
 
   let compressedFile = null;
 
   // ⭐ INSTANT PREVIEW WHEN USER SELECTS IMAGE
-  artworkInput.addEventListener("change", async () => {
-    const file = artworkInput.files?.[0];
+  thumbnailInput.addEventListener("change", async () => {
+    const file = thumbnailInput.files?.[0];
     if (!file) return;
 
     try {
@@ -35,18 +35,20 @@ export async function uploadArtwork(
         const compressedBlob = await compressImage(img);
         if (!compressedBlob) {
           toastMsg("Could not compress artwork below required size", "error");
-          artworkInput.value = "";
+          thumbnailInput.value = "";
           return;
         }
 
-        compressedFile = new File([compressedBlob], "artwork.webp", {
+        compressedFile = new File([compressedBlob], "thumbnail.webp", {
           type: "image/webp",
         });
 
         const previewUrl = URL.createObjectURL(compressedBlob);
         previewImg.src = previewUrl;
 
-        previewImg.onload = () => URL.revokeObjectURL(previewUrl);
+previewImg.addEventListener("load", () => URL.revokeObjectURL(previewUrl), {
+  once: true,
+});
       };
     } catch (err) {
       console.error(err);
@@ -56,34 +58,37 @@ export async function uploadArtwork(
 
   // ⭐ UPLOAD BUTTON HANDLER
   uploadBtn.addEventListener("click", async () => {
-    const artworkTitle = artworkTitleInput.value.trim();
-    const artworkDesc = artworkDescInput.value.trim();
+const collectionNameValue = collectionName.value.trim();
+const collectionDescriptionValue = collectionDescription.value.trim();
     const user = sessionState.user;
 
     if (!user) {
       toastMsg("You must be logged in to upload artwork", "error");
       return;
     }
-
+if(!collectionNameValue) {
+    toastMsg("Please name your collection", "error");
+    return;
+}
     if (!compressedFile) {
       toastMsg("Please select an artwork image", "error");
       return;
     }
 
     /*
-    if (!artworkDesc) {
+    if (!collectionDescription) {
       toastMsg("Tell us why you want to share this art", "error");
       return;
     }
 */
 
     try {
-      const artworkId = crypto.randomUUID();
-      const filePath = `${user.id}/${artworkId}.webp`;
+      const collectionId = crypto.randomUUID();
+      const filePath = `${user.id}/${collectionId}.webp`;
 
       // Upload to bucket
       const { error: uploadError } = await supabase.storage
-        .from("artworks")
+        .from("collection_thumbnails")
         .upload(filePath, compressedFile);
 
       if (uploadError) {
@@ -94,27 +99,27 @@ export async function uploadArtwork(
 
       // Get public URL
       const { data: urlData } = supabase.storage
-        .from("artworks")
+        .from("collection_thumbnails")
         .getPublicUrl(filePath);
 
       const imageUrl = urlData.publicUrl;
 
       // Insert into artworks table
-      const { error: dbError } = await supabase.from("artworks").insert({
-        id: artworkId,
+      const { error: dbError } = await supabase.from("collections").insert({
+        id: collectionId,
         user_id: user.id,
-        title: artworkTitle,
-        description: artworkDesc,
-        artwork_url: imageUrl,
+        name: collectionName,
+        description: collectionDescription,
+        thumbnail_url: imageUrl,
       });
 
       if (dbError) {
         console.error(dbError);
-        toastMsg("Could not save artwork info", "error");
+        toastMsg("Could not save collection info", "error");
         return;
       }
 
-      toastMsg("Artwork uploaded successfully!", "success");
+      toastMsg("Collection created successfully!", "success");
     } catch (err) {
       console.error(err);
       toastMsg("Something went wrong", "error");

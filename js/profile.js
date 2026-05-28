@@ -2,7 +2,7 @@ import { fetchArtistProfile } from "./data/artists.js";
 import { fetchArtworksByUserId } from "./data/artworks.js";
 import { toastMsg } from "./components/toast.js";
 import { createArtworkCard } from "./components/artworkCard.js";
-import { uploadArtwork } from "./uploadArtwork.js";
+import { uploadArtwork } from "./create/uploadArtwork.js";
 
 let profile = null;
 
@@ -33,20 +33,19 @@ async function showArtworks(content) {
 
   const artworks = await fetchArtworksByUserId(profile.id);
 
-const artworkContainer = document.createElement("div")
-artworkContainer.classList.add("artwork-container");
+  const artworkContainer = document.createElement("div");
+  artworkContainer.classList.add("artwork-container");
 
+  await createArtworkCard(artworkContainer, artworks);
 
-await createArtworkCard(artworkContainer, artworks);
+  content.innerHTML = "";
 
-content.innerHTML = "";
-
-const sectionHeader = document.createElement("div");
- sectionHeader.classList.add("section-header");
-sectionHeader.innerHTML = `
+  const sectionHeader = document.createElement("div");
+  sectionHeader.classList.add("section-header");
+  sectionHeader.innerHTML = `
 <h3>Artworks</h3>
 `;
-content.append(sectionHeader);
+  content.append(sectionHeader);
 
   content.append(artworkContainer);
 }
@@ -89,7 +88,7 @@ async function initProfile() {
     return;
   }
 
-   profile = await fetchArtistProfile(username);
+  profile = await fetchArtistProfile(username);
 
   if (!profile) {
     toastMsg("Artist not found", "error");
