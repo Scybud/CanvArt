@@ -12,6 +12,11 @@ function getUsername() {
   return null;
 }
 
+// MOVE THESE UP — they must exist before initProfile() runs
+const artworksBtn = document.getElementById("viewArtworksBtn");
+const collectionsBtn = document.getElementById("viewCollectionsBtn");
+const content = document.getElementById("profileContent");
+
 async function initProfile() {
   try {
     const username = getUsername();
@@ -52,10 +57,6 @@ async function initProfile() {
 
 await initProfile();
 
-const artworksBtn = document.getElementById("viewArtworksBtn");
-const collectionsBtn = document.getElementById("viewCollectionsBtn");
-const content = document.getElementById("profileContent");
-
 function setActive(button) {
   document.querySelectorAll(".view-btn").forEach((btn) => {
     btn.classList.remove("active");
@@ -79,7 +80,7 @@ function showCollections(profile) {
 
 function renderProfile(profile) {
   document.getElementById("profileName").textContent =
-   profile.name || "Unknown User";
+    profile.name || "Unknown User";
 
   document.getElementById("profileUsername").textContent =
     "@" + profile.username;
