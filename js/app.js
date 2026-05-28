@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   //1. Load correct sidebar based on page
   if (path.includes("profile")) {
     await loadComponent(
-      "https://loghue.com/components/folder-sidebar",
-      "sidebar",
+      "https://joincanvart.vercel.app/components/folder-sidebar",
+      "profileSidebar",
     );
   }
   
