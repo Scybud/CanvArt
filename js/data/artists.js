@@ -2,17 +2,19 @@ import { toastMsg } from "../components/toast.js";
 import { supabase } from "../supabase.js";
 
 export async function fetchAllArtists() {
-  const { data: artists, error } = await supabase
-  .from("profiles")
-  .select("*");
+  const { data, error } = await supabase.from("profiles").select(`
+      *,
+      artworks (*),
+      collections(*)
+    `);
 
-  if(error) {
-    toastMsg("Error loading artists", "error")
-    console.log("error");
-    return
+  if (error) {
+    toastMsg("Error loading artists", "error");
+    console.log(error);
+    return [];
   }
 
-  return artists;
+  return data;
 }
 
 export async function fetchArtistProfile(artistUsername) {

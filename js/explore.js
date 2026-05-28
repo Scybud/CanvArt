@@ -40,14 +40,14 @@ async function handleArtworkUpload() {
       btn.addEventListener("click", async () => {
         if (!sessionState.user) {
           await loadComponent(
-            "./components/modals/request-auth",
+            "https://joincanvart.vercel.app/components/modals/request-auth",
             "modalContainer",
           );
 
           return;
         }
         await loadComponent(
-          "./components/modals/create/upload-artwork",
+          "https://joincanvart.vercel.app/components/modals/create/upload-artwork",
           "modalContainer",
         );
         await uploadArtwork(
