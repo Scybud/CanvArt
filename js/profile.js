@@ -44,7 +44,6 @@ async function initProfile() {
       setActive(collectionsBtn);
       showCollections(profile);
     });
-
   } catch (err) {
     console.error("Profile loading error:", err);
     toastMsg("Something went wrong loading the profile", "error");
@@ -78,3 +77,16 @@ function showCollections(profile) {
   `;
 }
 
+function renderProfile(profile) {
+  document.getElementById("profileName").textContent =
+   profile.name || "Unknown User";
+
+  document.getElementById("profileUsername").textContent =
+    "@" + profile.username;
+
+  document.getElementById("profileBio").textContent =
+    profile.bio || "No bio yet";
+
+  document.getElementById("profileAvatar").src =
+    profile.avatar_url || "assets/images/default-avatar.png";
+}
