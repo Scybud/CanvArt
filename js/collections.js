@@ -40,14 +40,14 @@ async function handleArtworkUpload() {
       btn.addEventListener("click", async () => {
         if (!sessionState.user) {
           await loadComponent(
-            "./components/modals/request-auth",
+            "https://joincanvart.vercel.app/components/modals/request-auth",
             "modalContainer",
           );
 
           return;
         }
         await loadComponent(
-          "./components/modals/create/create-collection",
+          "https://joincanvart.vercel.app/components/modals/create/create-collection",
           "modalContainer",
         );
         await createCollection(
@@ -66,7 +66,7 @@ async function renderFeaturedArtists() {
   const container = document.getElementById("featuredArtists");
   container.innerHTML = ""; // clear
 
-  const artists = await fetchFeaturedArtists(4);
+  const artists = await fetchFeaturedArtists(10);
 
   if (!artists || artists.length === 0) {
     container.innerHTML = "<p>No featured artists this week.</p>";

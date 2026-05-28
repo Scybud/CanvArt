@@ -1,0 +1,193 @@
+
+
+.collections-grid {
+display: grid;
+gap: var(--space-sm);
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+
+.collectionItem {
+    border: 4px solid var(--border);
+  margin-bottom: 1.5rem;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+    color: var(--text-primary);
+
+  padding: 0;
+  gap: 0;
+  border-radius: var(--radius-md);
+}
+.collectionItem:hover {
+    color: var(--text-primary);
+}
+.imgContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  width: 100%;
+  height: 260px;
+}
+.collectionThumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ownerInfo {
+  position: absolute;
+  opacity: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) 0;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  backdrop-filter: blur(4px);
+  transition: opacity var(--transition-slow);
+}
+.imgContainer:hover .ownerInfo {
+  opacity: 1;
+}
+@media (hover: none) {
+  /* Devices where hover doesn't exist */
+  .ownerInfo {
+    opacity: 1;
+  }
+}
+
+
+.ownerAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.ownerText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.ownerName {
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  margin: 0;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+.ownerUsername {
+  font-size: 0.8rem;
+  color: #ddd;
+  margin: 0;
+}
+
+.collectionContent {
+  flex: 1;
+  margin: 0 var(--space-md) var(--space-sm);
+}
+.collectionContent h3,
+.collectionContent p {
+  margin: 0;
+}
+
+
+
+#featuredArtists {
+  display: flex;
+  justify-content: space-evenly;
+  gap: var(--space-sm);
+  padding: 1rem 0;
+  overflow-x: auto;
+  max-width: 100%;
+  
+    /* Hide scrollbar (Chrome, Edge, Safari) */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge Legacy */
+}
+#featuredArtists::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.featured-artist-card {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+.featured-artist-card:hover {
+    margin: 0 var(--space-md);
+    transform: scale(1.1);
+}
+
+.featured-artist-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-color, #ff7f50);
+}
+
+.featured-artist-name {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-wrap: nowrap;
+}
+
+.featured-artist-username {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.artists-list-body {
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.artist-row {
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.artist-row:hover {
+  background: var(--hover-bg);
+}
+
+.artist-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.artist-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-name {
+  font-weight: 600;
+}
+
+.artist-username {
+  opacity: 0.7;
+  font-size: 0.85rem;
+}

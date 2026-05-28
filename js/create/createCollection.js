@@ -88,18 +88,18 @@ if(!collectionNameValue) {
 
       // Upload to bucket
       const { error: uploadError } = await supabase.storage
-        .from("collection_thumbnails")
+        .from("collection_thumbnail")
         .upload(filePath, compressedFile);
 
       if (uploadError) {
         console.error(uploadError);
-        toastMsg("Could not upload artwork", "error");
+        toastMsg("Could not upload thumbnail", "error");
         return;
       }
 
       // Get public URL
       const { data: urlData } = supabase.storage
-        .from("collection_thumbnails")
+        .from("collection_thumbnail")
         .getPublicUrl(filePath);
 
       const imageUrl = urlData.publicUrl;
@@ -108,8 +108,8 @@ if(!collectionNameValue) {
       const { error: dbError } = await supabase.from("collections").insert({
         id: collectionId,
         user_id: user.id,
-        name: collectionName,
-        description: collectionDescription,
+        name: collectionNameValue,
+        description: collectionDescriptionValue,
         thumbnail_url: imageUrl,
       });
 

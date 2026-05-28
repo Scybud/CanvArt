@@ -4,6 +4,10 @@
     {
       "source": "/profile/:username",
       "destination": "/profile"
+    },
+    {
+      "source": "/collection/:collectionId",
+      "destination": "/collection"
     }
   ]
 }
