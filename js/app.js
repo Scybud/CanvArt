@@ -15,6 +15,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       "profileSidebar",
     );
   }
+
+   if (path.includes("collection")) {
+     await loadComponent(
+       "https://joincanvart.vercel.app/components/folder-sidebar",
+       "collectionSidebar",
+     );
+   }
   
   // 2. Load sidebar HTML
   await loadComponent(
