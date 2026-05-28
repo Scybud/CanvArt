@@ -45,14 +45,6 @@ const sectionHeader = document.createElement("div");
  sectionHeader.classList.add("section-header");
 sectionHeader.innerHTML = `
 <h3>Artworks</h3>
-  <button type="button" class="btn upload-artwork">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-     stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 16V4" />
-  <path d="M6 10l6-6 6 6" />
-  <path d="M4 20h16" />
-</svg>
-Upload Your Art</button>
 `;
 content.append(sectionHeader);
 
@@ -106,33 +98,6 @@ async function initProfile() {
 
   renderProfile(profile);
 
-const uploadArtworkBtns = document.querySelectorAll(".upload-artwork");
-  if (uploadArtworkBtns) {
-    uploadArtworkBtns.forEach(async (btn) => {
-      btn.addEventListener("click", async () => {
-        if (!sessionState.user) {
-          await loadComponent(
-            "./components/modals/request-auth",
-            "modalContainer",
-          );
-
-          return;
-        }
-        await loadComponent(
-          "./components/modals/create/upload-artwork",
-          "modalContainer",
-        );
-        await uploadArtwork(
-          "artworkInput",
-          "imagePreview",
-          "artworkTitle",
-          "artworkDescription",
-          "uploadArtworkBtn",
-        );
-      });
-    });
-  }
-    
   showArtworks(content);
   setActive(artworksBtn);
 

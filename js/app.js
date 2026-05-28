@@ -6,19 +6,29 @@ import { loadComponent } from "https://scybud.github.io/scybud-ui/js/utils/modal
 import { loadSidebarUser } from "./user.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // 1. Load sidebar HTML
+    const path = window.location.pathname;
+
+  //1. Load correct sidebar based on page
+  if (path.includes("profile")) {
+    await loadComponent(
+      "https://loghue.com/components/folder-sidebar",
+      "sidebar",
+    );
+  }
+  
+  // 2. Load sidebar HTML
   await loadComponent(
     "https://joincanvart.vercel.app/components/sidebar",
     "sidebar",
   );
 
-  // 2. Initialize session FIRST
+  // 3. Initialize session FIRST
   await initSession();
 
-  // 3. Now load the sidebar user (sessionState.user is ready)
+  // 4. Now load the sidebar user (sessionState.user is ready)
   await loadSidebarUser();
 
-  // 4. Attach UI logic
+  // 5. Attach UI logic
   handleSidebarToggle();
   handleBackBtn();
   attachSignoutEvents();

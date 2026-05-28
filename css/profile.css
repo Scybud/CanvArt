@@ -1,4 +1,6 @@
-
+#profileContent {
+    padding: var(--space-md);
+}
 .artwork-container {
     column-count: 4;
     padding-bottom: var(--space-lg);
