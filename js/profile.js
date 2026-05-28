@@ -1,9 +1,18 @@
 import { fetchArtistProfile } from "./data/artists.js";
+import { fetchArtworksByUserId } from "./data/artworks.js";
 import { toastMsg } from "./components/toast.js";
+import { createArtworkCard } from "./components/artworkCard.js";
+import { uploadArtwork } from "./uploadArtwork.js";
 
-// Extract username from either /profile/<username> or ?user=<username>
+let profile = null;
+
 function getUsername() {
-  const parts = window.location.pathname.split("/").filter(Boolean);
+  const url = new URL(window.location.href);
+
+  const queryUser = url.searchParams.get("user");
+  if (queryUser) return queryUser;
+
+  const parts = url.pathname.split("/").filter(Boolean);
 
   if (parts[0] === "profile" && parts[1]) {
     return parts[1];
@@ -12,51 +21,6 @@ function getUsername() {
   return null;
 }
 
-// MOVE THESE UP — they must exist before initProfile() runs
-const artworksBtn = document.getElementById("viewArtworksBtn");
-const collectionsBtn = document.getElementById("viewCollectionsBtn");
-const content = document.getElementById("profileContent");
-
-async function initProfile() {
-  try {
-    const username = getUsername();
-
-    if (!username) {
-      toastMsg("User with that username does not exist", "error");
-      console.log("No username found in URL");
-      return;
-    }
-
-    const profile = await fetchArtistProfile(username);
-
-    if (!profile) {
-      toastMsg("Artist not found", "error");
-      console.log("Artist not found:", username);
-      return;
-    }
-
-    // Render profile
-    renderProfile(profile);
-
-    showArtworks(profile);
-
-    artworksBtn.addEventListener("click", () => {
-      setActive(artworksBtn);
-      showArtworks(profile);
-    });
-
-    collectionsBtn.addEventListener("click", () => {
-      setActive(collectionsBtn);
-      showCollections(profile);
-    });
-  } catch (err) {
-    console.error("Profile loading error:", err);
-    toastMsg("Something went wrong loading the profile", "error");
-  }
-}
-
-await initProfile();
-
 function setActive(button) {
   document.querySelectorAll(".view-btn").forEach((btn) => {
     btn.classList.remove("active");
@@ -64,14 +28,38 @@ function setActive(button) {
   button.classList.add("active");
 }
 
-function showArtworks(profile) {
-  content.innerHTML = `
-    <h3>Artworks</h3>
-    <p>No artworks yet.</p>
-  `;
+async function showArtworks(content) {
+  content.innerHTML = `<div class="loader">Loading...</div>`;
+
+  const artworks = await fetchArtworksByUserId(profile.id);
+
+const artworkContainer = document.createElement("div")
+artworkContainer.classList.add("artwork-container");
+
+
+await createArtworkCard(artworkContainer, artworks);
+
+content.innerHTML = "";
+
+const sectionHeader = document.createElement("div");
+ sectionHeader.classList.add("section-header");
+sectionHeader.innerHTML = `
+<h3>Artworks</h3>
+  <button type="button" class="btn upload-artwork">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+     stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 16V4" />
+  <path d="M6 10l6-6 6 6" />
+  <path d="M4 20h16" />
+</svg>
+Upload Your Art</button>
+`;
+content.append(sectionHeader);
+
+  content.append(artworkContainer);
 }
 
-function showCollections(profile) {
+function showCollections(content) {
   content.innerHTML = `
     <h3>Collections</h3>
     <p>No collections yet.</p>
@@ -91,3 +79,72 @@ function renderProfile(profile) {
   document.getElementById("profileAvatar").src =
     profile.avatar_url || "assets/images/default-avatar.png";
 }
+
+async function initProfile() {
+  const artworksBtn = document.getElementById("viewArtworksBtn");
+  const collectionsBtn = document.getElementById("viewCollectionsBtn");
+  const content = document.getElementById("profileContent");
+
+  if (!artworksBtn || !collectionsBtn || !content) {
+    console.error("Missing profile UI elements");
+    return;
+  }
+
+  const username = getUsername();
+
+  if (!username) {
+    toastMsg("Invalid profile URL", "error");
+    return;
+  }
+
+   profile = await fetchArtistProfile(username);
+
+  if (!profile) {
+    toastMsg("Artist not found", "error");
+    return;
+  }
+
+  renderProfile(profile);
+
+const uploadArtworkBtns = document.querySelectorAll(".upload-artwork");
+  if (uploadArtworkBtns) {
+    uploadArtworkBtns.forEach(async (btn) => {
+      btn.addEventListener("click", async () => {
+        if (!sessionState.user) {
+          await loadComponent(
+            "./components/modals/request-auth",
+            "modalContainer",
+          );
+
+          return;
+        }
+        await loadComponent(
+          "./components/modals/create/upload-artwork",
+          "modalContainer",
+        );
+        await uploadArtwork(
+          "artworkInput",
+          "imagePreview",
+          "artworkTitle",
+          "artworkDescription",
+          "uploadArtworkBtn",
+        );
+      });
+    });
+  }
+    
+  showArtworks(content);
+  setActive(artworksBtn);
+
+  artworksBtn.addEventListener("click", () => {
+    setActive(artworksBtn);
+    showArtworks(content);
+  });
+
+  collectionsBtn.addEventListener("click", () => {
+    setActive(collectionsBtn);
+    showCollections(content);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", initProfile);

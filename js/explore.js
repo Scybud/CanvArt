@@ -4,14 +4,14 @@ import {
 } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
 import { sessionState } from "./session.js";
 import { uploadArtwork } from "./uploadArtwork.js";
-import { fetchArtworks } from "./data/artworks.js";
+import { fetchAllArtworks } from "./data/artworks.js";
 import { createArtworkCard } from "./components/artworkCard.js";
 import { fetchFeaturedArtists, fetchAllArtists } from "./data/artists.js"; // adjust path if needed
 
 async function initExplore() {
   await handleArtworkUpload();
 
-  const artworksData = await fetchArtworks();
+  const artworksData = await fetchAllArtworks();
 
   const exploreContainer = document.getElementById("explore");
   createArtworkCard(exploreContainer, artworksData);
