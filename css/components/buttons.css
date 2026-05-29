@@ -64,3 +64,17 @@ font-family: inherit;
 .cardActions .btn {
     flex: 1;
 }
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: background 0.15s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}

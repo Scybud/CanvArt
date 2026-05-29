@@ -15,6 +15,7 @@ export function createArtworkCard(container, artworks) {
     img.src = artwork.artwork_url; // FIXED
     img.alt = artwork.description || "Artwork";
     imgContainer.appendChild(img);
+        img.loading = "lazy";
 
     // -----------------------------
     // OWNER INFO (inside image)

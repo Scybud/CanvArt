@@ -19,10 +19,12 @@ export function createArtistCard(container, artists) {
       if (safeArtworks[i]) {
         img.src = safeArtworks[i].artwork_url;
         img.alt = safeArtworks[i].title || artist.name;
+        img.loading = "lazy"
       } else {
         img.src = "../../assets/images/no-artwork.png";
         img.alt = "No artwork";
         img.classList.add("empty-artwork");
+                img.loading = "lazy";
       }
 
       previewGrid.appendChild(img);
@@ -38,6 +40,7 @@ export function createArtistCard(container, artists) {
     avatar.classList.add("artist-avatar");
     avatar.src = artist.avatar_url || "../../assets/images/default-avatar.png";
     avatar.alt = artist.name;
+        avatar.loading = "lazy";
 
     const info = document.createElement("div");
     info.classList.add("artist-info");

@@ -20,7 +20,12 @@ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   border-radius: var(--radius-md);
 }
 .collectionItem:hover {
-    color: var(--text-primary);
+  color: var(--text-primary);
+}
+.collectionThumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .imgContainer {
   position: relative;
@@ -28,11 +33,6 @@ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   overflow: hidden;
   width: 100%;
   height: 260px;
-}
-.collectionThumbnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .ownerInfo {
@@ -86,7 +86,6 @@ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   color: #ddd;
   margin: 0;
 }
-
 .collectionContent {
   flex: 1;
   margin: 0 var(--space-md) var(--space-sm);
@@ -95,6 +94,7 @@ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 .collectionContent p {
   margin: 0;
 }
+
 
 
 

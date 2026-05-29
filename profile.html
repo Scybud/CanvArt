@@ -36,6 +36,7 @@
 <link rel="stylesheet" href="../css/components/buttons.css">
 <link rel="stylesheet" href="../css/components/toast.css">
 <link rel="stylesheet" href="../css/profile.css">
+<link rel="stylesheet" href="css/components/emptyState.css">
 
     <!--FAVICONS-->
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/favicons/apple-touch-icon.png">
@@ -81,10 +82,19 @@
         
           <!--PROFLE HEADER-->
           <section class="profile-header">
-              <div class="profile-cover"></div>
+              <div class="profile-cover">
+                <button type="button" class="profile-edit editBtn icon-btn" id="profileEdit">  
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="1.8"
+       stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 20h9" />
+    <path d="M16.5 3.5l4 4L8 20l-4 1 1-4L16.5 3.5z" />
+  </svg>
+</button>
+              </div>
               
               <div class="user-profile-data">
-                  <img src="../assets/images/canvart-logo.png" alt="Profile image" id="profileAvatar" class="profile-avatar">
+                  <img src="https://joincanvart.vercel.app/assets/images/canvart-logo.png" alt="Profile image" id="profileAvatar" class="profile-avatar">
                   <h2 class="profile-name" id="profileName">Abdulroqib Oladipo</h2>
                   <span class="profile-username" id="profileUsername">@abdulroqib</span>
                   

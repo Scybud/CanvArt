@@ -17,14 +17,11 @@ export function createCollectionCard(container, collections) {
     collectionItem.appendChild(imgContainer);
 
     const img = document.createElement("img");
-
     img.classList.add("collectionThumbnail");
-
     img.src = collection.thumbnail_url;
-
     img.alt =
       collection.description || collection.name;
-
+        img.loading = "lazy";
     imgContainer.appendChild(img);
 
     // -----------------------------

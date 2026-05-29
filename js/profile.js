@@ -3,8 +3,18 @@ import { fetchArtworksByUserId } from "./data/artworks.js";
 import { toastMsg } from "./components/toast.js";
 import { createArtworkCard } from "./components/artworkCard.js";
 import { uploadArtwork } from "./create/uploadArtwork.js";
+import { fetchCollectionsByUserId } from "./data/collections.js";
+import { createCollectionCard } from "./components/collectionCard.js";
+import { createEmptyState } from "./components/emptyState.js";
+import { sessionReady, sessionState } from "./session.js";
+import { createCollection } from "./create/createCollection.js";
+import {
+  loadComponent,
+  closeModal,
+} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
 
 let profile = null;
+let isOwner = null;
 
 function getUsername() {
   const url = new URL(window.location.href);
@@ -28,6 +38,20 @@ function setActive(button) {
   button.classList.add("active");
 }
 
+
+async function authUser(profile) {
+  const editProfile = document.getElementById("profileEdit");
+
+  if (!editProfile) return;
+
+  const isOwner = sessionState.user?.id === profile.id;
+
+  if (!isOwner) {
+    editProfile.remove();
+  }
+}
+
+
 async function showArtworks(content) {
   content.innerHTML = `<div class="loader">Loading...</div>`;
 
@@ -36,26 +60,108 @@ async function showArtworks(content) {
   const artworkContainer = document.createElement("div");
   artworkContainer.classList.add("artwork-container");
 
+  
+  content.innerHTML = "";
+  
+  const sectionHeader = document.createElement("div");
+  sectionHeader.classList.add("section-header");
+  sectionHeader.innerHTML = `
+  <h3>Artworks</h3>
+  `;
+  content.append(sectionHeader);
+  
+  
+  if (artworks.length === 0) {
+    isOwner = sessionState.user?.id === profile.id;
+        
+    await createEmptyState({
+      container: content,
+      icon: "📭",
+      title: "Nothing here yet",
+      description:
+        isOwner
+          ? "You have no artworks yet"
+          : `@${profile.username} has no artworks yet`,
+      actionText: isOwner ? "Upload Artwork" : null,
+      onAction: isOwner
+        ? async () => {
+            // Open modal
+    await loadComponent(
+          "https://joincanvart.vercel.app/components/modals/create/upload-artwork",
+          "modalContainer",
+        );
+
+        await uploadArtwork(
+   "artworkInput",
+   "imagePreview",
+   "artworkTitle",
+   "artworkDescription",
+   "uploadArtworkBtn",
+ );
+   }
+        : null,
+    });
+
+    return;
+  }
+  
   await createArtworkCard(artworkContainer, artworks);
+  content.append(artworkContainer);
+}
+
+async function showCollections(content) {
+  content.innerHTML = `<div class="loader">Loading...</div>`;
+
+  const collections = await fetchCollectionsByUserId(profile.id);
+
+  const collectionContainer = document.createElement("div");
+  collectionContainer.classList.add("collection-container");
 
   content.innerHTML = "";
 
   const sectionHeader = document.createElement("div");
   sectionHeader.classList.add("section-header");
-  sectionHeader.innerHTML = `
-<h3>Artworks</h3>
-`;
+  sectionHeader.innerHTML = `<h3>Collections</h3>`;
   content.append(sectionHeader);
 
-  content.append(artworkContainer);
+  if (collections.length === 0) {
+         isOwner = sessionState.user?.id === profile.id;
+        
+    await createEmptyState({
+      container: content,
+      icon: "📭",
+      title: "Nothing here yet",
+      description: isOwner
+        ? "You have no collections yet"
+        : `@${profile.username} has no collections yet`,
+      actionText: isOwner ? "Create Collection" : null,
+      onAction: isOwner
+        ? async () => {
+            // Open modal
+            await loadComponent(
+              "https://joincanvart.vercel.app/components/modals/create/create-collection",
+              "modalContainer",
+            );
+            // Wire up the createCollection behavior for that modal
+            await createCollection(
+              "collectionThumbnailInput",
+              "imagePreview",
+              "collectionName",
+              "collectionDescription",
+              "createCollectionBtn",
+            );
+          }
+        : null,
+    });
+
+    return;
+  }
+
+  await createCollectionCard(collectionContainer, collections);
+
+  content.append(collectionContainer);
 }
 
-function showCollections(content) {
-  content.innerHTML = `
-    <h3>Collections</h3>
-    <p>No collections yet.</p>
-  `;
-}
 
 function renderProfile(profile) {
   document.getElementById("profileName").textContent =
@@ -72,6 +178,8 @@ function renderProfile(profile) {
 }
 
 async function initProfile() {
+  await sessionReady;
+
   const artworksBtn = document.getElementById("viewArtworksBtn");
   const collectionsBtn = document.getElementById("viewCollectionsBtn");
   const content = document.getElementById("profileContent");
@@ -95,14 +203,16 @@ async function initProfile() {
     return;
   }
 
+   await authUser(profile);
+
   renderProfile(profile);
 
-  showArtworks(content);
-  setActive(artworksBtn);
+  await showArtworks(content);
+  await setActive(artworksBtn);
 
-  artworksBtn.addEventListener("click", () => {
+  artworksBtn.addEventListener("click", async () => {
     setActive(artworksBtn);
-    showArtworks(content);
+    await showArtworks(content);
   });
 
   collectionsBtn.addEventListener("click", () => {
