@@ -7,15 +7,21 @@
 
     <!--CSS LINKS-->
 
-        <!--SCYBUD UI-->
-    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/css/variables.css">
-    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/css/typography.css">
+    <!--SCYBUD UI-->
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/css/variables.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/css/typography.css"
+    />
 
     <!--APP SPECIFIC CSS-->
     <link rel="stylesheet" href="../css/base.css" />
-<link rel="stylesheet" href="../css/components/forms.css">
-<link rel="stylesheet" href="../css/components/buttons.css">
-<link rel="stylesheet" href="../css/components/toast.css">
+    <link rel="stylesheet" href="../css/components/forms.css" />
+    <link rel="stylesheet" href="../css/components/buttons.css" />
+    <link rel="stylesheet" href="../css/components/toast.css" />
 
     <!--FAVICONS-->
     <link
@@ -44,7 +50,7 @@
         flex-direction: column;
         width: 100%;
       }
-      
+
       .authContainer {
         max-width: 600px;
         width: 100%;
@@ -74,10 +80,10 @@
       #usernameFeedback {
         margin: 0;
       }
-.oauthContainer {
-  display: flex;
-  gap: var(--space-md);
-}
+      .oauthContainer {
+        display: flex;
+        gap: var(--space-md);
+      }
       .oauthBtn {
         color: var(--text-primary);
         width: 100%;
@@ -129,11 +135,11 @@
         height: 1px;
         background: var(--border-light);
       }
-.form {
-    align-items: flex-start;
-    border-radius: var(--space-md);
-}
-       .display {
+      .form {
+        align-items: flex-start;
+        border-radius: var(--space-md);
+      }
+      .display {
         gap: 10px;
         display: flex;
       }
@@ -152,162 +158,161 @@
         background: none;
         color: var(--link);
       }
-      
+
       .hide {
         display: none;
       }
     </style>
   </head>
   <body>
-         <div id="modalContainer"></div>
-        <!--TOAST MESSAGES-->
-        <div id="toast"></div>
-        <!--INFO DISPLAY-->
-        <div id="infoDisplay"></div>
+    <div id="modalContainer"></div>
+    <!--TOAST MESSAGES-->
+    <div id="toast"></div>
+    <!--INFO DISPLAY-->
+    <div id="infoDisplay"></div>
 
-    <button type="button" class="btn backBtn btn-sm"> <!-- Back Icon -->
-        <svg
-  width="20"
-  height="20"
-  viewBox="0 0 20 20"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M11.75 4.25L6 10L11.75 15.75"
-    stroke="currentColor"
-    stroke-width="1.6"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-</svg>
- <span>Back</span>
-</button>
+    <button type="button" class="btn backBtn btn-sm">
+      <!-- Back Icon -->
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11.75 4.25L6 10L11.75 15.75"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <span>Back</span>
+    </button>
 
-<main class="main">
-    
-    <h1><span class="logo">Canv<span>Art</span></span></h1>
-    <p class="text-muted">Register to share your masterpiece with the community</p>
-    
-    <div class="authContainer">
+    <main class="main">
+      <h1>
+        <span class="logo">Canv<span>Art</span></span>
+      </h1>
+      <p class="text-muted">
+        Register to share your masterpiece with the community
+      </p>
+
+      <div class="authContainer">
         <!--SIGNUP FORM-->
         <form class="form" id="signupForm">
-            <h2 class="text-center" style="align-self: center;">Signup</h2>
-        <label for="signupUsernameInput">Username</label>
-        <input
-          type="text"
-          name="signupUsernameInput"
-          id="signupUsernameInput"
-          class="inputField"
-          placeholder="e.g. abdulroqiboladipo"
-          required
-        />
-        <p id="usernameFeedback"></p>
-        <label for="signupNameInput">Name</label>
-        <input
-          type="text"
-          name="signupNameInput"
-          id="signupNameInput"
-          class="inputField"
-          placeholder="e.g. Abdulroqib Oladipo"
-          required
-        />
-        <label for="userSignupEmailInput">Email</label>
-        <input
-          type="email"
-          name="userSignupEmailInput"
-          id="userSignupEmailInput"
-          class="inputField"
-          placeholder="e.g. example@gmail.com"
-          required
-        />
-        <label for="userSignupPasswordInput">Password</label>
-        <input
-          type="password"
-          name="userSignupPasswordInput"
-          id="userSignupPasswordInput"
-          class="inputField"
-          placeholder="Create a password for your account"
-          required
-        />
-        <label for="userSignupConfirmPasswordInput">Confirm Password</label>
-        <input
-          type="password"
-          name="userSignupConfirmPasswordInput"
-          id="userSignupConfirmPasswordInput"
-          class="inputField"
-          placeholder="Confirm your password"
-          required
-        />
-        <button class="btn" id="signupBtn" type="submit">Signup</button>
+          <h2 class="text-center" style="align-self: center">Signup</h2>
+          <label for="signupUsernameInput">Username</label>
+          <input
+            type="text"
+            name="signupUsernameInput"
+            id="signupUsernameInput"
+            class="inputField"
+            placeholder="e.g. abdulroqiboladipo"
+            required
+          />
+          <p id="usernameFeedback"></p>
+          <label for="signupNameInput">Name</label>
+          <input
+            type="text"
+            name="signupNameInput"
+            id="signupNameInput"
+            class="inputField"
+            placeholder="e.g. Abdulroqib Oladipo"
+            required
+          />
+          <label for="userSignupEmailInput">Email</label>
+          <input
+            type="email"
+            name="userSignupEmailInput"
+            id="userSignupEmailInput"
+            class="inputField"
+            placeholder="e.g. example@gmail.com"
+            required
+          />
+          <label for="userSignupPasswordInput">Password</label>
+          <input
+            type="password"
+            name="userSignupPasswordInput"
+            id="userSignupPasswordInput"
+            class="inputField"
+            placeholder="Create a password for your account"
+            required
+          />
+          <label for="userSignupConfirmPasswordInput">Confirm Password</label>
+          <input
+            type="password"
+            name="userSignupConfirmPasswordInput"
+            id="userSignupConfirmPasswordInput"
+            class="inputField"
+            placeholder="Confirm your password"
+            required
+          />
+          <button class="btn" id="signupBtn" type="submit">Signup</button>
 
-        <div class="formActions">
-          <a href="auth/login">Login Instead</a>
-        </div>
-      </form>
+          <div class="formActions">
+            <a href="login">Login Instead</a>
+          </div>
+        </form>
 
         <!-- AUTH GATEWAY -->
 
-          <div class="divider"><span>or</span></div>
+        <div class="divider"><span>or</span></div>
         <div class="oauthContainer">
-
           <!-- GOOGLE -->
           <button class="oauthBtn google" id="googleAuth">
             <span class="icon">
               <svg width="18" height="18" viewBox="0 0 48 48">
                 <path
-                fill="#EA4335"
-                d="M24 9.5c3.54 0 6.71 1.23 9.21 3.64l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.02 17.74 9.5 24 9.5z"
-              />
-              <path
-                fill="#4285F4"
-                d="M46.5 24.5c0-1.57-.14-3.08-.41-4.5H24v9h12.85c-.56 2.85-2.2 5.26-4.7 6.88l7.27 5.64C43.79 37.52 46.5 31.47 46.5 24.5z"
-              />
-              <path
-                fill="#FBBC05"
-                d="M10.54 28.41c-.48-1.43-.75-2.95-.75-4.5s.27-3.07.75-4.5l-7.98-6.19C.92 16.07 0 19.94 0 24c0 4.06.92 7.93 2.56 11.28l7.98-6.19z"
-              />
-              <path
-                fill="#34A853"
-                d="M24 48c6.47 0 11.9-2.38 15.92-6.5l-7.27-5.64c-2.01 1.35-4.58 2.14-8.65 2.14-6.26 0-11.57-3.52-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
-              />
-            </svg>
-          </span>
-        </button>
+                  fill="#EA4335"
+                  d="M24 9.5c3.54 0 6.71 1.23 9.21 3.64l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.02 17.74 9.5 24 9.5z"
+                />
+                <path
+                  fill="#4285F4"
+                  d="M46.5 24.5c0-1.57-.14-3.08-.41-4.5H24v9h12.85c-.56 2.85-2.2 5.26-4.7 6.88l7.27 5.64C43.79 37.52 46.5 31.47 46.5 24.5z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M10.54 28.41c-.48-1.43-.75-2.95-.75-4.5s.27-3.07.75-4.5l-7.98-6.19C.92 16.07 0 19.94 0 24c0 4.06.92 7.93 2.56 11.28l7.98-6.19z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M24 48c6.47 0 11.9-2.38 15.92-6.5l-7.27-5.64c-2.01 1.35-4.58 2.14-8.65 2.14-6.26 0-11.57-3.52-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+                />
+              </svg>
+            </span>
+          </button>
 
-        <!-- MICROSOFT -->
-        <button class="oauthBtn microsoft" id="microsoftAuth">
-          <span class="icon">
-            <svg width="18" height="18" viewBox="0 0 23 23">
-              <rect width="10" height="10" fill="#F35325" />
-              <rect x="12" width="10" height="10" fill="#81BC06" />
-              <rect y="12" width="10" height="10" fill="#05A6F0" />
-              <rect x="12" y="12" width="10" height="10" fill="#FFBA08" />
-            </svg>
-          </span>
-        </button>
+          <!-- MICROSOFT -->
+          <button class="oauthBtn microsoft" id="microsoftAuth">
+            <span class="icon">
+              <svg width="18" height="18" viewBox="0 0 23 23">
+                <rect width="10" height="10" fill="#F35325" />
+                <rect x="12" width="10" height="10" fill="#81BC06" />
+                <rect y="12" width="10" height="10" fill="#05A6F0" />
+                <rect x="12" y="12" width="10" height="10" fill="#FFBA08" />
+              </svg>
+            </span>
+          </button>
 
-       <!-- FACEBOOK -->
-<button class="oauthBtn facebook" id="facebookAuth">
-  <span class="icon">
-    <svg width="18" height="18" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="12" fill="#1877F2"></circle>
-      <path 
-        d="M15.1 12.8l.4-2.6h-2.5V8.7c0-.7.3-1.3 1.3-1.3h1.3V5.1c-.6-.1-1.4-.2-2.3-.2-2.3 0-3.8 1.4-3.8 3.9v2.3H7.2v2.6h2.3v6.6h2.9v-6.6h2.7z"
-        fill="#fff">
-      </path>
-    </svg>
-  </span>
-</button>
+          <!-- FACEBOOK -->
+          <button class="oauthBtn facebook" id="facebookAuth">
+            <span class="icon">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="12" fill="#1877F2"></circle>
+                <path
+                  d="M15.1 12.8l.4-2.6h-2.5V8.7c0-.7.3-1.3 1.3-1.3h1.3V5.1c-.6-.1-1.4-.2-2.3-.2-2.3 0-3.8 1.4-3.8 3.9v2.3H7.2v2.6h2.3v6.6h2.9v-6.6h2.7z"
+                  fill="#fff"
+                ></path>
+              </svg>
+            </span>
+          </button>
+        </div>
       </div>
-        
-        
-      </div>
-
-
     </main>
 
-        <script type="module" src="../js/auth/auth.js"></script>
+    <script type="module" src="../js/auth/auth.js"></script>
     <script type="module" src="../js/auth/register.js"></script>
   </body>
 </html>
