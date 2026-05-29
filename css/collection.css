@@ -19,38 +19,36 @@
   position: relative;
   width: 100%;
   height: 240px;
-
   background:
-    linear-gradient(
-      rgba(0, 0, 0, 0.3),
-      rgba(0, 0, 0, 0.5)
+  linear-gradient(
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.5)
     );
-
-  background-size: cover;
-  background-position: center;
-
-  border-bottom: 1px solid var(--border);
-
-  overflow: hidden;
-}
-
-/* =========================
-   COLLECTION INFO
-========================= */
-
-.collection-data {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-
-  padding-inline: 1rem;
-
-  margin-top: -80px;
-
-  position: relative;
-  z-index: 2;
-
-backdrop-filter: var(--filter) brightness(30%);
+    
+    background-size: cover;
+    background-position: center;
+    
+    border-bottom: 1px solid var(--border);
+    
+    overflow: hidden;
+  }
+  
+  /* =========================
+  COLLECTION INFO
+  ========================= */
+  
+  .collection-data {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    
+    padding-inline: 1rem;
+    
+    margin-top: -80px;
+    
+    position: relative;
+    
+    backdrop-filter: var(--filter) brightness(30%);
     -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
     mask-image: linear-gradient(to right, black 60%, transparent 100%);}
 
@@ -64,13 +62,11 @@ backdrop-filter: var(--filter) brightness(30%);
 flex: 1;
   object-fit: cover;
 
-  border: 4px solid var(--surface-primary);
+  border-bottom: 4px solid var(--surface-primary);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
 }
 
-/* =========================
-   TEXT
-========================= */
+/* TEXT */
 
 .collection-name {
   font-size: clamp(1.4rem, 4vw, 2rem);

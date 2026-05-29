@@ -96,3 +96,8 @@ a .logo:hover {
   display: flex;
   flex-direction: column;
 }
+img {
+  image-rendering: auto;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
