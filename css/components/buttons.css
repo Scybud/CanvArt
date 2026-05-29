@@ -19,9 +19,13 @@ font-family: inherit;
     background: var(--primary);
     padding: var(--space-xs) var(--space-lg);
     color: #000000;
+    font-weight: var(--font-bold);
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition: background var(--transition-slow);
+
+    display: inline-flex;
+    justify-content: center;
 }
 .btn:hover {
     color: #000000;

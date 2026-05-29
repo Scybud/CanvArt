@@ -1,7 +1,7 @@
 import { fetchArtistProfile } from "./data/artists.js";
 import { fetchArtworksByUserId } from "./data/artworks.js";
 import { toastMsg } from "./components/toast.js";
-import { createArtworkCard } from "./components/artworkCard.js";
+import { createArtworkCard, magnifyImg } from "./components/artworkCard.js";
 import { uploadArtwork } from "./create/uploadArtwork.js";
 import { fetchCollectionsByUserId } from "./data/collections.js";
 import { createCollectionCard } from "./components/collectionCard.js";
@@ -164,7 +164,7 @@ async function showCollections(content) {
 }
 
 
-function renderProfile(profile) {
+async function renderProfile(profile) {
   document.getElementById("profileName").textContent =
     profile.name || "Unknown User";
 
@@ -174,8 +174,10 @@ function renderProfile(profile) {
   document.getElementById("profileBio").textContent =
     profile.bio || "No bio yet";
 
-  document.getElementById("profileAvatar").src =
-    profile.avatar_url || "assets/images/default-avatar.png";
+  const profileAvatar = document.getElementById("profileAvatar")
+  profileAvatar.src = profile.avatar_url || "assets/images/default-avatar.png";
+
+  await magnifyImg(profileAvatar)
 }
 
 async function handleProfileEdit() {
@@ -232,7 +234,7 @@ async function initProfile() {
 
    await authUser(profile);
 
-  renderProfile(profile);
+  await renderProfile(profile);
 
   await showArtworks(content);
   await setActive(artworksBtn);

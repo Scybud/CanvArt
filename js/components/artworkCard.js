@@ -70,7 +70,7 @@ export function createArtworkCard(container, artworks) {
   });
 }
 
-function magnifyImg(img) {
+export function magnifyImg(img) {
   img.addEventListener("click", () => {
     const rect = img.getBoundingClientRect();
 

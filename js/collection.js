@@ -1,6 +1,11 @@
 import { fetchCollectionById } from "./data/collections.js";
 import { createArtworkCard } from "./components/artworkCard.js";
 import { toastMsg } from "./components/toast.js";
+import {
+  loadComponent,
+  closeModal,
+} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+import { addArtworkToCollection } from "./create/uploadArtwork.js";
 
 let collection = null;
 
@@ -30,7 +35,7 @@ function renderCollection(collection) {
     collection.thumbnail_url || "../assets/images/default-avatar.png";
 }
 
-async function showArtworks() {
+async function showArtworks(collectionId) {
   const content = document.getElementById("collectionContent");
 
   content.innerHTML = `<div class="loader">Loading...</div>`;
@@ -49,10 +54,39 @@ async function showArtworks() {
 
   sectionHeader.innerHTML = `
     <h3>Collection Artworks</h3>
+    <button id="addArtworkBtn" class="btn" type="button">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 5v14" />
+  <path d="M5 12h14" />
+</svg>
+Add Artwork</button>
   `;
 
   content.append(sectionHeader);
   content.append(artworkContainer);
+
+  await handleArtworkUploadToCollection("addArtworkBtn", collectionId);
+}
+
+async function handleArtworkUploadToCollection(addToCollectionArtworkBtn, collectionId) {
+  const addArtworkBtn = document.getElementById(addToCollectionArtworkBtn);
+
+  addArtworkBtn.addEventListener("click", async () => {
+    await loadComponent(
+      "https://joincanvart.vercel.app/components/modals/create/upload-artwork",
+      "modalContainer",
+    );
+
+    await addArtworkToCollection(
+      "artworkInput",
+      "imagePreview",
+      "artworkTitle",
+      "artworkDescription",
+      collectionId,
+      "uploadArtworkBtn",
+    );
+  });
 }
 
 async function initCollection() {
@@ -72,7 +106,8 @@ async function initCollection() {
 
   renderCollection(collection);
 
-  await showArtworks();
+  await showArtworks(collectionId);
+  
 }
 
 document.addEventListener("DOMContentLoaded", initCollection);
