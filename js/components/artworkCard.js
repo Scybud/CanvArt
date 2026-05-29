@@ -1,11 +1,12 @@
-export function createArtworkCard(container, artworks) {
-  artworks.forEach((artwork) => {
+import { handleArtworkLike } from "../utils/button.js";
+
+export async function createArtworkCard(container, artworks) {
+  for(const artwork of artworks) {
     const artworkItem = document.createElement("div");
     artworkItem.classList.add("artworkItem", "card");
 
-    // -----------------------------
     // IMAGE CONTAINER
-    // -----------------------------
+
     const imgContainer = document.createElement("div");
     imgContainer.classList.add("imgContainer");
     artworkItem.appendChild(imgContainer);
@@ -15,11 +16,10 @@ export function createArtworkCard(container, artworks) {
     img.src = artwork.artwork_url; // FIXED
     img.alt = artwork.description || "Artwork";
     imgContainer.appendChild(img);
-        img.loading = "lazy";
+    img.loading = "lazy";
 
-    // -----------------------------
     // OWNER INFO (inside image)
-    // -----------------------------
+
     const ownerInfo = document.createElement("div");
     ownerInfo.classList.add("ownerInfo");
 
@@ -63,11 +63,39 @@ export function createArtworkCard(container, artworks) {
 
     artworkItem.appendChild(artworkContent);
 
+    // LIKE SECTION
+    const likeContainer = document.createElement("div");
+    likeContainer.classList.add("likeContainer");
+
+    const likeBtn = document.createElement("button");
+    likeBtn.classList.add("likeBtn", "icon-btn");
+
+    const likeIcon = document.createElement("span");
+likeIcon.textContent = artwork.is_liked ? "♥" : "♡";
+artwork.is_liked ? likeIcon.classList.add("liked") : "";
+
+    const likeCount = document.createElement("span");
+    likeCount.classList.add("likeCount");
+    likeCount.textContent = artwork.like_count || 0;
+
+    likeBtn.appendChild(likeIcon);
+    likeBtn.appendChild(likeCount);
+    likeContainer.appendChild(likeBtn);
+
+    artworkItem.append(likeContainer);
+
     // Append card to container
     container.prepend(artworkItem);
 
     magnifyImg(img);
-  });
+
+await handleArtworkLike({
+  likeBtn,
+  artworkId: artwork.id,
+  likeCount,
+  likeIcon,
+});
+  };
 }
 
 export function magnifyImg(img) {

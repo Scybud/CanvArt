@@ -56,7 +56,9 @@ async function authUser(profile) {
 async function showArtworks(content) {
   content.innerHTML = `<div class="loader">Loading...</div>`;
 
-  const artworks = await fetchArtworksByUserId(profile.id);
+  const currentUserId = sessionState.user?.id;
+
+  const artworks = await fetchArtworksByUserId(currentUserId, profile.id);
 
   const artworkContainer = document.createElement("div");
   artworkContainer.classList.add("artwork-container");

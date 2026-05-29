@@ -2,19 +2,25 @@ import {
   loadComponent,
   closeModal,
 } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
-import { sessionState } from "./session.js";
+import { sessionReady, sessionState } from "./session.js";
 import { uploadArtwork } from "./create/uploadArtwork.js";
 import { fetchAllArtworks } from "./data/artworks.js";
 import { createArtworkCard } from "./components/artworkCard.js";
 import { fetchFeaturedArtists, fetchAllArtists } from "./data/artists.js"; // adjust path if needed
+import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
 
 async function initExplore() {
+  await sessionReady;
+  const user = sessionState.user;
+
   await handleArtworkUpload();
 
-  const artworksData = await fetchAllArtworks();
+  const artworks = await fetchAllArtworks();
+
+  const artworksData = await enrichArtworksWithLikes(artworks, user.id);
 
   const exploreContainer = document.getElementById("explore");
-  createArtworkCard(exploreContainer, artworksData);
+  await createArtworkCard(exploreContainer, artworksData);
 
   await renderFeaturedArtists();
 }

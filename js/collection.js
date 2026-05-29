@@ -6,6 +6,8 @@ import {
   closeModal,
 } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
 import { addArtworkToCollection } from "./create/uploadArtwork.js";
+import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
+import { sessionReady, sessionState } from "./session.js";
 
 let collection = null;
 
@@ -36,6 +38,10 @@ function renderCollection(collection) {
 }
 
 async function showArtworks(collectionId) {
+  await sessionReady;
+  
+  const user = await sessionState.user;
+
   const content = document.getElementById("collectionContent");
 
   content.innerHTML = `<div class="loader">Loading...</div>`;
@@ -45,7 +51,9 @@ async function showArtworks(collectionId) {
 
   const artworks = collection.collection_artworks.map((item) => item.artworks);
 
-  await createArtworkCard(artworkContainer, artworks);
+  const enriched = await enrichArtworksWithLikes(artworks, user.id);
+
+  await createArtworkCard(artworkContainer, enriched);
 
   content.innerHTML = "";
 

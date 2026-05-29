@@ -82,3 +82,14 @@ font-family: inherit;
 .icon-btn:hover {
   background: rgba(255, 255, 255, 0.08);
 }
+
+.likeContainer {
+    width: 100%;
+}
+.likeBtn {
+    margin: var(--space-sm) var(--space-md);
+    font-size: var(--text-md);
+}
+.liked {
+    color: #fa0000;
+}

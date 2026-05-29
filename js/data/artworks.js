@@ -1,5 +1,7 @@
+import { enrichArtworksWithLikes } from "./artworkLikes.js";
 import { toastMsg } from "../components/toast.js";
 import { supabase } from "../supabase.js";
+
 
 // GET ALL ARTWORKS
 export async function fetchAllArtworks() {
@@ -19,8 +21,8 @@ export async function fetchAllArtworks() {
   return data;
 }
 
-// GET ARTWORKS BY USER
-export async function fetchArtworksByUserId(userId) {
+
+export async function fetchArtworksByUserId(viewerId, profileUserId) {
   const { data, error } = await supabase
     .from("artworks")
     .select(
@@ -31,7 +33,7 @@ export async function fetchArtworksByUserId(userId) {
       )
     `,
     )
-    .eq("user_id", userId);
+    .eq("user_id", profileUserId);
 
   if (error) {
     toastMsg("Error loading artworks", "error");
@@ -39,5 +41,5 @@ export async function fetchArtworksByUserId(userId) {
     return [];
   }
 
-  return data;
+  return await enrichArtworksWithLikes(data, viewerId);
 }
