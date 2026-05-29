@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -31,25 +31,36 @@
 
     <!--APP SPECIFIC CSS-->
     <link rel="stylesheet" href="../css/base.css" />
-    <link rel="stylesheet" href="../css/main.css">
-<link rel="stylesheet" href="../css/components/forms.css">
-<link rel="stylesheet" href="../css/components/buttons.css">
-<link rel="stylesheet" href="../css/components/toast.css">
-<link rel="stylesheet" href="../css/collection.css">
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/components/forms.css" />
+    <link rel="stylesheet" href="../css/components/buttons.css" />
+    <link rel="stylesheet" href="../css/components/toast.css" />
+    <link rel="stylesheet" href="../css/collection.css" />
 
     <!--FAVICONS-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicons/favicon-16x16.png">
-
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../assets/icons/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/icons/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/icons/favicons/favicon-16x16.png"
+    />
   </head>
   <body>
-            <!--TOAST MESSAGES-->
-            <div id="toast"></div>
-            <!--MODAL CONTAINER-->
-            <div id="modalContainer">
-            </div>
-
+    <!--TOAST MESSAGES-->
+    <div id="toast"></div>
+    <!--MODAL CONTAINER-->
+    <div id="modalContainer"></div>
 
     <!--SIDEBAR TOGGLE BUTTON-->
     <button class="toggle-sidebar" id="toggleSidebar">
@@ -68,67 +79,69 @@
       </svg>
     </button>
 
-
     <main class="main">
       <!--SIDEBAR-->
-      <aside class="sidebar" id="collectionSidebar">
-        
-      </aside>
-
+      <aside class="sidebar" id="collectionSidebar"></aside>
 
       <!--MAIN CONTENT-->
       <article id="mainContent" class="main-content">
-        
-           <!--HERO-->
+        <!--HERO-->
         <section class="hero">
           <!--HERO BANNER-->
           <div class="hero-banner">
             <!--HERO BANNER LEFT-->
             <div class="hero-banner-left">
-              <img src="../assets/images/canvart-logo.png" alt="CanvArt Logo" class="logo-img" />
+              <img
+                src="../assets/images/canvart-logo.png"
+                alt="CanvArt Logo"
+                class="logo-img"
+              />
               <div class="flex-column">
                 <span class="banner-header">Feel The Art</span>
-                <p class="banner-text">Discover casual art from creators around the world.</p>
-                <p class="banner-text">Share your art. No pressure. Just create.</p>
+                <p class="banner-text">
+                  Discover casual art from creators around the world.
+                </p>
+                <p class="banner-text">
+                  Share your art. No pressure. Just create.
+                </p>
               </div>
             </div>
 
             <!--HERO BANNER RIGHT-->
             <div class="hero-banner-right">
-              <a href="auth/login" class="btn-pill btn btn-no-bg">Login</a>
-                            <a href="auth/register" class="btn-pill btn">Register</a>
+              <a href="../auth/login" class="btn-pill btn btn-no-bg">Login</a>
+              <a href="../auth/register" class="btn-pill btn">Register</a>
             </div>
           </div>
         </section>
-        
-          <!--Collection HEADER-->
-          <section class="collection-header">
-  <div class="collection-cover"></div>
 
-  <div class="collection-data">
-    <img
-      src="../assets/images/canvart-logo.png"
-      alt="Collection thumbnail"
-      id="collectionThumbnail"
-      class="collection-thumbnail"
-    />
+        <!--Collection HEADER-->
+        <section class="collection-header">
+          <div class="collection-cover"></div>
 
-    <h2 class="collection-name" id="collectionName"></h2>
+          <div class="collection-data">
+            <img
+              src="../assets/images/canvart-logo.png"
+              alt="Collection thumbnail"
+              id="collectionThumbnail"
+              class="collection-thumbnail"
+            />
 
-    <div class="collection-bio-container">
-      <p id="collectionDescription" class="collection-description"></p>
-    </div>
-  </div>
-</section>
-            
-            <!--COLLECTION BODY-->
-            <section class="collection-body">
-  <div id="collectionContent"></div>
-</section>
+            <h2 class="collection-name" id="collectionName"></h2>
+
+            <div class="collection-bio-container">
+              <p id="collectionDescription" class="collection-description"></p>
+            </div>
+          </div>
+        </section>
+
+        <!--COLLECTION BODY-->
+        <section class="collection-body">
+          <div id="collectionContent"></div>
+        </section>
       </article>
     </main>
 
-   
     <!--JS-->
     <script type="module" src="../js/app.js"></script>
     <script type="module" src="../js/collection.js"></script>
