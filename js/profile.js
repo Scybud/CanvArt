@@ -12,6 +12,7 @@ import {
   loadComponent,
   closeModal,
 } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+import { updateProfile } from "./edit/editProfile.js";
 
 let profile = null;
 let isOwner = null;
@@ -148,7 +149,7 @@ async function showCollections(content) {
               "imagePreview",
               "collectionName",
               "collectionDescription",
-              "createCollectionBtn",
+              "editProfileBtn",
             );
           }
         : null,
@@ -175,6 +176,32 @@ function renderProfile(profile) {
 
   document.getElementById("profileAvatar").src =
     profile.avatar_url || "assets/images/default-avatar.png";
+}
+
+async function handleProfileEdit() {
+  const editProfileBtn = document.getElementById("profileEdit");
+  if (editProfileBtn) {
+      editProfileBtn.addEventListener("click", async () => {
+        if (!sessionState.user) {
+          window.location.href = "/"
+
+          return;
+        }
+        await loadComponent(
+          "https://joincanvart.vercel.app/components/modals/edit/edit-profile.html",
+          "modalContainer",
+        );
+        await updateProfile(
+          "avatarInput",
+          "imagePreview",
+          "name",
+          "username",
+          "email",
+          "bio",
+          "profileEditBtn",
+        );
+      });
+  }
 }
 
 async function initProfile() {
@@ -219,6 +246,8 @@ async function initProfile() {
     setActive(collectionsBtn);
     showCollections(content);
   });
+
+  await handleProfileEdit();
 }
 
 document.addEventListener("DOMContentLoaded", initProfile);

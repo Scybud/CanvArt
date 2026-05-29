@@ -16,21 +16,27 @@
          
               <label for="avatarInput">Avatar</label>
 <input type="file" name="avatarInput" id="avatarInput" class="inputField">
+
 <img src="" id="imagePreview">
 
 <label for="name" class="label">Name</label>
 <input type="text" class="inputField" id="name" placeholder="Your name">
 
-<label for="username">Username</label>
-<input type="text" name="username" class="disabled inputField" id="username" disabled placeholder="@username">
+<div class="doubleInputContainer">
 
-<label for="email">Email</label>
-<input type="email" name="email" id="email" placeholder="example@gmail.com">
+  <label for="username">Username
+    <input type="text" name="username" class="disabled inputField" id="username" disabled placeholder="@username">
+  </label>
+  
+  <label for="email">Email
+    <input type="email" name="email" class="disabled inputField" id="email" placeholder="example@gmail.com" disabled>
+  </label>
+</div>
+  
 
-
-<label for="bio">Caption</label>
+<label for="bio">Bio</label>
 <textarea type="text" name="bio" id="bio" class="inputField textArea" placeholder="Your bio..."></textarea>
 
-<button type="button" class="btn" id="profileEditBtn">Upload</button>
+<button type="button" class="btn" id="profileEditBtn">Update</button>
 </form>
     </section>

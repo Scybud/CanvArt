@@ -147,8 +147,12 @@ padding: var(--space-lg) 0;
 }
 
 #imagePreview {
+    width: 300px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
     border-radius: var(--radius-md);
-    aspect-ratio: 2 / 1;
+    display: block;
+    margin: 0 auto;
 }
 
 .sidebarBottom {
