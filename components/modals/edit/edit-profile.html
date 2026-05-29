@@ -1,0 +1,36 @@
+    <section class="modal-container">
+
+<form class="card form">
+  <div class="section-header">
+                  <h2 class="section-title">Edit Profile</h2>
+
+                  <!--CLOSE BUTTON-->
+                  <button type="button" class="closeModalBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="6" ry="6" fill="currentColor" opacity="0.06" />
+                    <path d="M9 9l6 6M15 9l-6 6" />
+                  </svg>
+                </button>
+              </div>
+         
+              <label for="avatarInput">Avatar</label>
+<input type="file" name="avatarInput" id="avatarInput" class="inputField">
+<img src="" id="imagePreview">
+
+<label for="name" class="label">Name</label>
+<input type="text" class="inputField" id="name" placeholder="Your name">
+
+<label for="username">Username</label>
+<input type="text" name="username" class="disabled inputField" id="username" disabled placeholder="@username">
+
+<label for="email">Email</label>
+<input type="email" name="email" id="email" placeholder="example@gmail.com">
+
+
+<label for="bio">Caption</label>
+<textarea type="text" name="bio" id="bio" class="inputField textArea" placeholder="Your bio..."></textarea>
+
+<button type="button" class="btn" id="profileEditBtn">Upload</button>
+</form>
+    </section>
