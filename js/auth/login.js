@@ -74,7 +74,7 @@ async function signout() {
   toastMsg("Logged out successfully!", "success");
 
   setTimeout(() => {
-    window.location.href = "/auth";
+    window.location.href = "/auth/";
   }, 3000);
 }
 
