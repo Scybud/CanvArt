@@ -1,7 +1,7 @@
 export function createCollectionCard(container, collections) {
   collections.forEach((collection) => {
     const collectionItem = document.createElement("a");
-    collectionItem.href = `collection/${collection.id}`;
+    collectionItem.href = `https://joincanvart.vercel.app/collection/${collection.id}`;
     collectionItem.classList.add(
       "collectionItem",
       "card",
