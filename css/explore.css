@@ -3,7 +3,6 @@
     grid-template-columns: 1fr 1px 1fr;
     gap: var(--space-md);
 margin-bottom: var(--space-md);
-    width: 100%;
 }
 @media (max-width: 960px) {
     .upper-content {
@@ -78,7 +77,6 @@ flex-direction: column;
   }
 }
 
-
 .ownerAvatar {
   width: 40px;
   height: 40px;
@@ -114,6 +112,20 @@ flex-direction: column;
   margin: 0;
 }
 
+
+#trendingCollections {
+display: flex;
+
+gap: var(--space-sm);
+  padding: 1rem 0;
+  overflow-x: auto;
+  
+  max-height:  300px;
+
+    /* Hide scrollbar (Chrome, Edge, Safari) */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge Legacy */
+}
 
 
 #featuredArtists {

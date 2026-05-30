@@ -8,6 +8,8 @@ import { fetchAllArtworks } from "./data/artworks.js";
 import { createArtworkCard } from "./components/artworkCard.js";
 import { fetchFeaturedArtists, fetchAllArtists } from "./data/artists.js"; // adjust path if needed
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
+import { fetchAllCollections } from "./data/collections.js";
+import { createCollectionCard } from "./components/collectionCard.js";
 
 async function initExplore() {
   await sessionReady;
@@ -23,9 +25,7 @@ async function initExplore() {
   await createArtworkCard(exploreContainer, artworksData);
 
   await renderFeaturedArtists();
-}
 
-async function handleArtworkUpload() {
   const showArtistsListModalBtn = document.getElementById(
     "showArtistsListModal",
   );
@@ -35,10 +35,15 @@ async function handleArtworkUpload() {
         "https://joincanvart.vercel.app/components/modals/artists-list",
         "modalContainer",
       );
-
+  
       await renderFeaturedArtistsList();
     });
   }
+
+  await renderTrendingCollections();
+}
+
+async function handleArtworkUpload() {
 
   const uploadArtworkBtns = document.querySelectorAll(".upload-artwork");
   if (uploadArtworkBtns) {
@@ -67,6 +72,22 @@ async function handleArtworkUpload() {
     });
   }
 }
+
+async function renderTrendingCollections() {
+  const container = document.getElementById("trendingCollections");
+
+  container.innerHTML = "";
+
+  const collections = await fetchAllCollections();
+
+    if (!collections || collections.length === 0) {
+      container.innerHTML = "<p>No trending collections this week.</p>";
+      return;
+    }
+
+    await createCollectionCard(container, collections)
+}
+
 
 async function renderFeaturedArtists() {
   const container = document.getElementById("featuredArtists");

@@ -1,0 +1,25 @@
+.collections-grid {
+display: grid;
+gap: var(--space-sm);
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.collectionItem {
+    border: 4px solid var(--border);
+  margin-bottom: 1.5rem;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+    color: var(--text-primary);
+
+  padding: 0;
+  gap: 0;
+  border-radius: var(--radius-md);
+}
+.collectionItem:hover {
+  color: var(--text-primary);
+}
+.collectionThumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

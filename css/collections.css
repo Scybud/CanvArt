@@ -1,11 +1,8 @@
-
-
 .collections-grid {
 display: grid;
 gap: var(--space-sm);
 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
-
 
 .collectionItem {
     border: 4px solid var(--border);
