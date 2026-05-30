@@ -51,7 +51,7 @@ async function showArtworks(collectionId) {
 
   const artworks = collection.collection_artworks.map((item) => item.artworks);
 
-  const enriched = await enrichArtworksWithLikes(artworks, user.id);
+  const enriched = await enrichArtworksWithLikes(artworks, user?.id);
 
   await createArtworkCard(artworkContainer, enriched);
 

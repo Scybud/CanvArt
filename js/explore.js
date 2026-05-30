@@ -17,7 +17,7 @@ async function initExplore() {
 
   const artworks = await fetchAllArtworks();
 
-  const artworksData = await enrichArtworksWithLikes(artworks, user.id);
+  const artworksData = await enrichArtworksWithLikes(artworks, user?.id);
 
   const exploreContainer = document.getElementById("explore");
   await createArtworkCard(exploreContainer, artworksData);
