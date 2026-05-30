@@ -1,14 +1,7 @@
 import { supabase } from "../supabase.js";
 
 export async function enrichArtworksWithLikes(artworks, userId) {
-  if (!userId) {
-    return artworks.map((a) => ({
-      ...a,
-      like_count: 0,
-      is_liked: false,
-    }));
-  }
-
+  
   const artworkIds = artworks.map((a) => a.id);
 
   const { data: likes } = await supabase
@@ -22,7 +15,7 @@ export async function enrichArtworksWithLikes(artworks, userId) {
   likes?.forEach((like) => {
     likeCountMap[like.artwork_id] = (likeCountMap[like.artwork_id] || 0) + 1;
 
-    if (like.user_id === userId) {
+    if (userId && like.user_id === userId) {
       likedSet.add(like.artwork_id);
     }
   });
@@ -31,5 +24,14 @@ export async function enrichArtworksWithLikes(artworks, userId) {
     ...a,
     like_count: likeCountMap[a.id] || 0,
     is_liked: likedSet.has(a.id),
+    
   }));
+
+  if (!userId) {
+    return artworks.map((a) => ({
+      ...a,
+      like_count: likeCountMap[a.id] || 0,
+      is_liked: false,
+    }));
+  }
 }

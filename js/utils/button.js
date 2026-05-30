@@ -1,5 +1,10 @@
 import { sessionState } from "../session.js";
 import { supabase } from "../supabase.js";
+import {
+  loadComponent,
+  closeModal,
+} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+
 
 export function handleBackBtn() {
   const backBtn = document.querySelectorAll(".backBtn");
@@ -16,7 +21,14 @@ export function handleArtworkLike({ likeBtn, artworkId, likeCount, likeIcon }) {
     e.stopPropagation();
 
     const user = await sessionState.user;
-    if (!user) return;
+    if (!user) {
+              await loadComponent(
+                "https://joincanvart.vercel.app/components/modals/request-auth",
+                "modalContainer",
+              );
+    
+              return;
+            };
 
     const { data: existing } = await supabase
       .from("artwork_likes")
