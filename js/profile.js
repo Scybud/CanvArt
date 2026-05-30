@@ -151,7 +151,7 @@ async function showCollections(content) {
               "imagePreview",
               "collectionName",
               "collectionDescription",
-              "editProfileBtn",
+              "createCollectionBtn",
             );
           }
         : null,
