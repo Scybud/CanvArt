@@ -203,3 +203,7 @@ cursor: pointer;
     color: var(--danger);
     width: fit-content;
 }
+img {
+    border-radius: var(--radius-md);
+corner-shape: round;
+}

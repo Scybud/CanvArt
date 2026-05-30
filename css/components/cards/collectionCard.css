@@ -10,8 +10,8 @@ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   border-radius: 12px;
   overflow: hidden;
     color: var(--text-primary);
-
-  padding: 0;
+flex: 0 0 auto;
+  padding: var(--space-sm);
   gap: 0;
   border-radius: var(--radius-md);
 }
