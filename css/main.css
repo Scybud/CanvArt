@@ -112,7 +112,6 @@ padding: var(--space-lg) 0;
 }
 
 /* initial state is inline (JS sets position/size) */
-
 .magnified-image {
   transition: all 300ms ease;
   cursor: zoom-out;
