@@ -27,6 +27,8 @@ function getCollectionId() {
 }
 
 function renderCollection(collection) {
+  document.title = collection.name  + " | CanvArt";
+
   document.getElementById("collectionName").textContent =
     collection.name || "Untitled Collection";
 
@@ -53,7 +55,7 @@ async function showArtworks(collectionId) {
 
   const enriched = await enrichArtworksWithLikes(artworks, user?.id);
 
-  await createArtworkCard(artworkContainer, enriched);
+  await createArtworkCard(artworkContainer, enriched, user);
 
   content.innerHTML = "";
 
@@ -62,7 +64,7 @@ async function showArtworks(collectionId) {
 
   sectionHeader.innerHTML = `
     <h3>Collection Artworks</h3>
-    <button id="addArtworkBtn" class="btn" type="button">
+    <button id="addArtworkBtn" class="btn btn-primary" type="button">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M12 5v14" />

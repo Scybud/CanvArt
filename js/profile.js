@@ -108,7 +108,7 @@ async function showArtworks(content) {
     return;
   }
   
-  await createArtworkCard(artworkContainer, artworks);
+  await createArtworkCard(artworkContainer, artworks, profile);
   content.append(artworkContainer);
 }
 
@@ -118,7 +118,7 @@ async function showCollections(content) {
   const collections = await fetchCollectionsByUserId(profile.id);
 
   const collectionContainer = document.createElement("div");
-  collectionContainer.classList.add("collection-container");
+  collectionContainer.classList.add("collections-grid");
 
   content.innerHTML = "";
 
@@ -167,6 +167,7 @@ async function showCollections(content) {
 
 
 async function renderProfile(profile) {
+  document.title = profile.username + " | CanvArt";
   document.getElementById("profileName").textContent =
     profile.name || "Unknown User";
 

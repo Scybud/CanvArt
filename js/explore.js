@@ -22,7 +22,7 @@ async function initExplore() {
   const artworksData = await enrichArtworksWithLikes(artworks, user?.id);
 
   const exploreContainer = document.getElementById("explore");
-  await createArtworkCard(exploreContainer, artworksData);
+  await createArtworkCard(exploreContainer, artworksData, user);
 
   await renderFeaturedArtists();
 
