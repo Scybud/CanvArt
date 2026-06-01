@@ -75,7 +75,7 @@ View
 </svg> Artist</a>
 
 ${
-  user.id !== artwork?.user_id
+  user?.id !== artwork?.user_id
     ? `<button class="btn danger reportArtwork"><svg
   width="20"
   height="20"
@@ -234,7 +234,7 @@ initShareButton(
   shareBtn,
   "Check out this artwork",
   "Found an amazing masterpiece on CanvArt",
-  `/artwork/${artwork.id}`,
+  `/artwork/${artwork?.id}`,
 );
 
     magnifyImg(img);
