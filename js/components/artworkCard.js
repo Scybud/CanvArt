@@ -217,7 +217,14 @@ artwork.is_liked ? likeIcon.classList.add("liked") : "";
     // Append card to container
     container.prepend(artworkItem);
     
-    await initShareButton(".shareArtworkBtn", "Check out this artwork", "Found an amizing masterpiece on CanvArt", `artwork/${artwork.id}`);
+    const shareBtn = artworkItem.querySelector(".shareArtworkBtn");
+
+initShareButton(
+  shareBtn,
+  "Check out this artwork",
+  "Found an amazing masterpiece on CanvArt",
+  `/artwork/${artwork.id}`,
+);
 
     magnifyImg(img);
     
