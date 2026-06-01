@@ -65,7 +65,7 @@ artworkMenu.innerHTML = `
 
 ${
   user.id !== artwork?.user_id
-    ? `    <button class="btn danger reportArtwork"><svg
+    ? `<button class="btn danger reportArtwork"><svg
   width="20"
   height="20"
   viewBox="0 0 24 24"

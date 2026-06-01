@@ -4,6 +4,7 @@ import { handleArtworkLike } from "./utils/button.js";
 import { toastMsg } from "./components/toast.js";
 import { magnifyImg } from "./components/artworkCard.js";
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
+import { sessionReady, sessionState } from "./session.js";
 
 function getArtworkId() {
   const url = new URL(window.location.href);
@@ -18,6 +19,8 @@ function getArtworkId() {
 }
 
 (async function initArtworkPage() {
+    await sessionReady;
+
   const artworkId = getArtworkId();
 
   if (!artworkId) {
@@ -40,7 +43,7 @@ function getArtworkId() {
   }
 
   // Enrich with like data (same as Explore)
-  const userId = window.sessionState?.user?.id || null;
+  const userId = sessionState?.user?.id || null;
   const [artwork] = await enrichArtworksWithLikes([artworkRaw], userId);
 
   // Artist link
@@ -50,8 +53,18 @@ function getArtworkId() {
   // Report/Delete button
   const reportOrDeleteBtn = document.getElementById("reportOrDeleteBtn");
 
-  if (artwork.user_id == userId) {
-    reportOrDeleteBtn.textContent = "Delete";
+  if (artwork.user_id === userId) {
+    reportOrDeleteBtn.innerHTML = ` <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+     stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Lid -->
+  <path d="M3 6h18" />
+  <path d="M8 6l1-2h6l1 2" />
+  <!-- Bin -->
+  <rect x="5" y="6" width="14" height="14" rx="2" />
+  <!-- Lines -->
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+</svg>Delete`;
     reportOrDeleteBtn.classList.add("danger");
 
     reportOrDeleteBtn.addEventListener("click", async () => {
@@ -66,7 +79,49 @@ function getArtworkId() {
       }
     });
   } else {
-    reportOrDeleteBtn.textContent = "Report";
+    reportOrDeleteBtn.innerHTML = `<svg
+  width="20"
+  height="20"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Document shape -->
+  <path
+    d="M7 3h7l5 5v13H7V3z"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Folded corner -->
+  <path
+    d="M14 3v5h5"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Report lines -->
+  <path
+    d="M10 11h6"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linecap="round"
+  />
+  <path
+    d="M10 14h6"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linecap="round"
+  />
+  <path
+    d="M10 17h4"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linecap="round"
+  />
+</svg> Report`;
 
     reportOrDeleteBtn.addEventListener("click", () => {
       toastMsg("Reported. Our team will review it.", "success");
