@@ -8,6 +8,10 @@
     {
       "source": "/collection/:collectionId",
       "destination": "/collection"
+    },
+    {
+      "source": "/artwork/:artworkId",
+      "destination": "/artwork"
     }
   ]
 }
