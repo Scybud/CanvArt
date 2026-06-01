@@ -1,0 +1,282 @@
+/* =========================
+   ARTWORK PAGE
+========================= */
+
+.artwork-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  margin-bottom: 2rem;
+}
+.artwork-container:hover .ownerInfo,  .artwork-container:hover .menuToggle, .artwork-container:hover .artworkMenu{
+  opacity: 1;
+}
+@media (hover: none) {
+  /* Devices where hover doesn't exist */
+
+.ownerInfo, .menuToggle, .artworkMenu{
+  opacity: 1;
+}
+}
+
+.artworkControls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+}
+
+.icon-btn {
+  background: var(--surface);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+.icon-btn:hover {
+  background: var(--hover-bg);
+}
+
+.artworkMenu {
+  position: absolute;
+  top: 55px;
+  right: 10px;
+  background: var(--surface-primary);
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 30;
+}
+
+/* =========================
+   COVER
+========================= */
+
+.artwork-img {
+  position: relative;
+  width: 100%;
+  max-height: 500px;
+    object-fit: contain;
+    background-position: center;
+    
+    border: 4px solid var(--border);
+    
+    overflow: hidden;
+  }
+  
+  /* =========================
+  ARTWORK INFO
+  ========================= */
+  
+  .artwork-data {
+    display: flex;
+    flex-direction: column;    
+    padding-inline: 1rem;
+        
+    position: relative;
+    
+    backdrop-filter: var(--filter) brightness(30%);
+}
+
+
+/* TEXT */
+.collection-name {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+
+  margin-bottom: 0.5rem;
+
+text-align: center;
+}
+
+.collection-description {
+  color: var(--text-secondary);
+
+  line-height: 1.7;
+
+  max-width: 700px;
+
+  font-size: 0.97rem;
+}
+
+/* =========================
+   BODY
+========================= */
+
+.collection-body {
+  padding: var(--space-md);
+}
+
+/* =========================
+   SECTION HEADER
+========================= */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 1.2rem;
+}
+
+.section-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.artwork-container {
+    column-count: 4;
+    padding-bottom: var(--space-lg);
+    margin-top: var(--space-md);
+}
+/* Responsive */
+@media (max-width: 1200px) {
+  .artwork-container { column-count: 3; }
+}
+@media (max-width: 1000px) {
+  .artwork-container { column-count: 2; }
+}
+.artworkItem {
+   break-inside: avoid;      /* prevent card from being split */
+  margin-bottom: 1.5rem;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+
+  padding: 0;
+  gap: 0;
+  border-radius: var(--radius-md);
+}
+.imgContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  width: 100%;
+  height: 260px;
+}
+.artwork {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ownerInfo {
+  position: absolute;
+  opacity: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) 0;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  backdrop-filter: blur(4px);
+  transition: opacity var(--transition-slow);
+}
+.imgContainer:hover .ownerInfo {
+  opacity: 1;
+}
+@media (hover: none) {
+  /* Devices where hover doesn't exist */
+  .ownerInfo {
+    opacity: 1;
+  }
+}
+
+
+.ownerAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.ownerText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.ownerName {
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  margin: 0;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+.ownerUsername {
+  font-size: 0.8rem;
+  color: #ddd;
+  margin: 0;
+}
+
+.artworkContent {
+  flex: 1;
+  margin: 0 var(--space-md) var(--space-sm);
+}
+.artworkContent h3,
+.artworkContent p {
+  margin: 0;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-collection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 5rem 1rem;
+
+  border: 1px dashed var(--border-color);
+
+  border-radius: 24px;
+
+  background: var(--card-bg);
+}
+
+.empty-collection h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-collection p {
+  max-width: 450px;
+
+  color: var(--text-secondary);
+
+  line-height: 1.6;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .collection-cover {
+    height: 180px;
+    border-radius: 22px;
+  }
+
+  .artwork-container {
+    grid-template-columns: 1fr;
+  }
+}

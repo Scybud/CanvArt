@@ -23,6 +23,13 @@ document.addEventListener("DOMContentLoaded", async () => {
      );
    }
   
+   if (path.includes("artwork")) {
+     await loadComponent(
+       "https://joincanvart.vercel.app/components/folder-sidebar",
+       "artworkSidebar",
+     );
+   }
+
   // 2. Load sidebar HTML
   await loadComponent(
     "https://joincanvart.vercel.app/components/sidebar",

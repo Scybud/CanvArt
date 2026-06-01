@@ -53,9 +53,10 @@
 }
 @media (hover: none) {
   /* Devices where hover doesn't exist */
-  .ownerInfo {
-    opacity: 1;
-  }
+
+.ownerInfo, .menuToggle, .artworkMenu{
+  opacity: 1;
+}
 }
 
 .ownerAvatar {
