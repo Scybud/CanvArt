@@ -1,9 +1,32 @@
 import { toastMsg } from "../components/toast.js";
 import { supabase } from "../supabase.js";
-import { compressImage } from "../utils/compressImg.js";
 import { sessionState } from "../session.js";
 import { closeModal } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
 
+const EDGE_FUNCTION_URL =
+  "https://tgnrkdnovyhwwooehnxa.supabase.co/functions/v1/upload-artwork";
+
+async function callUploadFunction(formData) {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (!session) throw new Error("Not authenticated");
+
+  const res = await fetch(EDGE_FUNCTION_URL, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${session.access_token}` },
+    body: formData,
+  });
+
+  const json = await res.json().catch(() => null);
+  if (!res.ok)
+    throw new Error(json?.message ?? `Upload failed (${res.status})`);
+  return json;
+}
+
+// -------------------------
+// CREATE COLLECTION
+// -------------------------
 export async function createCollection(
   thumbnailInputId,
   previewId,
@@ -17,114 +40,51 @@ export async function createCollection(
   const collectionDescription = document.getElementById(descriptionId);
   const uploadBtn = document.getElementById(btnId);
 
-  let compressedFile = null;
-
-  // ⭐ INSTANT PREVIEW WHEN USER SELECTS IMAGE
-  thumbnailInput.addEventListener("change", async () => {
+  thumbnailInput.addEventListener("change", () => {
     const file = thumbnailInput.files?.[0];
     if (!file) return;
-
-    try {
-      const tempUrl = URL.createObjectURL(file);
-      const img = new Image();
-      img.src = tempUrl;
-
-      img.onload = async () => {
-        URL.revokeObjectURL(tempUrl);
-
-        const compressedBlob = await compressImage(img);
-        if (!compressedBlob) {
-          toastMsg("Could not compress artwork below required size", "error");
-          thumbnailInput.value = "";
-          return;
-        }
-
-        compressedFile = new File([compressedBlob], "thumbnail.webp", {
-          type: "image/webp",
-        });
-
-        const previewUrl = URL.createObjectURL(compressedBlob);
-        previewImg.src = previewUrl;
-
-previewImg.addEventListener("load", () => URL.revokeObjectURL(previewUrl), {
-  once: true,
-});
-      };
-    } catch (err) {
-      console.error(err);
-      toastMsg("Could not preview artwork", "error");
-    }
+    const previewUrl = URL.createObjectURL(file);
+    previewImg.src = previewUrl;
+    previewImg.addEventListener("load", () => URL.revokeObjectURL(previewUrl), {
+      once: true,
+    });
   });
 
-  // ⭐ UPLOAD BUTTON HANDLER
   uploadBtn.addEventListener("click", async () => {
-const collectionNameValue = collectionName.value.trim();
-const collectionDescriptionValue = collectionDescription.value.trim();
     const user = sessionState.user;
+    const file = thumbnailInput.files?.[0];
+    const nameValue = collectionName.value.trim();
+    const descriptionValue = collectionDescription.value.trim();
 
     if (!user) {
-      toastMsg("You must be logged in to upload artwork", "error");
+      toastMsg("You must be logged in", "error");
       return;
     }
-if(!collectionNameValue) {
-    toastMsg("Please name your collection", "error");
-    return;
-}
-    if (!compressedFile) {
-      toastMsg("Please select an artwork image", "error");
+    if (!nameValue) {
+      toastMsg("Please name your collection", "error");
+      return;
+    }
+    if (!file) {
+      toastMsg("Please select a thumbnail image", "error");
       return;
     }
 
-    /*
-    if (!collectionDescription) {
-      toastMsg("Tell us why you want to share this art", "error");
-      return;
-    }
-*/
-
+    uploadBtn.disabled = true;
     try {
-      const collectionId = crypto.randomUUID();
-      const filePath = `${user.id}/${collectionId}.webp`;
+      const formData = new FormData();
+      formData.append("upload_type", "collection_thumbnail");
+      formData.append("file", file);
+      formData.append("name", nameValue);
+      formData.append("description", descriptionValue);
 
-      // Upload to bucket
-      const { error: uploadError } = await supabase.storage
-        .from("collection_thumbnail")
-        .upload(filePath, compressedFile);
-
-      if (uploadError) {
-        console.error(uploadError);
-        toastMsg("Could not upload thumbnail", "error");
-        return;
-      }
-
-      // Get public URL
-      const { data: urlData } = supabase.storage
-        .from("collection_thumbnail")
-        .getPublicUrl(filePath);
-
-      const imageUrl = urlData.publicUrl;
-
-      // Insert into artworks table
-      const { error: dbError } = await supabase.from("collections").insert({
-        id: collectionId,
-        user_id: user.id,
-        name: collectionNameValue,
-        description: collectionDescriptionValue,
-        thumbnail_url: imageUrl,
-      });
-
-      if (dbError) {
-        console.error(dbError);
-        toastMsg("Could not save collection info", "error");
-        return;
-      }
-
+      await callUploadFunction(formData);
       toastMsg("Collection created successfully!", "success");
+      closeModal();
     } catch (err) {
       console.error(err);
-      toastMsg("Something went wrong", "error");
+      toastMsg(err.message ?? "Something went wrong", "error");
+    } finally {
+      uploadBtn.disabled = false;
     }
-
-    closeModal();
   });
 }

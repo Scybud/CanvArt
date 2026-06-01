@@ -1,38 +1,31 @@
 export async function compressImage(img) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
-  
-  const MAX_SIZE = 200 * 1024; // 200KB
 
-  let width = img.width;
-  let height = img.height;
+  const MAX_DIMENSION = 2000;
 
-  const MAX_DIMENSION = 500;
+  const ratio = Math.min(
+    MAX_DIMENSION / img.width,
+    MAX_DIMENSION / img.height,
+    1,
+  );
 
-  if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
-    const ratio = Math.min(MAX_DIMENSION / width, MAX_DIMENSION / height);
-
-    width *= ratio;
-    height *= ratio;
-  }
+  const width = Math.round(img.width * ratio);
+  const height = Math.round(img.height * ratio);
 
   canvas.width = width;
   canvas.height = height;
 
   ctx.drawImage(img, 0, 0, width, height);
 
-  let quality = 0.9;
+  const QUALITY_LEVELS = [0.85, 0.8, 0.75, 0.7];
 
-  while (quality >= 0.3) {
+  for (const quality of QUALITY_LEVELS) {
     const blob = await new Promise((resolve) => {
       canvas.toBlob(resolve, "image/webp", quality);
     });
 
-    if (blob && blob.size <= MAX_SIZE) {
-      return blob;
-    }
-
-    quality -= 0.1;
+    if (blob) return blob;
   }
 
   return null;
