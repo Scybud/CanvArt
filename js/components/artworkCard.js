@@ -26,6 +26,17 @@ export async function createArtworkCard(container, artworks, user) {
     artworkMenu.hidden = true;
 artworkMenu.innerHTML = `
     <nav class="artwork-menu-btns">
+        <a class="btn" href="/artwork/${artwork.id}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+     stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outer eye -->
+  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+  <!-- Iris -->
+  <circle cx="12" cy="12" r="3" fill="currentColor"/>
+</svg>
+View
+</a>
+
     <button type="button" class="btn shareArtworkBtn"><svg
   width="20"
   height="20"
