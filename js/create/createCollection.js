@@ -2,6 +2,7 @@ import { toastMsg } from "../components/toast.js";
 import { supabase } from "../supabase.js";
 import { sessionState } from "../session.js";
 import { closeModal } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+import { setButtonLoading } from "../utils/button.js";
 
 const EDGE_FUNCTION_URL =
   "https://tgnrkdnovyhwwooehnxa.supabase.co/functions/v1/upload-artwork";
@@ -69,7 +70,7 @@ export async function createCollection(
       return;
     }
 
-    uploadBtn.disabled = true;
+    setButtonLoading(uploadBtn, true);
     try {
       const formData = new FormData();
       formData.append("upload_type", "collection_thumbnail");
@@ -84,7 +85,7 @@ export async function createCollection(
       console.error(err);
       toastMsg(err.message ?? "Something went wrong", "error");
     } finally {
-      uploadBtn.disabled = false;
+      setButtonLoading(uploadBtn, false);
     }
   });
 }

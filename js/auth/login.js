@@ -1,5 +1,6 @@
 import { supabase } from "../supabase.js";
 import { toastMsg } from "../components/toast.js";
+import { setButtonLoading } from "../utils/button.js";
 
 //login funtion
 async function login(email, password) {
@@ -34,7 +35,7 @@ export function loginFuntion() {
       }
 
       const button = document.getElementById("loginBtn");
-      button.disabled = true;
+      setButtonLoading(button, true);
 
       try {
         const success = await login(email, password);
@@ -53,15 +54,12 @@ export function loginFuntion() {
           }
         }
       } finally {
-        button.disabled = false;
-        }
+        setButtonLoading(button, false);
+      }
     });
   }
 }
 loginFuntion();
-
-
-
 
 //signout
 async function signout() {

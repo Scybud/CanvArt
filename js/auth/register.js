@@ -1,6 +1,7 @@
 import { supabase } from "../supabase.js";
 import { toastMsg } from "../components/toast.js";
 import { loadComponent } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+import { setButtonLoading } from "../utils/button.js";
 
 async function isUsernameTaken(username) {
   const { data, error } = await supabase
@@ -9,10 +10,10 @@ async function isUsernameTaken(username) {
     .eq("username", username)
     .maybeSingle();
 
-    if(error) {
-        console.error(error)
-        return;
-    }
+  if (error) {
+    console.error(error);
+    return;
+  }
   return !!data; // true if exists
 }
 
@@ -30,7 +31,6 @@ async function signup(username, name, email, password) {
   });
 
   if (error) {
-
     toastMsg(error.message, "error");
     return false;
   }
@@ -39,18 +39,16 @@ async function signup(username, name, email, password) {
   return true;
 }
 
-
 //Signup form
 const signupForm = document.getElementById("signupForm");
 if (signupForm) {
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-  const username = document
-  .getElementById("signupUsernameInput")
-  .value
-  .trim()
-  .toLowerCase();
+    const username = document
+      .getElementById("signupUsernameInput")
+      .value.trim()
+      .toLowerCase();
     const name = document.getElementById("signupNameInput").value.trim();
     const email = document.getElementById("userSignupEmailInput").value.trim();
     const password = document
@@ -60,7 +58,7 @@ if (signupForm) {
       .getElementById("userSignupConfirmPasswordInput")
       .value.trim();
 
-      const usernameRegex = /^[a-z0-9_]{3,20}$/;
+    const usernameRegex = /^[a-z0-9_]{3,20}$/;
 
     if (!username || !name || !password || !email || !confirmPassword) {
       toastMsg("All fields must not be empty", "error");
@@ -75,7 +73,7 @@ if (signupForm) {
       const usernameFeedback = document.getElementById("usernameFeedback");
       usernameFeedback.textContent = "Username already taken";
       usernameFeedback.classList.add("error");
- 
+
       toastMsg("Username already taken", "error");
       return;
     } else if (!email.includes("@")) {
@@ -91,10 +89,10 @@ if (signupForm) {
 
     //disable button
     const button = signupForm.querySelector("button");
-    button.disabled = true;
+    setButtonLoading(button, true);
 
     try {
-const success = await signup(username, name, email, password);
+      const success = await signup(username, name, email, password);
 
       if (success) {
         // After successful login/signup:
@@ -110,7 +108,7 @@ const success = await signup(username, name, email, password);
         }
       }
     } finally {
-      button.disabled = false;
+      setButtonLoading(button, false);
     }
   });
 }

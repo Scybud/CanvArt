@@ -5,6 +5,34 @@ import {
   closeModal,
 } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
 
+export function setButtonLoading(button, isLoading) {
+  if (!button) return;
+
+  if (isLoading) {
+    button.classList.add("loading");
+    button.setAttribute("aria-busy", "true");
+    if (
+      button instanceof HTMLButtonElement ||
+      button instanceof HTMLInputElement
+    ) {
+      button.disabled = true;
+    } else {
+      button.style.pointerEvents = "none";
+    }
+    return;
+  }
+
+  button.classList.remove("loading");
+  button.removeAttribute("aria-busy");
+  if (
+    button instanceof HTMLButtonElement ||
+    button instanceof HTMLInputElement
+  ) {
+    button.disabled = false;
+  } else {
+    button.style.pointerEvents = "";
+  }
+}
 
 export function handleBackBtn() {
   const backBtn = document.querySelectorAll(".backBtn");
@@ -22,13 +50,13 @@ export function handleArtworkLike({ likeBtn, artworkId, likeCount, likeIcon }) {
 
     const user = await sessionState.user;
     if (!user) {
-              await loadComponent(
-                "https://joincanvart.vercel.app/components/modals/request-auth",
-                "modalContainer",
-              );
-    
-              return;
-            };
+      await loadComponent(
+        "https://joincanvart.vercel.app/components/modals/request-auth",
+        "modalContainer",
+      );
+
+      return;
+    }
 
     const { data: existing } = await supabase
       .from("artwork_likes")
