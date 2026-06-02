@@ -248,7 +248,7 @@ if(reportBtn) {
   reportBtn.addEventListener("click", async () => {
 
     await loadComponent(
-      "../components/modals/report-artwork.html",
+      "../components/modals/report-content.html",
       "modalContainer",
     );
     
