@@ -252,8 +252,7 @@ if(reportBtn) {
       "modalContainer",
     );
     
-    await handleContentReport(
-      user, artwork,
+    await handleContentReport(artwork,
       `https://joincanvart.vercel.app/artwork/${artwork?.id}`,
       "contentUrl", "reporterUsername", "reasonForReport", "reportDetails", "reportContentBtn"
     );

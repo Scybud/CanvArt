@@ -2,15 +2,21 @@ import { toastMsg } from "../components/toast.js";
 import { supabase } from "../supabase.js";
 import { closeModal } from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
 import { setButtonLoading } from "../utils/button.js";
+import { sessionReady, sessionState } from "../session.js";
 
 
-export async function handleContentReport(user, content, contentUrl, contentUrlId, userNameId, reasonId, reportDetailsId, reportBtnId) {
+export async function handleContentReport( content, contentUrl, contentUrlId, userNameId, reasonId, reportDetailsId, reportBtnId) {
+    await sessionReady;
+
+   const user = await sessionState.profile;
+
     const contentUrlEl = document.getElementById(contentUrlId);
     const userNameEl = document.getElementById(userNameId);
     const reasonEl = document.getElementById(reasonId);
     const reportDetailsEl = document.getElementById(reportDetailsId);
     const reportBtnEl = document.getElementById(reportBtnId);
     const userId = user?.id || null;
+
 
 if(!contentUrlEl || !userNameEl || !reasonEl || !reportDetailsEl || !reportBtnEl) return;
 
