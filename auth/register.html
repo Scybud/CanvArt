@@ -160,7 +160,6 @@
         padding: 0 auto;
         width: fit-content;
         background: none;
-        color: var(--link);
       }
 
       .hide {
@@ -262,8 +261,8 @@
 
         <!-- AUTH GATEWAY -->
 
-        <div class="divider"><span>or</span></div>
-        <div class="oauthContainer">
+        <div class="divider hide"><span>or</span></div>
+        <div class="oauthContainer hide">
           <!-- GOOGLE -->
           <button class="oauthBtn google" id="googleAuth">
             <span class="icon">
@@ -312,6 +311,11 @@
               </svg>
             </span>
           </button>
+        </div>
+
+         <div style="font-size: 0.8rem; display: flex; gap: 5px; justify-content: space-between;" class="legalLinks">
+  <a href="http://joincanvart.vercel.app/legal/privacy-policy">Privacy Policy</a>
+  <a href="http://joincanvart.vercel.app/legal/terms-of-use">Terms Of Use</a>
         </div>
       </div>
     </main>

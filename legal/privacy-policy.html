@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | CanvArt</title>
+
+      <!--CSS LINKS-->
+
+    <!--SCYBUD UI-->
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/css/variables.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://scybud.github.io/scybud-ui/css/typography.css"
+    />
+
+    <!--APP SPECIFIC CSS-->
+    <link rel="stylesheet" href="../../css/base.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+
+
+    <style>
+        :root {
+            --border: #e2e8f0;
+            --info-bg: #7a96a8;
+            --info-border: #0197e7;
+            --info-text: #072a3d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover {
+            color: var(--accent);
+        }
+
+        header {
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .meta {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        section {
+            margin-bottom: 28px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        ul {
+            margin-bottom: 16px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .info-box {
+            background-color: var(--info-bg);
+            border: 1px solid var(--info-border);
+            color: var(--info-text);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .highlight-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .highlight-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 20px 12px;
+            }
+            .container {
+                padding: 24px 16px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="/" class="nav-back">← Back to CanvArt</a>
+        
+        <header>
+            <h1>Privacy Policy</h1>
+            <div class="meta">Effective Date: June 2, 2026 | Location: Germany</div>
+        </header>
+
+        <section>
+            <p>At CanvArt, operational transparency is central to our values. This Privacy Policy details how we record, store, use, and process your metrics when interacting with our application hosted at <span class="highlight-link">joincanvart.vercel.app</span>. CanvArt is handled by Abdulroqib under the Scybud label from Germany.</p>
+        </section>
+
+        <section>
+            <h2>1. What Data Do We Collect?</h2>
+            <p>We restrict data collection to processing configurations necessary for core workflows:</p>
+            <ul>
+                <li><strong>Profile Metadata:</strong> Email coordinates, custom usernames, and external avatar paths passed down upon connecting your profile via third-party OAuth flows (such as Google Sign-In).</li>
+                <li><strong>User-Generated Media:</strong> Uploaded images of your artwork, collection categorization tags, titles, description notes, and interaction metrics (like system "likes").</li>
+                <li><strong>Reporting Log Assets:</strong> When a user reports an artwork entry for platform infractions, we log the reporter’s identifier, the target asset URI, the selected violation category, and optional structural user explanations to process cleanups.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Infrastructure Partners & Subprocessors</h2>
+            <p>We never market, distribute, or broker your personal profile data. We share access tokens exclusively with core infrastructure suppliers to maintain application rendering pipelines:</p>
+            <ul>
+                <li><strong>Supabase:</strong> Our central database utility handler. It processes authorization requests, session tracking rules, asset catalog listings, and stores uploaded files securely via cloud buckets.</li>
+                <li><strong>Vercel:</strong> Our client hosting infrastructure provider, handling request distribution securely.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Content Reporting Actions and Accountability</h2>
+            <div class="info-box">
+                <strong>📋 Data Handling for Content Violations</strong>
+                When a user executes a `handleContentReport` workflow, data processing acts to maintain safety. Reported asset IDs, associated upload profiles, and reporter accounts remain tracked internally to execute review evaluations and address bad actors.
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Retention Framework & Profile Deletion</h2>
+            <p>Your content, profiles, and associated records remain active inside our tables until you choose to request a full erasure. Initiating a full profile deletion sweeps personal metadata indices from active runtime database tables within a reasonable technical processing window.</p>
+        </section>
+
+        <section>
+            <h2>5. European Compliance Rights (GDPR)</h2>
+            <p>Since this system is engineered and managed from Germany, we abide by the strict standards of the General Data Protection Regulation (GDPR). You explicitly have the right to request access to your logs, enforce full database erasures ("Right to be Forgotten"), rectify old strings, or object to specific automated records pipelines.</p>
+        </section>
+
+        <footer>
+            <p>Data privacy demands? Send details directly to: <a href="mailto:scybudtech@gmail.com" class="highlight-link">scybudtech@gmail.com</a></p>
+            <p style="margin-top: 12px; font-size: 12px; color: var(--text-muted);">&copy; 2026 Scybud. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("CanvArt Privacy page initialised successfully.");
+            const backLink = document.querySelector('.nav-back');
+            if(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                backLink.href = '#';
+                backLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert("In deployment environment, this will redirect back to your main application view.");
+                });
+            } else {
+                backLink.href = "https://joincanvart.vercel.app/";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,5 +1,11 @@
+import { handleContentReport } from "../create/reportContent.js";
 import { handleArtworkLike } from "../utils/button.js";
 import { initShareButton } from "../utils/shareItem.js";
+import {
+  loadComponent,
+  closeModal,
+} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+
 
 export async function createArtworkCard(container, artworks, user) {
   for(const artwork of artworks) {
@@ -236,6 +242,24 @@ initShareButton(
   "Found an amazing masterpiece on CanvArt",
   `/artwork/${artwork?.id}`,
 );
+
+const reportBtn = artworkItem.querySelector(".reportArtwork");
+if(reportBtn) {
+  reportBtn.addEventListener("click", async () => {
+
+    await loadComponent(
+      "../components/modals/report-artwork.html",
+      "modalContainer",
+    );
+    
+    await handleContentReport(
+      user, artwork,
+      `https://joincanvart.vercel.app/artwork/${artwork?.id}`,
+      "contentUrl", "reporterUsername", "reasonForReport", "reportDetails", "reportContentBtn"
+    );
+  });
+
+}
 
     magnifyImg(img);
     

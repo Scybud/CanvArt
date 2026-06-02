@@ -114,18 +114,19 @@
       }
 
       .primaryBtn {
+        color: var(--text-primary);
         background: var(--active);
         margin-bottom: 0.75rem;
       }
       .secondaryBtn {
-        background: var(--surface-secondary);
+        color: #fff;
+        background: var(--surface-primary);
       }
       .primaryBtn,
       .secondaryBtn {
         width: 100%;
         display: block;
         padding: 0.75rem;
-        color: var(--color-primary);
         border-radius: var(--radius-sm);
         cursor: pointer;
         transition: all 0.5 ease;
@@ -185,7 +186,6 @@
         padding: 0 auto;
         width: fit-content;
         background: none;
-        color: var(--link);
       }
       .hide {
         display: none;
@@ -244,8 +244,8 @@
           id="emailSignup"
           >Create an Account</a
         >
-        <div class="divider"><span>or</span></div>
-        <div class="oauthContainer">
+        <div class="divider hide"><span>or</span></div>
+        <div class="oauthContainer hide">
           <!-- GOOGLE -->
           <button class="oauthBtn google" id="googleAuth">
             <span class="icon">
@@ -295,7 +295,14 @@
             </span>
           </button>
         </div>
+
+
+        <div style="font-size: 0.8rem; display: flex; gap: 5px; justify-content: space-between;" class="legalLinks">
+  <a href="http://joincanvart.vercel.app/legal/privacy-policy">Privacy Policy</a>
+  <a href="http://joincanvart.vercel.app/legal/terms-of-use">Terms Of Use</a>
+        </div>
       </div>
+
     </main>
 
     <script type="module" src="../js/auth/auth.js"></script>

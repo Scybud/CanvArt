@@ -1,0 +1,83 @@
+<section class="modal-container">
+  <form class="card form">
+    <div class="section-header">
+      <h2 class="section-title">Report Content</h2>
+
+      <!--CLOSE BUTTON-->
+      <button type="button" class="closeModalBtn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect
+            x="3.5"
+            y="3.5"
+            width="17"
+            height="17"
+            rx="6"
+            ry="6"
+            fill="currentColor"
+            opacity="0.06"
+          />
+          <path d="M9 9l6 6M15 9l-6 6" />
+        </svg>
+      </button>
+    </div>
+
+    <label for="contentUrl">Content Url</label>
+    <input
+      type="url"
+      name="contentUrl"
+      id="contentUrl"
+      class="inputField"
+      placeholder="https://joincanvart.vercel.app/artwork/1f2b30dd..."
+      required
+    />
+
+    <label for="reporterUsername" class="label">Your username</label>
+    <input
+      type="text"
+      class="inputField"
+      id="reporterUsername"
+      placeholder="Your username"
+    />
+
+    <label for="reasonForReport">Reason For Report</label>
+    <select
+      name="reasonForReport"
+      id="reasonForReport"
+      class="inputField"
+      required
+    >
+      <option value="">Select a reason</option>
+      <option value="copyright">Copyright infringement</option>
+      <option value="impersonation">Impersonation</option>
+      <option value="harassment">Harassment or Bullying</option>
+      <option value="adult">Adult or Sexual content</option>
+      <option value="hate">Hate Speech</option>
+      <option value="spam">Spam</option>
+      <option value="misinformation">Misleading Content</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label for="reportDetails"> Explain the issue </label>
+
+    <textarea
+      id="reportDetails"
+      class="inputField textArea"
+      placeholder="Please provide details about the report..."
+      required
+    ></textarea>
+
+    <button type="button" class="btn danger" id="reportContentBtn">
+      Submit report
+    </button>
+  </form>
+</section>

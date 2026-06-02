@@ -1,5 +1,4 @@
 form .btn {
-  background: var(--primary);
   width: 100%;
   margin-top: var(--space-sm);
   font-weight: var(--font-bold);
@@ -8,6 +7,7 @@ form .btn {
 button.btn {
   border: none;
   padding: calc(var(--space-sm) + 2px) var(--space-lg);
+  background: var(--primary);
   font-family: inherit;
 }
 .btn:active,
@@ -83,11 +83,13 @@ button:active {
   cursor: pointer;
   transition: background var(--transition-slow);
   color: #000000;
+  background: var(--primary);
 
   display: inline-flex;
   justify-content: center;
 }
 .btn:hover {
+  color: #000000;
   text-decoration: none;
 }
 .btn-primary {
@@ -225,16 +227,28 @@ button:active {
   border-radius: 8px;
   text-decoration: none;
   color: var(--text-primary);
+  background: none;
   font-size: 14px;
   transition:
     background 0.15s,
     color 0.15s;
 }
-
+.artwork-menu-btns .btn.danger {
+  color: var(--danger);
+  border: none;
+  background: none;
+}
 .artwork-menu-btns .btn:hover {
   background: var(--hover-bg);
 }
 
-.artwork-menu-btns .btn.danger {
+.form .btn.danger {
+  background: var(--surface-primary);
   color: var(--danger);
+  border: 1px solid ;
+}
+.form .btn.danger:hover  {
+  background: var(--danger);
+  color: #000000;
+  border: 1px solid var(--danger);
 }
