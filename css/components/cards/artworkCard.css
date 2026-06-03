@@ -51,10 +51,39 @@
 .imgContainer:hover .ownerInfo,  .imgContainer:hover .menuToggle, .imgContainer:hover .artworkMenu{
   opacity: 1;
 }
+
+/* Menu Panel */
+.artworkMenu {
+  opacity: 0;
+  position: absolute;
+  top: calc(var(--space-lg) * 2);
+  right: var(--space-sm);
+  max-width: 180px;
+  width: 180px;
+  padding: var(--space-md) 0;
+  background: var(--surface-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  animation: fadeIn 0.18s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (hover: none) {
   /* Devices where hover doesn't exist */
 
-.ownerInfo, .menuToggle, .artworkMenu{
+.ownerInfo, .menuToggle, .artworkMenu, .card .menuToggle {
   opacity: 1;
 }
 }
