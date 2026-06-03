@@ -64,3 +64,54 @@ if(!reasonValue || !reportDetailValue) return toastMsg("Please fill all field ma
 }
 
 
+export async function  handleContentDelete(contentId, contentTable, initDeleteBtn, confirmMsg) {
+
+initDeleteBtn.addEventListener("click", () => {
+    const modal = document.createElement("div")
+    modal.classList.add("modal-container");
+modal.innerHTML = `
+  <div id="confirmActionModal" class="confirmActionModal card">
+    <p class="modalMessage">${confirmMsg}</p>
+
+    <div class="modalActions">
+  <button type="button" class="btn cancel-btn">Cancel</button>
+    <button type="button" class="btn danger deleteContent">Yes, delete</button>
+    </div>
+  </div>
+`;
+
+    const container = document.getElementById("modalContainer");
+    container.appendChild(modal);
+
+    const cancelBtn = modal.querySelector(".cancel-btn")
+    cancelBtn.addEventListener("click", () => {
+        closeModal();
+    });
+    
+    const deleteContentBtn = modal.querySelector(".deleteContent");
+
+    if(!deleteContentBtn) return console.log("Btn not found");
+
+    deleteContentBtn.addEventListener("click", async () => {
+        await deleteContent(contentId, contentTable);
+    })
+});
+}
+
+async function deleteContent(contentId, contentTable) {
+        await sessionReady;
+
+        const user = await sessionState?.profile;
+
+        try {
+            const {data, error} = await supabase.from(contentTable).delete().eq("id", contentId).eq("user_id", user.id);
+            
+            if(error) throw error;
+
+            toastMsg("content deleted", "success");
+            closeModal();
+        } catch(error) {
+            toastMsg("Failed to delete", "error")
+            console.error(error);
+        } 
+}

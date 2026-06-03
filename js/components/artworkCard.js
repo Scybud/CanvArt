@@ -1,4 +1,4 @@
-import { handleContentReport } from "../create/reportContent.js";
+import { handleContentDelete, handleContentReport } from "../create/contentActions.js";
 import { handleArtworkLike } from "../utils/button.js";
 import { initShareButton } from "../utils/shareItem.js";
 import {
@@ -257,8 +257,13 @@ if(reportBtn) {
       "contentUrl", "reporterUsername", "reasonForReport", "reportDetails", "reportContentBtn"
     );
   });
-
 }
+
+const deleteArtwork = artworkItem.querySelector(".deleteArtwork");
+if (deleteArtwork) {
+  
+  await handleContentDelete(artwork.id, "artworks", deleteArtwork, "Are you sure you want to delete this artwork?");
+} 
 
     magnifyImg(img);
     
