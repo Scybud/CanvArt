@@ -12,7 +12,7 @@ animation-timing-function: ease;
 ::view-transition-new(page-content) {
     animation-name: slide-in;
 }
-article {
+main {
     view-transition-name: page-content;
 }
 
