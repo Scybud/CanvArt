@@ -1,7 +1,7 @@
 import {
   loadComponent,
-  closeModal,
-} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+  closeModal
+} from "https://scybud.github.io/scybud-ui/js/ui.js";
 import { sessionState } from "./session.js";
 import { createCollection } from "./create/createCollection.js";
 import { fetchFeaturedArtists } from "./data/artists.js";

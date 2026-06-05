@@ -2,7 +2,7 @@ import { supabase } from "./supabase.js";
 import { initShareButton } from "./utils/shareItem.js";
 import { handleArtworkLike } from "./utils/button.js";
 import { toastMsg } from "./components/toast.js";
-import { magnifyImg } from "./components/artworkCard.js";
+import { magnifyImg } from "https://scybud.github.io/scybud-ui/js/ui.js";
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
 import { sessionReady, sessionState } from "./session.js";
 

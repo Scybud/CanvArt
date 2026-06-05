@@ -3,8 +3,8 @@ import { createArtworkCard } from "./components/artworkCard.js";
 import { toastMsg } from "./components/toast.js";
 import {
   loadComponent,
-  closeModal,
-} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+  closeModal
+} from "https://scybud.github.io/scybud-ui/js/ui.js";
 import { addArtworkToCollection } from "./create/uploadArtwork.js";
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
 import { sessionReady, sessionState } from "./session.js";

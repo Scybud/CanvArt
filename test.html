@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hands-Free Recipe Turner</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --primary-color: #ff6b6b;
+      --bg-color: #000000;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #fff;
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* Hidden webcam stream used purely for tracking math */
+    #webcam {
+      display: none;
+    }
+
+    /* Recipe Container & Carousel */
+    .recipe-container {
+      width: 90%;
+      max-width: 400px;
+      height: 500px;
+      background: rgb(41, 41, 41);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .slider {
+      display: flex;
+      width: 300%; /* 3 pages total */
+      height: 100%;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .page {
+      width: 33.333%;
+      height: 100%;
+      padding: 30px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+    h2 { color: var(--primary-color); margin-top: 0; }
+    ul { padding-left: 20px; line-height: 1.6; }
+
+    /* Visual Feedback Indicator */
+    .status-badge {
+        color: #fff;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgb(63, 63, 63);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <video id="webcam" autoplay playsinline></video>
+
+  <div class="recipe-container">
+    <div class="status-badge" id="status">System Starting...</div>
+    
+    <div class="slider" id="recipeSlider">
+      <div class="page">
+        <h2>Step 1: The Prep</h2>
+        <p>Gather all your fresh ingredients on the counter. Ensure your pan is completely dry before adding oil.</p>
+        <ul>
+          <li>2 tbsp Olive Oil</li>
+          <li>3 Cloves Garlic (Smashed)</li>
+          <li>1 lb Fresh Tomatoes</li>
+        </ul>
+      </div>
+      <div class="page">
+        <h2>Step 2: Sauté Aromatics</h2>
+        <p>Turn the stovetop heat to medium. Add garlic to the cold oil to infuse the flavor gently as it heats up.</p>
+        <ul>
+          <li>Sauté for 3 minutes until fragrant</li>
+          <li>Do not let the garlic turn dark brown</li>
+        </ul>
+      </div>
+      <div class="page">
+        <h2>Step 3: Simmer Sauce</h2>
+        <p>Crush the tomatoes into the pan by hand. Bring to a light boil, then lower heat to simmer uncovered.</p>
+        <ul>
+          <li>Simmer for 20 minutes</li>
+          <li>Season with sea salt and fresh basil</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+   const videoElement = document.getElementById('webcam');
+const slider = document.getElementById('recipeSlider');
+const statusBadge = document.getElementById('status');
+
+let currentPage = 0;
+const totalPages = 3;
+
+// Gesture tracking variables
+let lastX = null;
+let lastTime = Date.now();
+let cooldown = false;
+
+function movePage(direction) {
+  if (cooldown) return;
+  
+  if (direction === 'next' && currentPage < totalPages - 1) {
+    currentPage++;
+  } else if (direction === 'prev' && currentPage > 0) {
+    currentPage--;
+  } else {
+    return; 
+  }
+
+  // Slide the carousel
+  slider.style.transform = `translateX(-${(currentPage * 100) / totalPages}%)`;
+  
+  cooldown = true;
+  statusBadge.innerText = `Flipped ${direction === 'next' ? 'Forward' : 'Backward'}`;
+  statusBadge.style.color = "#ff6b6b";
+  
+  setTimeout(() => {
+    cooldown = false;
+    statusBadge.innerText = "Wave Hand to Turn";
+    statusBadge.style.color = "#fff";
+  }, 1200); 
+}
+
+// MediaPipe Hands Callback
+function onResults(results) {
+  if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+    statusBadge.innerText = "Hand Detected";
+    
+    // Using the index finger MCP joint (landmark 5) for slightly more stable horizontal tracking than the wrist
+    const trackingPoint = results.multiHandLandmarks[0][5]; 
+    const currentX = trackingPoint.x; 
+    const currentTime = Date.now();
+
+    if (lastX !== null) {
+      const deltaX = currentX - lastX;
+      const deltaTime = currentTime - lastTime;
+
+      // DEBUG: Open your browser inspect console to watch these values live!
+      console.log(`Speed (ms): ${deltaTime} | Distance moved: ${deltaX.toFixed(3)}`);
+
+      // TUNED THRESHOLDS:
+      // deltaTime < 400 (gives you a wider time window to complete the wave)
+      // Math.abs(deltaX) > 0.08 (lowered from 0.25 so a smaller, normal hand wave triggers it)
+      if (deltaTime < 400 && Math.abs(deltaX) > 0.08) {
+        
+        // If your camera mirroring makes it flip backwards, swap 'next' and 'prev' here
+        if (deltaX > 0) {
+          console.log("Triggering: Previous Page");
+          movePage('prev');
+        } else {
+          console.log("Triggering: Next Page");
+          movePage('next');
+        }
+        
+        // Reset tracking anchor after a successful detection step
+        lastX = null;
+        return;
+      }
+    }
+
+    lastX = currentX;
+    lastTime = currentTime;
+  } else {
+    if (!cooldown) statusBadge.innerText = "Wave Hand to Turn";
+  }
+}
+
+// Initialize MediaPipe Hands object
+const hands = new Hands({
+  locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+});
+
+hands.setOptions({
+  maxNumHands: 1,
+  modelComplexity: 0, // Lowered complexity to 0 for raw speed/performance on mobile browsers
+  minDetectionConfidence: 0.4,
+  minTrackingConfidence: 0.4
+});
+hands.onResults(onResults);
+
+const camera = new Camera(videoElement, {
+  onFrame: async () => {
+    await hands.send({image: videoElement});
+  },
+  width: 480,
+  height: 480
+});
+
+camera.start()
+  .then(() => statusBadge.innerText = "Wave Hand to Turn")
+  .catch(err => statusBadge.innerText = "Camera Access Denied");
+  </script>
+</body>
+</html>

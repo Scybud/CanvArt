@@ -26,8 +26,8 @@
     );
     
     background-size: cover;
-    background-position: center;
-    
+background-position: center;    
+
     border-bottom: 1px solid var(--border);
     
     overflow: hidden;

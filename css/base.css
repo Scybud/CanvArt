@@ -27,16 +27,14 @@ body {
   width: 100%;
   height: 100vh;
   max-height: 100dvh;
-  color: var(--text-primary);
 }
 
 /*Smooth text rendering*/
 body {
-  color: #fff;
-  background: var(--bg);
+  color: var(--text-primary);
+  background: var(--bg-primary);
   -webkit-font-smoothing: antialiased;
   font-family: var(--font-poppins);  
-  background: var(--bg);
   -moz-osx-font-smoothing: grayscale;
 }
 .main-content {

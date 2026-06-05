@@ -1,17 +1,18 @@
 import { fetchArtistProfile } from "./data/artists.js";
 import { fetchArtworksByUserId } from "./data/artworks.js";
 import { toastMsg } from "./components/toast.js";
-import { createArtworkCard, magnifyImg } from "./components/artworkCard.js";
+import { createArtworkCard } from "./components/artworkCard.js";
 import { uploadArtwork } from "./create/uploadArtwork.js";
 import { fetchCollectionsByUserId } from "./data/collections.js";
 import { createCollectionCard } from "./components/collectionCard.js";
-import { createEmptyState } from "./components/emptyState.js";
 import { sessionReady, sessionState } from "./session.js";
 import { createCollection } from "./create/createCollection.js";
 import {
   loadComponent,
   closeModal,
-} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+  createEmptyState,
+  magnifyImg
+} from "https://scybud.github.io/scybud-ui/js/ui.js";
 import { updateProfile } from "./edit/editProfile.js";
 
 let profile = null;

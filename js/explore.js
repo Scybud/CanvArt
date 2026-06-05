@@ -1,7 +1,7 @@
 import {
   loadComponent,
-  closeModal,
-} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+  closeModal
+} from "https://scybud.github.io/scybud-ui/js/ui.js";
 import { sessionReady, sessionState } from "./session.js";
 import { uploadArtwork } from "./create/uploadArtwork.js";
 import { fetchAllArtworks } from "./data/artworks.js";
@@ -35,7 +35,7 @@ async function initExplore() {
         "https://joincanvart.vercel.app/components/modals/artists-list",
         "modalContainer",
       );
-  
+
       await renderFeaturedArtistsList();
     });
   }
@@ -44,7 +44,6 @@ async function initExplore() {
 }
 
 async function handleArtworkUpload() {
-
   const uploadArtworkBtns = document.querySelectorAll(".upload-artwork");
   if (uploadArtworkBtns) {
     uploadArtworkBtns.forEach(async (btn) => {
@@ -80,14 +79,13 @@ async function renderTrendingCollections() {
 
   const collections = await fetchAllCollections();
 
-    if (!collections || collections.length === 0) {
-      container.innerHTML = "<p>No trending collections this week.</p>";
-      return;
-    }
+  if (!collections || collections.length === 0) {
+    container.innerHTML = "<p>No trending collections this week.</p>";
+    return;
+  }
 
-    await createCollectionCard(container, collections)
+  await createCollectionCard(container, collections);
 }
-
 
 async function renderFeaturedArtists() {
   const container = document.getElementById("featuredArtists");

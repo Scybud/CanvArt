@@ -4,8 +4,8 @@ import { initShareButton } from "../utils/shareItem.js";
 import {
   loadComponent,
   closeModal,
-} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
-
+  magnifyImg,
+} from "https://scybud.github.io/scybud-ui/js/ui.js";
 
 export async function createArtworkCard(container, artworks, user) {
   for(const artwork of artworks) {
@@ -276,41 +276,4 @@ if (deleteArtwork) {
 
   };
 
-}
-
-export function magnifyImg(img) {
-  img.addEventListener("click", () => {
-    const rect = img.getBoundingClientRect();
-
-    const overlay = document.createElement("div");
-    overlay.classList.add("magnified-img-container");
-
-    const clone = img.cloneNode(true);
-    clone.classList.add("magnified-image");
-
-    // start position = exact current render
-    clone.style.position = "fixed";
-    clone.style.left = `${rect.left}px`;
-    clone.style.top = `${rect.top}px`;
-    clone.style.width = `${rect.width}px`;
-    clone.style.height = `${rect.height}px`;
-
-    overlay.appendChild(clone);
-    document.body.appendChild(overlay);
-
-    // force layout
-    clone.getBoundingClientRect();
-
-    // animate via class (NOT manual transform math)
-    requestAnimationFrame(() => {
-      clone.classList.add("open");
-    });
-
-    // close
-    overlay.addEventListener("click", () => {
-      clone.classList.remove("open");
-
-      setTimeout(() => overlay.remove(), 300);
-    });
-  });
 }
