@@ -2,9 +2,13 @@ import { supabase } from "./supabase.js";
 import { initShareButton } from "./utils/shareItem.js";
 import { handleArtworkLike } from "./utils/button.js";
 import { toastMsg } from "./components/toast.js";
-import { magnifyImg } from "https://scybud.github.io/scybud-ui/js/ui.js";
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
 import { sessionReady, sessionState } from "./session.js";
+import { handleContentDelete, handleContentReport } from "./create/contentActions.js";
+import {
+  loadComponent,
+  magnifyImg,
+} from "https://scybud.github.io/scybud-ui/js/ui.js";
 
 function getArtworkId() {
   const url = new URL(window.location.href);
@@ -67,17 +71,9 @@ function getArtworkId() {
 </svg>Delete`;
     reportOrDeleteBtn.classList.add("danger");
 
-    reportOrDeleteBtn.addEventListener("click", async () => {
-      const { error } = await supabase
-        .from("artworks")
-        .delete()
-        .eq("id", artwork.id);
+            await handleContentDelete(artwork.id, "artworks", reportOrDeleteBtn, "Are you sure you want to delete this artwork?");
 
-      if (!error) {
-        await toastMsg("Artwork deleted", "success");
-        history.back();
-      }
-    });
+   
   } else {
     reportOrDeleteBtn.innerHTML = `<svg
   width="20"
@@ -123,9 +119,18 @@ function getArtworkId() {
   />
 </svg> Report`;
 
-    reportOrDeleteBtn.addEventListener("click", () => {
-      toastMsg("Reported. Our team will review it.", "success");
-    });
+    reportOrDeleteBtn.addEventListener("click", async () => {
+await loadComponent(
+          "../components/modals/report-content.html",
+          "modalContainer",
+        );
+        
+        await handleContentReport(artwork,
+          `https://joincanvart.vercel.app/artwork/${artwork?.id}`,
+          "contentUrl", "reporterUsername", "reasonForReport", "reportDetails", "reportContentBtn"
+        );
+      });
+
   }
 
   // Populate UI

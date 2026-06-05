@@ -41,7 +41,9 @@ select {
   transition: 0.3s;
   font-family: inherit;
 }
-
+option {
+  background: var(--input-bg);
+}
 .textArea {
   min-height: 150px;
   max-width: 100%;
