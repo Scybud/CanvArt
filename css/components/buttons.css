@@ -261,3 +261,18 @@ backdrop-filter: var(--filter) brightness(10%);
   color: var(--text-primary);
   border-color: var(--border-strong);
 }
+
+.engagementContainer {
+  display: flex;
+  align-items: center;
+}
+.likeIcon svg {
+  fill: transparent;
+  stroke: currentColor;
+  transition: fill 0.2s ease, stroke 0.2s ease;
+}
+
+.likeIcon.liked svg {
+  fill: #e11d48;
+  stroke: #e11d48;
+}

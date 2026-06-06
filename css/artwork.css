@@ -265,7 +265,11 @@ text-align: center;
 
   line-height: 1.6;
 }
-
+.engagementContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* =========================
    RESPONSIVE
 ========================= */

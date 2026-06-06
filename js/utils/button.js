@@ -54,7 +54,6 @@ export function handleArtworkLike({ likeBtn, artworkId, likeCount, likeIcon }) {
         "https://joincanvart.vercel.app/components/modals/request-auth",
         "modalContainer",
       );
-
       return;
     }
 
@@ -68,7 +67,8 @@ export function handleArtworkLike({ likeBtn, artworkId, likeCount, likeIcon }) {
     if (existing) {
       await supabase.from("artwork_likes").delete().eq("id", existing.id);
 
-      likeIcon.textContent = "♡";
+      // Remove the liked class for the SVG outline state
+      likeIcon.classList.remove("liked");
       likeCount.textContent = parseInt(likeCount.textContent) - 1;
     } else {
       await supabase.from("artwork_likes").insert({
@@ -76,7 +76,8 @@ export function handleArtworkLike({ likeBtn, artworkId, likeCount, likeIcon }) {
         artwork_id: artworkId,
       });
 
-      likeIcon.textContent = "♥";
+      // Add the liked class to trigger the filled SVG state
+      likeIcon.classList.add("liked");
       likeCount.textContent = parseInt(likeCount.textContent) + 1;
     }
   });
