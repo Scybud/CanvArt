@@ -187,7 +187,7 @@ export async function updateProfile(
         return;
       }
 
-      toastMsg("Profile updated successfully!", "success");
+      toastMsg("Profile updated successfully! It might take a few minutes to reflect.", "success");
 
       closeModal();
     } catch (err) {
