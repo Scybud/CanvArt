@@ -126,6 +126,7 @@ hr {
 
 
 .modal-container, .magnified-img-container {
+    background: rgba(0, 0, 0, 0.737);
     backdrop-filter: var(--filter) brightness(60%);
     position: fixed;
     top: 0;
