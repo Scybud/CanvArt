@@ -65,3 +65,49 @@ option {
   opacity: 0.7;
   cursor: not-allowed;
 }
+
+.add-to-collection-modal {
+  padding: 20px;
+}
+
+.modal-subtitle {
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+
+.artwork-carousel {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 10px 0;
+}
+
+.carousel-item {
+  min-width: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  scroll-snap-align: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.carousel-item:hover {
+  transform: translateY(-4px);
+}
+
+.carousel-item.selected {
+  border-color: var(--accent-blue);
+}
+
+.carousel-image {
+  width: 100%;
+  object-fit: cover;
+}
+.carousel-label {
+  text-align: center;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}

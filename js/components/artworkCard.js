@@ -1,3 +1,4 @@
+import { initAddToCollectionModal } from "../create/addToCollection.js";
 import {
   handleContentDelete,
   handleContentReport,
@@ -42,6 +43,7 @@ export async function createArtworkCard(container, artworks, user) {
 View
 </a>
 
+
     <a class="btn" href="/profile/${artwork.profiles.username}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
      stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M12 3c-4.4 0-8 2.9-8 7s3.6 7 8 7c1.2 0 2-.8 2-1.8 0-.9-.7-1.7-1.6-1.9 2.7-.2 4.6-2.2 4.6-4.3 0-3.1-2.6-5-5-5z"/>
@@ -49,6 +51,17 @@ View
   <circle cx="12" cy="8" r="0.8" fill="currentColor"/>
   <circle cx="14" cy="11" r="0.8" fill="currentColor"/>
 </svg> Artist</a>
+
+${
+  user?.id === artwork?.user_id ? `<button class="btn addToCollectionBtn">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 8v8M8 12h8"/>
+  </svg>
+  Add to Collection
+</button>
+` : ""
+}
 
 ${
   user?.id !== artwork?.user_id
@@ -227,6 +240,18 @@ ${
       "Found an amazing masterpiece on CanvArt",
       `/artwork/${artwork?.id}`,
     );
+
+    const addToCollectionBtn = artworkItem.querySelector(".addToCollectionBtn");
+    if(addToCollectionBtn) {
+      addToCollectionBtn.addEventListener("click", async () => {
+        await loadComponent(
+          "../components/modals/create/add-to-collection.html",
+          "modalContainer",
+        );
+
+        await initAddToCollectionModal(artwork?.id);
+    });
+  }
 
     const reportBtn = artworkItem.querySelector(".reportArtwork");
     if (reportBtn) {
