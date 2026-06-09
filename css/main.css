@@ -211,16 +211,23 @@ gap: var(--space-sm);
 .userAvatar:hover {
     transform: rotate(360deg);
 }
+
+span#sidebarName.sidebarName,
+.sidebarUsername {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 span#sidebarName.sidebarName {
-    font-size: clamp(0.8rem, 1.4vw, 1rem);
+    font-size: clamp(0.8rem, 1.4vw, 0.9rem);
     margin-bottom: 0;
-    display: block;
+margin-right: var(--space-md);
 }
 .sidebarUsername {
         font-size: clamp(0.8rem, 1vw, 0.9rem);
         margin-top: 0;
-            display: block;
-cursor: pointer;
+        cursor: pointer;
 }
 .logoutBtn {
     position: sticky;
