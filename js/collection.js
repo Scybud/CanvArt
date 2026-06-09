@@ -39,10 +39,7 @@ function renderCollection(collection) {
     collection.thumbnail_url || "../assets/images/default-avatar.png";
 }
 
-async function showArtworks(collectionId) {
-  await sessionReady;
-  
-  const user = await sessionState.user;
+async function showArtworks(collectionId, user) {
 
   const content = document.getElementById("collectionContent");
 
@@ -100,6 +97,10 @@ async function handleArtworkUploadToCollection(addToCollectionArtworkBtn, collec
 }
 
 async function initCollection() {
+    await sessionReady;
+
+   const user = await sessionState.user;
+
   const collectionId = getCollectionId();
 
   if (!collectionId) {
@@ -116,7 +117,13 @@ async function initCollection() {
 
   renderCollection(collection);
 
-  await showArtworks(collectionId);
+  await showArtworks(collectionId, user);
+  
+  if(collection.user_id !== user?.id) {
+    const addArtworkBtn = document.getElementById("addArtworkBtn");
+
+    if(addArtworkBtn)  addArtworkBtn.remove();
+    }
   
 }
 
