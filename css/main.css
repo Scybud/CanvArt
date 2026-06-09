@@ -185,9 +185,10 @@ padding: var(--space-lg) 0;
 
 .sidebarBottom {
     overflow: hidden;
+position: relative;
 
     margin: auto var(--space-md) var(--space-md);
-    padding: var(--space-sm);
+    padding: var(--space-sm) var(--space-sm) 0;
     border-radius: var(--radius-md);
     background: var(--surface-secondary);
 
@@ -222,8 +223,11 @@ span#sidebarName.sidebarName {
 cursor: pointer;
 }
 .logoutBtn {
+    position: sticky;
+    right: 0;
     background: none;
     border: none;
+        background: var(--surface-secondary);
     color: var(--text-primary);
     cursor: pointer;
 }
