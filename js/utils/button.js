@@ -71,14 +71,16 @@ export function handleArtworkLike({ likeBtn, artworkId, likeCount, likeIcon }) {
       likeIcon.classList.remove("liked");
       likeCount.textContent = parseInt(likeCount.textContent) - 1;
     } else {
+      // Add the liked class to trigger the filled SVG state
+      likeIcon.classList.add("liked");
+      likeCount.textContent = parseInt(likeCount.textContent) + 1;
+
+      
       await supabase.from("artwork_likes").insert({
         user_id: user.id,
         artwork_id: artworkId,
       });
 
-      // Add the liked class to trigger the filled SVG state
-      likeIcon.classList.add("liked");
-      likeCount.textContent = parseInt(likeCount.textContent) + 1;
     }
   });
 }
