@@ -81,8 +81,6 @@ export function attachSignoutEvents() {
     const btn = e.target.closest("#logoutBtn");
 
     if (btn) {
-      if (!confirm("Are you sure you want to logout?")) return;
-
       signout();
     }
   });
