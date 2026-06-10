@@ -1,9 +1,16 @@
-.collections-grid {
-display: grid;
-gap: var(--space-sm);
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
 
+.collections-grid {
+    column-count: 4;
+    padding-bottom: var(--space-lg);
+    margin-top: var(--space-md);
+}
+/* Responsive */
+@media (max-width: 1200px) {
+  .collections-grid { column-count: 3; }
+}
+@media (max-width: 1000px) {
+  .collections-grid { column-count: 2; }
+}
 .collectionItem {
     border: 4px solid var(--border);
   margin-bottom: 1.5rem;
@@ -17,7 +24,9 @@ flex: 0 0 auto;
   border-radius: var(--radius-md);
 }
 .collectionItem:hover {
+  text-decoration: none;
   color: var(--text-primary);
+  background: var(--surface-secondary);
 }
 .collectionThumbnail {
   width: 100%;

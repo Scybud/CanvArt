@@ -10,6 +10,7 @@ import {
   closeModal,
   magnifyImg,
 } from "https://scybud.github.io/scybud-ui/js/ui.js";
+import {linkify} from "../utils/linkify.js"
 
 export async function createArtworkCard(container, artworks, user) {
   for (const artwork of artworks) {
@@ -178,7 +179,7 @@ ${
     artworkContent.appendChild(title);
 
     const description = document.createElement("p");
-    description.textContent = artwork.description;
+    description.innerHTML = linkify(artwork.description);
     artworkContent.appendChild(description);
 
     artworkItem.appendChild(artworkContent);

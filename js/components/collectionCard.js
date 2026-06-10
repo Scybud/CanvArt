@@ -1,3 +1,5 @@
+import { linkify } from "../utils/linkify.js";
+
 export function createCollectionCard(container, collections) {
   collections.forEach((collection) => {
     const collectionItem = document.createElement("a");
@@ -99,9 +101,7 @@ export function createCollectionCard(container, collections) {
     // Description
     const description =
       document.createElement("p");
-
-    description.textContent =
-      collection.description || "";
+description.innerHTML = linkify(collection.description);
 
     collectionContent.appendChild(description);
 
