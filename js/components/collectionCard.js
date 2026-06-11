@@ -1,6 +1,10 @@
 import { linkify } from "../utils/linkify.js";
 
 export function createCollectionCard(container, collections) {
+
+  container.innerHTML = "";
+
+  
   collections.forEach((collection) => {
     const collectionItem = document.createElement("a");
     collectionItem.href = `https://joincanvart.vercel.app/collection/${collection.id}`;
@@ -101,7 +105,8 @@ export function createCollectionCard(container, collections) {
     // Description
     const description =
       document.createElement("p");
-description.innerHTML = linkify(collection.description);
+      const descriptionText = linkify(collection.description);
+description.innerHTML = descriptionText?.slice(0, 40) + "..."
 
     collectionContent.appendChild(description);
 

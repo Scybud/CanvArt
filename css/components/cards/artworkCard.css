@@ -16,10 +16,13 @@
   background: #111;
   border-radius: 12px;
   overflow: hidden;
-
+transition: background var(--transition-fast);
   padding: 0;
   gap: 0;
   border-radius: var(--radius-md);
+}
+.artworkItem:hover {
+  background: var(--bg-secondary);
 }
 .imgContainer {
   position: relative;

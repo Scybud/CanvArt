@@ -1,4 +1,7 @@
 export function createArtistCard(container, artists) {
+
+  container.innerHTML = "";
+
   artists.forEach((artist) => {
     const artistItem = document.createElement("a");
     artistItem.href = `/profile/${artist.username}`;
