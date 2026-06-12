@@ -250,3 +250,12 @@ img {
     border-radius: var(--radius-md);
 corner-shape: round;
 }
+
+.sidebarLegalLinks {
+    position: absolute;
+    bottom: var(--space-xs);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
