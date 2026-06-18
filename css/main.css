@@ -73,6 +73,10 @@ img.logo-img {
     display: grid;
     grid-template-columns: minmax(200px, 500px);
 }
+.collections-hero {
+    background: url("../assets/images/collection-hero-img.jpg");
+ 
+}
 .hero-title {
     font-size: calc(var(--text-4xl) * 2);
     line-height: 0.8;
