@@ -276,3 +276,11 @@ backdrop-filter: var(--filter) brightness(10%);
   fill: #e11d48;
   stroke: #e11d48;
 }
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+button:disabled:active {
+    transform: scale(1);
+}

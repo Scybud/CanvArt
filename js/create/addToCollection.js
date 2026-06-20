@@ -27,6 +27,8 @@ export async function initAddToCollectionModal(artworkId) {
   }
 
   if(collections.length === 0) {
+    confirmBtn.disabled = true;
+    
     await createEmptyState({
           container: carousel,
           icon: "📒",
