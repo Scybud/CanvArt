@@ -3,8 +3,10 @@ import { sessionState } from "../session.js";
 import {
   loadComponent,
   closeModal,
-} from "https://scybud.github.io/scybud-ui/js/utils/modal.js";
+  createEmptyState,
+} from "https://scybud.github.io/scybud-ui/js/ui.js";
 import { toastMsg } from "../components/toast.js";
+import { createCollection } from "./createCollection.js";
 
 let selectedCollectionId = null;
 
@@ -24,6 +26,32 @@ export async function initAddToCollectionModal(artworkId) {
     return;
   }
 
+  if(collections.length === 0) {
+    await createEmptyState({
+          container: carousel,
+          icon: "📒",
+          title: "Nothing here yet",
+          description: "You have no collections yet",
+          actionText: "Create Collection",
+          onAction: async () => {
+                // Open modal
+                await loadComponent(
+                  "https://joincanvart.vercel.app/components/modals/create/create-collection",
+                  "modalContainer",
+                );
+                // Wire up the createCollection behavior for that modal
+                await createCollection(
+                  "collectionThumbnailInput",
+                  "imagePreview",
+                  "collectionName",
+                  "collectionDescription",
+                  "createCollectionBtn",
+                );
+              },
+        });
+    
+        return;
+  }
   // 2. Render collections into carousel
   collections.forEach((coll) => {
     const item = document.createElement("div");
