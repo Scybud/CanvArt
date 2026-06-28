@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BeatMaker | CanvArt</title>
+
+    <!--SCYBUD UI-->
+    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/css/variables.css" />
+    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/css/layout.css" />
+    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/css/typography.css" />
+    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/css/animations.css" />
+
+    <!--APP SPECIFIC CSS-->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/components/buttons.css" />
+
+    <!--BEATMAKER CSS-->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!--ICONS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+
+    <!--FAVICONS-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicons/favicon-16x16.png" />
+  </head>
+  <body>
+
+    <main class="main">
+      <article id="mainContent" class="main-content bm-no-sidebar">
+
+        <div class="bm-page">
+
+          <!-- PAGE HEADER -->
+          <header class="bm-header">
+            <div class="bm-header-left">
+              <div class="bm-logo-icon">
+                <i class="ti ti-wand" aria-hidden="true"></i>
+              </div>
+              <div>
+                <h1 class="bm-title">BeatMaker</h1>
+                <p class="bm-subtitle">Generate beats with AI</p>
+              </div>
+            </div>
+            <span class="bm-badge">Beta</span>
+          </header>
+
+          <div class="bm-layout">
+
+            <!-- LEFT: GENERATOR -->
+            <section class="bm-generator" aria-label="Beat generator">
+
+              <!-- PROMPT -->
+              <div class="bm-field">
+                <label class="bm-label" for="bm-prompt">Describe your beat</label>
+                <textarea
+                  id="bm-prompt"
+                  class="bm-textarea"
+                  placeholder="dark trap beat, 140 BPM, heavy 808s, rolling hi-hats..."
+                  rows="3"
+                ></textarea>
+              </div>
+
+              <!-- QUICK TAGS -->
+              <div class="bm-tags" role="list" aria-label="Genre presets">
+                <button class="bm-tag" role="listitem" data-prompt="lo-fi hip hop, 85 BPM, jazzy chords, vinyl crackle">lo-fi</button>
+                <button class="bm-tag" role="listitem" data-prompt="dark trap beat, 140 BPM, heavy 808s, rolling hi-hats">trap</button>
+                <button class="bm-tag" role="listitem" data-prompt="afrobeats, 112 BPM, percussive groove, warm bass">afrobeats</button>
+                <button class="bm-tag" role="listitem" data-prompt="boom bap, 90 BPM, punchy snare, jazz sample chops">boom bap</button>
+                <button class="bm-tag" role="listitem" data-prompt="ambient cinematic, slow, atmospheric pads, deep bass swells">ambient</button>
+                <button class="bm-tag" role="listitem" data-prompt="drill beat, 140 BPM, sliding 808s, dark melody">drill</button>
+              </div>
+
+              <!-- MODEL + GENERATE -->
+              <div class="bm-controls">
+                <div class="bm-field bm-field-inline">
+                  <label class="bm-label" for="bm-model">Model</label>
+                  <select id="bm-model" class="bm-select">
+                    <option value="small">musicgen-small — fast</option>
+                    <option value="medium" selected>musicgen-medium — balanced</option>
+                    <option value="large">musicgen-large — best quality</option>
+                  </select>
+                </div>
+                <button id="bm-generate-btn" class="bm-generate-btn">
+                  <i class="ti ti-wand" aria-hidden="true"></i>
+                  Generate beat
+                </button>
+              </div>
+
+              <!-- STATUS -->
+              <div class="bm-status" id="bm-status" aria-live="polite"></div>
+
+            </section>
+
+            <!-- RIGHT: PLAYER + HISTORY -->
+            <aside class="bm-right" aria-label="Player and history">
+
+              <!-- PLAYER -->
+              <div class="bm-player" id="bm-player" aria-label="Beat player">
+                <div class="bm-player-empty" id="bm-player-empty">
+                  <i class="ti ti-music-off" aria-hidden="true"></i>
+                  <p>Your beat will appear here</p>
+                </div>
+
+                <div class="bm-player-loaded" id="bm-player-loaded" style="display:none;">
+                  <div class="bm-player-top">
+                    <div class="bm-player-icon">
+                      <i class="ti ti-music" aria-hidden="true"></i>
+                    </div>
+                    <div class="bm-player-info">
+                      <p class="bm-player-name" id="bm-player-name">—</p>
+                      <p class="bm-player-meta" id="bm-player-meta">musicgen-medium</p>
+                    </div>
+                  </div>
+
+                  <div class="bm-timeline-wrap">
+                    <span class="bm-time" id="bm-current">0:00</span>
+                    <input type="range" class="bm-timeline" id="bm-timeline" min="0" max="100" value="0" step="0.1" aria-label="Seek" />
+                    <span class="bm-time" id="bm-duration">0:00</span>
+                  </div>
+
+                  <div class="bm-player-actions">
+                    <button class="bm-play-btn" id="bm-play-btn" aria-label="Play beat">
+                      <i class="ti ti-player-play" id="bm-play-icon" aria-hidden="true"></i>
+                    </button>
+                    <button class="bm-action-btn" id="bm-dl-btn" aria-label="Download beat">
+                      <i class="ti ti-download" aria-hidden="true"></i>
+                      Download
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- HISTORY -->
+              <div class="bm-history">
+                <p class="bm-history-label">Recent beats</p>
+                <ul class="bm-history-list" id="bm-history-list">
+                  <li class="bm-history-empty">No beats generated yet</li>
+                </ul>
+              </div>
+
+            </aside>
+          </div>
+
+        </div>
+
+        <audio id="bm-audio"></audio>
+
+      </article>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
