@@ -1,11 +1,20 @@
 export default async function handler(req, res) {
   try {
-    const { prompt, model, token } = req.body;
+    // Read raw body
+    const buffers = [];
+    for await (const chunk of req) {
+      buffers.push(chunk);
+    }
+    const rawBody = Buffer.concat(buffers).toString();
+
+    // Parse JSON
+    const { prompt, model, token } = JSON.parse(rawBody || "{}");
 
     if (!prompt || !model || !token) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
+    // Call HuggingFace
     const hfResponse = await fetch(
       `https://api-inference.huggingface.co/models/${model}`,
       {
