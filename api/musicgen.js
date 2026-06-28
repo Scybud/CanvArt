@@ -13,17 +13,20 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const hfResponse = await fetch(
-      `https://api-inference.huggingface.co/models/${model}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ inputs: prompt }),
-      },
-    );
+const hfResponse = await fetch(
+  "https://api-inference.huggingface.co/models/facebook/musicgen-small",
+  {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      inputs: prompt,
+    }),
+  },
+);
+
 
     if (!hfResponse.ok) {
       const errText = await hfResponse.text();
