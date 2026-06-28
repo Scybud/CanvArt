@@ -1,20 +1,18 @@
+export const config = {
+  api: {
+    bodyParser: true, // ⭐ REQUIRED for static Vercel projects
+  },
+};
+
 export default async function handler(req, res) {
   try {
-    // Read raw body
-    const buffers = [];
-    for await (const chunk of req) {
-      buffers.push(chunk);
-    }
-    const rawBody = Buffer.concat(buffers).toString();
-
-    // Parse JSON
-    const { prompt, model, token } = JSON.parse(rawBody || "{}");
+    // ⭐ Now req.body works
+    const { prompt, model, token } = req.body || {};
 
     if (!prompt || !model || !token) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    // Call HuggingFace
     const hfResponse = await fetch(
       `https://api-inference.huggingface.co/models/${model}`,
       {
