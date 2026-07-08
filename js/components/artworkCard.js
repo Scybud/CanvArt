@@ -237,9 +237,10 @@ ${
     // Initialize Share Functionality
     initShareButton(
       shareBtn,
-      "Check out this artwork",
+      "Check out this masterpiece on Canvart",
       "Found an amazing masterpiece on CanvArt",
       `/artwork/${artwork?.id}`,
+      artwork.artwork_url
     );
 
     const addToCollectionBtn = artworkItem.querySelector(".addToCollectionBtn");
