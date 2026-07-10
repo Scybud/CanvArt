@@ -8,6 +8,7 @@ import {
 import { addArtworkToCollection } from "./create/uploadArtwork.js";
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
 import { sessionReady, sessionState } from "./session.js";
+import { updateCollection } from "./edit/editCollection.js";
 
 let collection = null;
 
@@ -96,6 +97,33 @@ async function handleArtworkUploadToCollection(addToCollectionArtworkBtn, collec
   });
 }
 
+
+async function handleCollectionEdit() {
+  const editCollectionBtn = document.getElementById("collectionEdit");
+  if (editCollectionBtn) {
+      editCollectionBtn.addEventListener("click", async () => {
+        if (!sessionState.user) {
+          window.location.href = "/"
+
+          return;
+        }
+        await loadComponent(
+          "https://joincanvart.vercel.app/components/modals/edit/edit-collection.html",
+          "modalContainer",
+        );
+        await updateCollection(
+          collection.id,
+          "collectionThumbnailInput",
+          "imagePreview",
+          "collectionName",
+          "collectionDescription",
+          "EditCollectionBtn",
+        );
+      });
+  }
+}
+
+
 async function initCollection() {
     await sessionReady;
 
@@ -121,10 +149,13 @@ async function initCollection() {
   
   if(collection.user_id !== user?.id) {
     const addArtworkBtn = document.getElementById("addArtworkBtn");
+  const editCollectionBtn = document.getElementById("collectionEdit");
 
     if(addArtworkBtn)  addArtworkBtn.remove();
+    if(editCollectionBtn) editCollectionBtn.remove();
     }
   
+    await handleCollectionEdit();
 }
 
 document.addEventListener("DOMContentLoaded", initCollection);

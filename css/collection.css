@@ -33,6 +33,17 @@ background-position: center;
     overflow: hidden;
   }
   
+  .editBtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: var(--surface-primary);
+}
+.editBtn:hover {
+  background: var(--surface-primary);
+  opacity: 0.8;
+}
+
   /* =========================
   COLLECTION INFO
   ========================= */
