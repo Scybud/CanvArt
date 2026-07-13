@@ -1,0 +1,228 @@
+/* ==========================================================================
+   GALLERY PAGE
+   Community space: trending collections, featured artists, artwork feed.
+   Signature thread: the coral accent ring already used on featured-artist
+   avatars now marks "spotlighted" content consistently across the page —
+   featured artists, trending collections, and liked artwork.
+   ========================================================================== */
+
+.upper-content {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+@media (max-width: 1400px) {
+  .upper-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .upper-content .verticalDivider {
+    display: none;
+  }
+}
+
+.upper-content .section {
+  background: var(--hover-bg);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.upper-content .section-header {
+  margin-bottom: var(--space-xs, 0.5rem);
+}
+
+/* ==========================================================================
+   ARTWORK MASONRY FEED
+   ========================================================================== */
+
+#gallery {
+  column-count: 4;
+  column-gap: var(--space-md);
+  padding-bottom: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+#gallery .card {
+  break-inside: avoid;
+  margin-bottom: var(--space-md);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#gallery .card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Liked state picks up the same coral thread used for featured content */
+#gallery .card .likeIcon.liked {
+  color: var(--accent-color, #ff7f50);
+}
+
+@media (max-width: 1200px) {
+  #gallery { column-count: 3; }
+}
+@media (max-width: 1000px) {
+  #gallery { column-count: 2; }
+}
+@media (max-width: 400px) {
+  #gallery { column-count: 1; }
+}
+
+/* ==========================================================================
+   TRENDING COLLECTIONS
+   Horizontal shelf. Collections get a coral top-accent on hover — same
+   "you're looking at something spotlighted" cue as featured artists.
+   ========================================================================== */
+
+#trendingCollections {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0.25rem var(--space-sm);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+height: 250px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#trendingCollections::-webkit-scrollbar {
+  display: none;
+}
+
+#trendingCollections .card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#trendingCollections .card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-color, #ff7f50);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+#trendingCollections .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+}
+
+#trendingCollections .card:hover::before {
+  transform: scaleX(1);
+}
+
+/* ==========================================================================
+   FEATURED ARTISTS
+   ========================================================================== */
+
+#featuredArtists {
+  display: flex;
+  justify-content: space-evenly;
+  gap: var(--space-sm);
+  padding: 0.5rem 0.25rem 1rem;
+  overflow-x: auto;
+  max-width: 100%;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#featuredArtists::-webkit-scrollbar {
+  display: none;
+}
+
+.featured-artist-card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.featured-artist-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-color, #ff7f50);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.featured-artist-card:hover .featured-artist-avatar,
+.featured-artist-card:focus-visible .featured-artist-avatar {
+  transform: scale(1.06);
+  box-shadow: 0 0 0 4px rgba(255, 127, 80, 0.25);
+}
+
+.featured-artist-name {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.featured-artist-username {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   ARTISTS LIST MODAL
+   ========================================================================== */
+
+.artists-list-body {
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.artist-row {
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.artist-row:hover,
+.artist-row:focus-visible {
+  background: var(--hover-bg);
+}
+
+.artist-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.artist-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-name {
+  font-weight: 600;
+}
+
+.artist-username {
+  opacity: 0.7;
+  font-size: 0.85rem;
+}
