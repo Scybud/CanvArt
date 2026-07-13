@@ -8,139 +8,75 @@
     <!--CSS LINKS-->
 
     <!--SCYBUD UI-->
-    <link
-      rel="stylesheet"
-      href="https://scybud.github.io/scybud-ui/css/variables.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://scybud.github.io/scybud-ui/css/layout.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://scybud.github.io/scybud-ui/components/sidebar/sidebar.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://scybud.github.io/scybud-ui/components/buttons/nav-buttons.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://scybud.github.io/scybud-ui/css/typography.css"
-    />
-<link
-      rel="stylesheet"
-      href="https://scybud.github.io/scybud-ui/css/animations.css"
-    />
+    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/css/variables.css" />
+    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/css/layout.css" />
+    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/components/sidebar/sidebar.css" />
+    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/components/buttons/nav-buttons.css" />
+    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/css/typography.css" />
+    <link rel="stylesheet" href="https://scybud.github.io/scybud-ui/css/animations.css" />
 
     <!--APP SPECIFIC CSS-->
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/components/cards/artworkCard.css">
-<link rel="stylesheet" href="css/components/forms.css">
-<link rel="stylesheet" href="css/components/buttons.css">
-<link rel="stylesheet" href="css/components/toast.css">
-<link rel="stylesheet" href="css/explore.css">
-<link rel="stylesheet" href="css/components/cards/collectionCard.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/toast.css">
+    <link rel="stylesheet" href="css/explore.css">
     <link rel="stylesheet" href="../css/components/emptyState.css" />
-
 
     <!--FAVICONS-->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicons/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 
-<style>
-.skeletonItem {
-overflow: hidden;
-  border-radius: var(--radius-md);
-}
+    <style>
+      .skeletonImg {
+        background: var(--hover-bg);
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
 
-/* FIXED: shimmer container must be relative */
-.skeletonImg {
-  background: var(--hover-bg);
-  width: 100%;
-  height: 300px;
-  padding: var(--space-xl);
-  position: relative;
-  overflow: hidden;
-}
+      .skeletonImg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        transform: translateX(-100%);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.15),
+          transparent
+        );
+        animation: shimer 1s ease infinite;
+      }
 
-/* SHIMMER EFFECT */
-.skeletonImg::after, .skeletonDesc::after, .skeletonTitle::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-md);
-  transform: translateX(-100%);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.15),
-    transparent
-  );
-  backdrop-filter: blur(30px);
-  box-shadow: 0 0 15px #0000001b;
-  animation: shimer 1s ease infinite;
-}
-
-@keyframes shimer {
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.skeletonTitle {
-    background: var(--hover-bg);
-    position: relative;
-    overflow: hidden;
-  margin: 0 calc(var(--space-xl) * 3) var(--space-md) 0;
-  padding: var(--space-md) var(--space-sm);
-}
-
-.skeletonDesc {
-    background: var(--hover-bg);
-    position: relative;
-    overflow: hidden;
-  margin-bottom: var(--space-sm);
-  padding: calc(var(--space-md) * 2) var(--space-sm);
-}
-
-
-</style>  
-</head>
+      @keyframes shimer {
+        100% {
+          transform: translateX(100%);
+        }
+      }
+    </style>
+  </head>
   <body>
-            <!--TOAST MESSAGES-->
-        <div id="toast"></div>
-
+    <!--TOAST MESSAGES-->
+    <div id="toast"></div>
 
     <!--SIDEBAR TOGGLE BUTTON-->
     <button class="toggle-sidebar" id="toggleSidebar">
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-      >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
         <line x1="4" y1="7" x2="20" y2="7" />
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </svg>
     </button>
 
-    <div id="modalContainer">
-    </div>
+    <div id="modalContainer"></div>
 
     <main class="main">
       <!--SIDEBAR-->
-      <aside class="sidebar" id="sidebar">
-        
-      </aside>
-
+      <aside class="sidebar" id="sidebar"></aside>
 
       <!--MAIN CONTENT-->
       <article id="mainContent" class="main-content">
@@ -148,124 +84,80 @@ overflow: hidden;
         <section class="hero">
           <!--HERO BANNER-->
           <div class="hero-banner">
-            <!--HERO BANNER LEFT-->
             <div class="hero-banner-left">
               <img src="assets/images/canvart-logo.png" alt="CanvArt Logo" class="logo-img" />
               <div class="flex-column">
                 <span class="banner-header">Feel The Art</span>
-                <p class="banner-text">Discover casual art from creators around the world.</p>
-                <p class="banner-text">Share your art. No pressure. Just create.</p>
+                <p class="banner-text">Discover art history from museums around the world.</p>
+                <p class="banner-text">Get inspired. Then make your own.</p>
               </div>
             </div>
 
-            <!--HERO BANNER RIGHT-->
             <div class="hero-banner-right">
               <a href="auth/login" class="btn-pill btn btn-no-bg">Login</a>
-                            <a href="auth/register" class="btn-pill btn">Register</a>
+              <a href="auth/register" class="btn-pill btn">Register</a>
             </div>
           </div>
 
           <!--HERO CONTENT-->
           <div class="hero-content">
             <div class="hero-content-inner">
-
               <span class="hero-title">
                 Where art comes to <span>life.</span>
               </span>
               <p class="hero-content-text">
-                Explore amaizing artworks from creators around the world and share your own.
+                Browse public-domain masterpieces from world-class museum collections.
               </p>
-              
+
               <div class="hero-actions">
-                <button type="button" class="btn upload-artwork btn-primary">
+                <a href="gallery" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
      stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
      <path d="M12 16V4" />
      <path d="M6 10l6-6 6 6" />
   <path d="M4 20h16" />
 </svg>
-Upload Your Art</button>
+                  Upload Your Art</a>
                 <a href="#mainContentInner" class="btn btn-no-bg">Discover Artworks</a>
               </div>
             </div>
           </div>
         </section>
 
-          <article class="main-content-inner" id="mainContentInner">
-            <!--UPPER CONTENT-->
-            <section class="upper-content">
-              <!--TRENDING COLLECTIONS-->
-              <div class="section">
-                <div class="section-header">
-                  <h2 class="section-title">Trending Collections</h2>
-                  <a href="collections" class="link">See all</a>
-                </div>
+        <article class="main-content-inner" id="mainContentInner">
+          <section class="section">
+            <div class="section-header">
+              <h2 class="section-title">Explore Artworks</h2>
+              <a href="gallery" class="link">See CanvArt Gallery</a>
+            </div>
 
-                <div class="collections-grid" id="trendingCollections">
-
-                  <!--SKELETON ITEM-->
-                  <div class="skeletonItem card">
-                      <div class="skeletonImg">
-                      </div>
-
-                      <div class="collectionContent">
-                      <div class="skeletonTitle"></div>
-                      <div class="skeletonDesc"></div>
-                    </div>
-                  </div>
-
-                   <div class="skeletonItem card">
-                      <div class="skeletonImg">
-                      </div>
-
-                      <div class="collectionContent">
-                      <div class="skeletonTitle"></div>
-                      <div class="skeletonDesc"></div>
-                    </div>
-                  </div>
-
-                   <div class="skeletonItem card">
-                      <div class="skeletonImg">
-                      </div>
-
-                      <div class="collectionContent">
-                      <div class="skeletonTitle"></div>
-                      <div class="skeletonDesc"></div>
-                    </div>
-                  </div>
-                  
-                  <!--SKELETON ITEM ENDS-->
-                </div>
+            <div id="discoverArt">
+              <!--SKELETON ITEM-->
+              <div class="discoverSkeleton">
+                <div class="skeletonImg"></div>
               </div>
-
-              <hr class="verticalDivider">
-<!--FEATURED ARTISTS-->
-<div class="section">
-<div class="section-header">
-                  <h2 class="section-title">Featured Artists</h2>
-                  <button type="button" id="showArtistsListModal" class="link">See all</button>
-                </div>
-
-                <div  id="featuredArtists">
-
-                </div>
-</div>
-            </section>
-
-            <section class="section">
-<div class="section-header">
-                  <h2 class="section-title">Explore Artworks</h2>
-                  <a href="collections" class="link">Collections</a>
-                </div>
-
-              <div class="exlpore" id="explore">
-
+              <div class="discoverSkeleton">
+                <div class="skeletonImg"></div>
               </div>
-            </section>
-          </article>
+              <div class="discoverSkeleton">
+                <div class="skeletonImg"></div>
+              </div>
+              <div class="discoverSkeleton">
+                <div class="skeletonImg"></div>
+              </div>
+              <div class="discoverSkeleton">
+                <div class="skeletonImg"></div>
+              </div>
+              <div class="discoverSkeleton">
+                <div class="skeletonImg"></div>
+              </div>
+              <!--SKELETON ITEM ENDS-->
+            </div>
+          </section>
+        </article>
       </article>
     </main>
-   
+
     <!--JS-->
     <script type="module" src="js/app.js"></script>
     <script type="module" src="js/explore.js"></script>

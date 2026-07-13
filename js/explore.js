@@ -1,139 +1,125 @@
-import {
-  loadComponent,
-  closeModal
-} from "https://scybud.github.io/scybud-ui/js/ui.js";
-import { sessionReady, sessionState } from "./session.js";
-import { uploadArtwork } from "./create/uploadArtwork.js";
-import { fetchAllArtworks } from "./data/artworks.js";
-import { createArtworkCard } from "./components/artworkCard.js";
-import { fetchFeaturedArtists, fetchAllArtists } from "./data/artists.js"; // adjust path if needed
-import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
-import { fetchAllCollections } from "./data/collections.js";
-import { createCollectionCard } from "./components/collectionCard.js";
+import { fetchDiscoverArtworks } from "./data/discoverArt.js";
+import { createDiscoverCard } from "./components/discoverCard.js";
+
+const state = {
+  page: 0,
+  totalPages: Infinity,
+  loading: false,
+};
+
+let sentinel = null;
+let observer = null;
 
 async function initExplore() {
-  await sessionReady;
-  const user = sessionState.user;
+  await loadNextPage();
+  setupInfiniteScroll();
+}
 
-  await handleArtworkUpload();
+async function loadNextPage() {
+  const container = document.getElementById("discoverArt");
+  if (!container || state.loading || state.page >= state.totalPages) return;
 
-  const artworks = await fetchAllArtworks();
+  state.loading = true;
+  const nextPage = state.page + 1;
 
-  const artworksData = await enrichArtworksWithLikes(artworks, user?.id);
+  // First load: clear the static skeleton markup from the HTML.
+  if (state.page === 0) {
+    container.innerHTML = "";
+  } else {
+    showLoadingMore(container);
+  }
 
-  const exploreContainer = document.getElementById("explore");
-  await createArtworkCard(exploreContainer, artworksData, user);
+  try {
+    const { artworks, currentPage, totalPages } = await fetchDiscoverArtworks(
+      nextPage,
+      20,
+    );
 
-  await renderFeaturedArtists();
+    hideLoadingMore(container);
 
-  const showArtistsListModalBtn = document.getElementById(
-    "showArtistsListModal",
+    if (artworks.length === 0 && state.page === 0) {
+      container.innerHTML = "<p>No artworks to show right now.</p>";
+      return;
+    }
+
+    createDiscoverCard(container, artworks);
+
+    state.page = currentPage;
+    state.totalPages = totalPages;
+
+    if (state.page >= state.totalPages) {
+      showEndOfResults(container);
+      if (observer && sentinel) observer.unobserve(sentinel);
+    }
+  } catch (err) {
+    console.error("Discover art failed to load:", err);
+    hideLoadingMore(container);
+    if (state.page === 0) {
+      container.innerHTML =
+        "<p>Couldn't load artworks right now. Try refreshing.</p>";
+    } else {
+      showRetry(container);
+    }
+  } finally {
+    state.loading = false;
+  }
+}
+
+function setupInfiniteScroll() {
+  const anchor = document.getElementById("mainContentInner") || document.body;
+
+  sentinel = document.createElement("div");
+  sentinel.id = "discoverSentinel";
+  sentinel.style.height = "1px";
+  anchor.appendChild(sentinel);
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        loadNextPage();
+      }
+    },
+    { rootMargin: "100px" }, // start fetching before the user hits the true bottom
   );
-  if (showArtistsListModalBtn) {
-    showArtistsListModalBtn.addEventListener("click", async () => {
-      await loadComponent(
-        "https://joincanvart.vercel.app/components/modals/artists-list",
-        "modalContainer",
-      );
 
-      await renderFeaturedArtistsList();
-    });
-  }
-
-  await renderTrendingCollections();
+  observer.observe(sentinel);
 }
 
-async function handleArtworkUpload() {
-  const uploadArtworkBtns = document.querySelectorAll(".upload-artwork");
-  if (uploadArtworkBtns) {
-    uploadArtworkBtns.forEach(async (btn) => {
-      btn.addEventListener("click", async () => {
-        if (!sessionState.user) {
-          await loadComponent(
-            "https://joincanvart.vercel.app/components/modals/request-auth",
-            "modalContainer",
-          );
-
-          return;
-        }
-        await loadComponent(
-          "https://joincanvart.vercel.app/components/modals/create/upload-artwork",
-          "modalContainer",
-        );
-        await uploadArtwork(
-          "artworkInput",
-          "imagePreview",
-          "artworkTitle",
-          "artworkDescription",
-          "uploadArtworkBtn",
-        );
-      });
-    });
-  }
-}
-
-async function renderTrendingCollections() {
-  const container = document.getElementById("trendingCollections");
-
-  container.innerHTML = "";
-
-  const collections = await fetchAllCollections();
-
-  if (!collections || collections.length === 0) {
-    container.innerHTML = "<p>No trending collections this week.</p>";
+function showLoadingMore(container) {
+  let loader = document.getElementById("discoverLoadingMore");
+  if (loader) {
+    loader.hidden = false;
     return;
   }
-
-  await createCollectionCard(container, collections);
+  loader = document.createElement("div");
+  loader.id = "discoverLoadingMore";
+  loader.className = "discoverLoadingMore";
+  loader.textContent = "Loading more artworks…";
+  container.after(loader);
 }
 
-async function renderFeaturedArtists() {
-  const container = document.getElementById("featuredArtists");
-  container.innerHTML = ""; // clear
-
-  const artists = await fetchFeaturedArtists(4);
-
-  if (!artists || artists.length === 0) {
-    container.innerHTML = "<p>No featured artists this week.</p>";
-    return;
-  }
-
-  artists.forEach((artist) => {
-    const card = document.createElement("a");
-    card.href = `/profile/${artist.username}`;
-    card.className = "featured-artist-card";
-
-    card.innerHTML = `
-      <img src="${artist.avatar_url}" class="featured-artist-avatar" alt="${artist.username}">
-      <span class="featured-artist-name">${artist.name}</span>
-      <span class="featured-artist-username">@${artist.username}</span>
-    `;
-
-    container.appendChild(card);
-  });
+function hideLoadingMore() {
+  const loader = document.getElementById("discoverLoadingMore");
+  if (loader) loader.hidden = true;
 }
 
-async function renderFeaturedArtistsList() {
-  const container = document.getElementById("artistsListBody");
-  container.innerHTML = "";
+function showEndOfResults(container) {
+  const end = document.createElement("p");
+  end.className = "discoverEnd";
+  end.textContent = "You've reached the end of the collection.";
+  container.after(end);
+}
 
-  const artists = await fetchFeaturedArtists(10);
-
-  artists.forEach((artist) => {
-    const row = document.createElement("a");
-    row.href = `/profile/${artist.username}`;
-    row.className = "artist-row";
-
-    row.innerHTML = `
-      <img src="${artist.avatar_url}" class="artist-avatar" alt="${artist.username}">
-      <div class="artist-info">
-        <span class="artist-name">${artist.name}</span>
-        <span class="artist-username">@${artist.username}</span>
-      </div>
-    `;
-
-    container.appendChild(row);
+function showRetry(container) {
+  const retry = document.createElement("button");
+  retry.type = "button";
+  retry.className = "btn discoverRetry";
+  retry.textContent = "Couldn't load more — retry";
+  retry.addEventListener("click", () => {
+    retry.remove();
+    loadNextPage();
   });
+  container.after(retry);
 }
 
 initExplore();

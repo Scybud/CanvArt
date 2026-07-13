@@ -1,8 +1,8 @@
 
 .collections-grid {
+  overflow: hidden;
     column-count: 4;
     padding-bottom: var(--space-lg);
-    margin-top: var(--space-md);
 }
 /* Responsive */
 @media (max-width: 1200px) {
