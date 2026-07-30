@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Auth | LogHue</title>
+    <title>Auth | CanvArt</title>
 
     <!--CSS LINKS-->
 
@@ -46,13 +46,21 @@
     />
 
     <style>
+      html, body {
+        max-height: 100dvh;
+      }
       main {
+        margin: 0;
+        background: url("../assets/images/collection-hero-img.jpg");
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
       }
 
       .authGateway {
+        backdrop-filter: var(--filter) brightness(40%);
+        border-radius: var(--radius-md);
         max-width: 460px;
         width: 100%;
         margin: 0 auto;
@@ -94,7 +102,6 @@
           background 0.2s,
           border-color 0.2s;
 
-          opacity: 0.5;
           cursor: not-allowed;
       }
       .oauthBtn:hover {
@@ -120,7 +127,7 @@
       }
       .secondaryBtn {
         color: #fff;
-        background: var(--surface-primary);
+        background: var(--surface-secondary);
       }
       .primaryBtn,
       .secondaryBtn {
@@ -129,7 +136,7 @@
         padding: 0.75rem;
         border-radius: var(--radius-sm);
         cursor: pointer;
-        transition: all 0.5 ease;
+        transition: all 0.3s ease;
       }
       .primaryBtn:hover,
       .secondaryBtn:hover {
@@ -180,7 +187,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        position: sticky;
+        position: absolute;
         top: 30px;
         left: 20px;
         padding: 0 auto;
@@ -225,7 +232,7 @@
         <img
           src="../assets/images/canvart-logo.png"
           class="logo"
-          alt="LogHue Logo"
+          alt="CanvArt Logo"
         />
 
         <h1>
