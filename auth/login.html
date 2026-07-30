@@ -2,12 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
     <title>Login | CanvArt</title>
 
-    <!--CSS LINKS-->
-
-    <!--SCYBUD UI-->
+    <!-- SCYBUD UI -->
     <link
       rel="stylesheet"
       href="https://scybud.github.io/scybud-ui/css/variables.css"
@@ -17,13 +19,13 @@
       href="https://scybud.github.io/scybud-ui/css/typography.css"
     />
 
-    <!--APP SPECIFIC CSS-->
+    <!-- APP CSS -->
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/components/forms.css" />
     <link rel="stylesheet" href="../css/components/buttons.css" />
     <link rel="stylesheet" href="../css/components/toast.css" />
 
-    <!--FAVICONS-->
+    <!-- Favicons -->
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -43,88 +45,86 @@
     />
 
     <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+
       main {
         display: flex;
-        justify-content: center;
+        min-height: 100vh;
+        gap: 1.5rem;
+        padding: 1.5rem;
+      }
+
+      /* 
+         LEFT SIDE
+       */
+
+      .loginContent {
+        width: min(520px, 100%);
+        display: flex;
         align-items: center;
-        flex-direction: column;
-        width: 100%;
+        justify-content: center;
       }
 
       .authContainer {
-        max-width: 600px;
         width: 100%;
-        margin: 0 auto;
         padding: var(--space-md);
-        text-align: center;
       }
 
-      .authGateway .logo {
-        width: 80px;
-        border-radius: var(--radius-md);
-        corner-shape: squircle;
-        margin-bottom: 1rem;
+      .brand {
+        margin-bottom: 2.5rem;
       }
 
-      .authGateway h1 {
-        font-size: 1.6rem;
+      .brand .logo {
+        font-size: 2rem;
       }
-      p {
+
+      .brand p {
+        margin-top: .75rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .form {
+        padding: 0;
+        background: none;
+        border: none;
+        box-shadow: none;
+        align-items: stretch;
+      }
+
+      .form h2 {
+        text-align: left;
+        margin-bottom: .5rem;
+      }
+
+      .formDescription {
         margin-bottom: 2rem;
+        color: var(--text-secondary);
       }
+
       .formActions {
         display: flex;
         justify-content: space-between;
-        width: 100%;
-      }
-      .oauthContainer {
-        display: flex;
-        gap: var(--space-md);
-      }
-      .oauthBtn {
-        color: var(--text-primary);
-        width: 100%;
-        padding: 0.75rem;
-        border-radius: var(--radius-sm);
-        border: 1px solid var(--border);
-        background: var(--surface-primary);
-        margin-bottom: 0.75rem;
-        display: flex;
-        justify-content: center;
         align-items: center;
-        gap: 0.5rem;
-        cursor: pointer;
-        transition:
-          background 0.2s,
-          border-color 0.2s;
-
-                   opacity: 0.5;
-          cursor: not-allowed;
-      }
-      .oauthBtn:hover {
-        background: var(--surface-secondary);
-        border-color: var(--border-light);
-      }
-
-      .oauthBtn .icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .oauthBtn svg {
-        width: 18px;
-        height: 18px;
+        margin-top: 1rem;
       }
 
       .divider {
         display: flex;
         align-items: center;
-        margin: 1.5rem 0;
+        margin: 2rem 0;
       }
 
       .divider span {
-        padding: 0 0.5rem;
+        padding: 0 1rem;
         color: var(--text-secondary);
       }
 
@@ -135,43 +135,168 @@
         height: 1px;
         background: var(--border-light);
       }
-      .form {
-        align-items: flex-start;
-        border-radius: var(--space-md);
-      }
-      .display {
-        gap: 10px;
+
+      /* 
+         OAUTH
+       */
+
+      .oauthContainer {
         display: flex;
+        gap: .75rem;
       }
-      .backBtn.show {
-        display: block;
-      }
-      .backBtn {
+
+      .oauthBtn {
+        width: 100%;
         display: flex;
-        align-items: center;
         justify-content: center;
-        position: sticky;
-        top: 30px;
-        left: 20px;
-        padding: 0 auto;
-        width: fit-content;
-        background: none;
+        align-items: center;
+        padding: .9rem;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border);
+        background: var(--surface-primary);
+
+        opacity: .45;
+        cursor: not-allowed;
+        transition: .2s;
       }
+
+      .oauthBtn:hover {
+        background: var(--surface-secondary);
+      }
+
+      .oauthBtn svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* 
+         HERO
+       */
+
+      .uiastetic {
+        position: relative;
+        flex: 1;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+
+        background:
+          linear-gradient(
+            180deg,
+            rgba(0,0,0,.05),
+            rgba(0,0,0,.25),
+            rgba(0,0,0,.75)
+          ),
+          url("../assets/images/collection-hero-img.jpg");
+
+        background-size: cover;
+        background-position: center;
+      }
+
+      .heroContent {
+        position: absolute;
+        left: 3rem;
+        right: 3rem;
+        bottom: 3rem;
+        color: white;
+      }
+
+      .heroBadge {
+        display: inline-flex;
+        align-items: center;
+        padding: .45rem .9rem;
+        margin-bottom: 1.25rem;
+        border-radius: 999px;
+        background: rgba(255,255,255,.12);
+        backdrop-filter: blur(10px);
+        font-size: .85rem;
+      }
+
+      .heroContent h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 1rem;
+      }
+
+      .heroContent p {
+        max-width: 520px;
+        line-height: 1.8;
+        font-size: 1rem;
+        opacity: .95;
+      }
+
+      /* 
+         BACK BUTTON
+       */
+
+      .backBtn {
+        position: fixed;
+        top: 24px;
+        left: 24px;
+        z-index: 100;
+        background: transparent;
+      }
+
+      /* 
+         FOOTER
+       */
+
+      .legalLinks {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+        font-size: .85rem;
+      }
+
+      /* 
+         UTILITIES
+       */
 
       .hide {
         display: none;
       }
+
+      /* 
+         MOBILE
+       */
+
+      @media (max-width: 900px) {
+
+        body {
+          overflow: auto;
+        }
+
+        main {
+          padding: 0;
+        }
+
+        .uiastetic {
+          display: none;
+        }
+
+        .loginContent {
+          width: 100%;
+          padding: 2rem;
+        }
+
+        .authContainer {
+          max-width: 460px;
+          margin: auto;
+          padding: 0;
+        }
+
+      }
     </style>
   </head>
-  <body>
-    <div id="modalContainer"></div>
-    <!--TOAST MESSAGES-->
+
+      <div id="modalContainer"></div>
+
+    <!-- Toast -->
     <div id="toast"></div>
-    <!--INFO DISPLAY-->
+
+    <!-- Info Display -->
     <div id="infoDisplay"></div>
 
-    <button type="button" class="btn backBtn btn-sm">
-      <!-- Back Icon -->
+    <!-- Back Button -->
+    <button type="button" class="btn btn-sm backBtn">
       <svg
         width="20"
         height="20"
@@ -187,108 +312,156 @@
           stroke-linejoin="round"
         />
       </svg>
+
       <span>Back</span>
     </button>
 
-    <main class="main">
-      <h1>
-        <span class="logo">Canv<span>Art</span></span>
-      </h1>
-      <p class="text-muted">
-        Log in to share your masterpiece with the community
-      </p>
+    <main>
 
-      <div class="authContainer">
-        <!--LOGIN FORM-->
-        <form class="form" id="loginForm">
-          <h2 class="text-center" style="align-self: center">Login</h2>
+      <!-- ==
+           LOGIN PANEL
+      === -->
 
-          <label for="userLoginEmailInput">Email</label>
-          <input
-            type="email"
-            name="userLoginEmailInput"
-            id="userLoginEmailInput"
-            class="inputField"
-            placeholder="e.g. example@gmail.com"
-            required
-          />
-          <label for="userLoginPasswordInput">Password</label>
-          <input
-            type="password"
-            name="userLoginPasswordInput"
-            id="userLoginPasswordInput"
-            class="inputField"
-            placeholder="Your account password"
-            required
-          />
-          <button class="btn" id="loginBtn" type="submit">Login</button>
-          <div class="formActions">
-            <a href="register">New User</a>
+      <section class="loginContent">
+
+        <div class="authContainer">
+
+          <div class="brand">
+            <span class="logo">
+              Canv<span>Art</span>
+            </span>
+
+            <p>
+              Discover inspiring artwork, build beautiful collections,
+              and share your creativity with artists around the world.
+            </p>
           </div>
-        </form>
 
-        <!-- AUTH GATEWAY -->
+          <form
+            id="loginForm"
+            class="form"
+          >
 
-        <div class="divider hide"><span>or</span></div>
-        <div class="oauthContainer hide">
-          <!-- GOOGLE -->
-          <button class="oauthBtn google" id="googleAuth">
-            <span class="icon">
-              <svg width="18" height="18" viewBox="0 0 48 48">
-                <path
-                  fill="#EA4335"
-                  d="M24 9.5c3.54 0 6.71 1.23 9.21 3.64l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.02 17.74 9.5 24 9.5z"
-                />
-                <path
-                  fill="#4285F4"
-                  d="M46.5 24.5c0-1.57-.14-3.08-.41-4.5H24v9h12.85c-.56 2.85-2.2 5.26-4.7 6.88l7.27 5.64C43.79 37.52 46.5 31.47 46.5 24.5z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M10.54 28.41c-.48-1.43-.75-2.95-.75-4.5s.27-3.07.75-4.5l-7.98-6.19C.92 16.07 0 19.94 0 24c0 4.06.92 7.93 2.56 11.28l7.98-6.19z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M24 48c6.47 0 11.9-2.38 15.92-6.5l-7.27-5.64c-2.01 1.35-4.58 2.14-8.65 2.14-6.26 0-11.57-3.52-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
-                />
-              </svg>
-            </span>
-          </button>
+            <h2>Welcome back</h2>
 
-          <!-- MICROSOFT -->
-          <button class="oauthBtn microsoft" id="microsoftAuth">
-            <span class="icon">
-              <svg width="18" height="18" viewBox="0 0 23 23">
-                <rect width="10" height="10" fill="#F35325" />
-                <rect x="12" width="10" height="10" fill="#81BC06" />
-                <rect y="12" width="10" height="10" fill="#05A6F0" />
-                <rect x="12" y="12" width="10" height="10" fill="#FFBA08" />
-              </svg>
-            </span>
-          </button>
+            <p class="formDescription">
+              Sign in to continue your creative journey.
+            </p>
 
-          <!-- FACEBOOK -->
-          <button class="oauthBtn facebook" id="facebookAuth">
-            <span class="icon">
-              <svg width="18" height="18" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="12" fill="#1877F2"></circle>
-                <path
-                  d="M15.1 12.8l.4-2.6h-2.5V8.7c0-.7.3-1.3 1.3-1.3h1.3V5.1c-.6-.1-1.4-.2-2.3-.2-2.3 0-3.8 1.4-3.8 3.9v2.3H7.2v2.6h2.3v6.6h2.9v-6.6h2.7z"
-                  fill="#fff"
-                ></path>
-              </svg>
-            </span>
-          </button>
+            <label for="userLoginEmailInput">
+              Email
+            </label>
+
+            <input
+              class="inputField"
+              id="userLoginEmailInput"
+              name="userLoginEmailInput"
+              type="email"
+              placeholder="example@email.com"
+              autocomplete="email"
+              required
+            />
+
+            <label for="userLoginPasswordInput">
+              Password
+            </label>
+
+            <input
+              class="inputField"
+              id="userLoginPasswordInput"
+              name="userLoginPasswordInput"
+              type="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+
+            <button
+              id="loginBtn"
+              class="btn"
+              type="submit"
+            >
+              Login
+            </button>
+
+            <div class="formActions">
+
+              <a href="register">
+                Create an account
+              </a>
+
+              <a href="#">
+                Forgot password?
+              </a>
+
+            </div>
+
+          </form>
+
+          <!-- OAuth -->
+
+          <div class="divider hide">
+            <span>or continue with</span>
+          </div>
+
+          <div class="oauthContainer hide">
+            <!-- GOOGLE --> <button class="oauthBtn google" id="googleAuth"> <span class="icon"> <svg width="18" height="18" viewBox="0 0 48 48"> <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.23 9.21 3.64l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.02 17.74 9.5 24 9.5z" /> <path fill="#4285F4" d="M46.5 24.5c0-1.57-.14-3.08-.41-4.5H24v9h12.85c-.56 2.85-2.2 5.26-4.7 6.88l7.27 5.64C43.79 37.52 46.5 31.47 46.5 24.5z" /> <path fill="#FBBC05" d="M10.54 28.41c-.48-1.43-.75-2.95-.75-4.5s.27-3.07.75-4.5l-7.98-6.19C.92 16.07 0 19.94 0 24c0 4.06.92 7.93 2.56 11.28l7.98-6.19z" /> <path fill="#34A853" d="M24 48c6.47 0 11.9-2.38 15.92-6.5l-7.27-5.64c-2.01 1.35-4.58 2.14-8.65 2.14-6.26 0-11.57-3.52-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" /> </svg> </span> </button> <!-- MICROSOFT --> <button class="oauthBtn microsoft" id="microsoftAuth"> <span class="icon"> <svg width="18" height="18" viewBox="0 0 23 23"> <rect width="10" height="10" fill="#F35325" /> <rect x="12" width="10" height="10" fill="#81BC06" /> <rect y="12" width="10" height="10" fill="#05A6F0" /> <rect x="12" y="12" width="10" height="10" fill="#FFBA08" /> </svg> </span> </button> <!-- FACEBOOK --> <button class="oauthBtn facebook" id="facebookAuth"> <span class="icon"> <svg width="18" height="18" viewBox="0 0 24 24"> <circle cx="12" cy="12" r="12" fill="#1877F2"></circle> <path d="M15.1 12.8l.4-2.6h-2.5V8.7c0-.7.3-1.3 1.3-1.3h1.3V5.1c-.6-.1-1.4-.2-2.3-.2-2.3 0-3.8 1.4-3.8 3.9v2.3H7.2v2.6h2.3v6.6h2.9v-6.6h2.7z" fill="#fff" ></path> </svg> </span> </button>
+          </div>
+
+        <!-- Legal -->
+
+        <div class="legalLinks">
+          <a
+            href="https://joincanvart.vercel.app/legal/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Privacy Policy
+          </a>
+
+          <a
+            href="https://joincanvart.vercel.app/legal/terms-of-use"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Terms of Use
+          </a>
         </div>
 
-         <div style="font-size: 0.8rem; display: flex; gap: 5px; justify-content: space-between;" class="legalLinks">
-  <a href="http://joincanvart.vercel.app/legal/privacy-policy">Privacy Policy</a>
-  <a href="http://joincanvart.vercel.app/legal/terms-of-use">Terms Of Use</a>
-        </div>
       </div>
+
+    </section>
+
+    <!-- ==
+         HERO PANEL
+    === -->
+
+    <aside class="uiastetic">
+
+      <div class="heroContent">
+
+        <div class="heroBadge">
+          🎨 Join thousands of creators
+        </div>
+
+        <h1>
+          Every masterpiece starts with one idea.
+        </h1>
+
+        <p>
+          Explore artwork from talented creators around the world, organize your
+          favorite collections, and share your own creative journey with a
+          community that appreciates great art.
+        </p>
+
+      </div>
+
+    </aside>
+
     </main>
 
     <script type="module" src="../js/auth/auth.js"></script>
     <script type="module" src="../js/auth/login.js"></script>
+
   </body>
 </html>
