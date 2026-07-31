@@ -185,20 +185,30 @@
         gap: 10px;
         display: flex;
       }
-      .backBtn.show {
-        display: block;
-      }
       .backBtn {
+        color: var(--text-primary);
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        z-index: 100;
+        background: transparent;
+        border: none;
         display: flex;
         align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 30px;
-        left: 20px;
-        padding: 0 auto;
+        justify-content: flex-start;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        background: var(--surface-primary);
         width: fit-content;
-        background: none;
+        padding: var(--space-sm);
+        border-radius: var(--radius-sm);
       }
+.backBtn:hover {
+  transform: translate(-6px);
+}
+.backBtn:active {
+  transform: scale(0.9);
+}
       .hide {
         display: none;
       }
@@ -211,7 +221,7 @@
     <!--INFO DISPLAY-->
     <div id="infoDisplay"></div>
 
-    <button type="button" class="btn backBtn btn-sm">
+    <button type="button" class="backBtn">
       <!-- Back Icon -->
       <svg
         width="20"
@@ -244,7 +254,7 @@
           Welcome to <span class="logo">Canv<span>Art</span></span>
         </h1>
         <p class="text-muted">
-          Log in to manage your tasks, notes, and decisions
+          Share your masterpiece with creators like you
         </p>
 
         <a href="login" class="primaryBtn emailLogin" id="emailLogin"

@@ -228,13 +228,25 @@
        */
 
       .backBtn {
+        color: var(--text-primary);
         position: fixed;
-        top: 24px;
-        left: 24px;
+        top: 18px;
+        left: 18px;
         z-index: 100;
         background: transparent;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+        cursor: pointer;
       }
-
+.backBtn:hover {
+  transform: translate(-6px);
+}
+.backBtn:active {
+  transform: scale(0.9);
+}
       /* 
          FOOTER
        */
@@ -296,7 +308,7 @@
 <div id="infoDisplay"></div>
 
 <!-- Back Button -->
-<button type="button" class="btn btn-sm backBtn">
+<button type="button" class=" backBtn">
   <svg
     width="20"
     height="20"
