@@ -107,14 +107,13 @@ height: 250px;
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--accent-color, #ff7f50);
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.25s ease;
 }
 
 #trendingCollections .card:hover {
-  transform: translateY(-4px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
 }
 
