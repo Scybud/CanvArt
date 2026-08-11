@@ -13,28 +13,28 @@ document.addEventListener("DOMContentLoaded", async () => {
   //1. Load correct sidebar based on page
   if (path.includes("profile")) {
     await loadComponent(
-      "https://joincanvart.vercel.app/components/folder-sidebar",
+      "/components/folder-sidebar",
       "profileSidebar",
     );
   }
 
    if (path.includes("collection")) {
      await loadComponent(
-       "https://joincanvart.vercel.app/components/folder-sidebar",
+       "/components/folder-sidebar",
        "collectionSidebar",
      );
    }
   
    if (path.includes("artwork")) {
      await loadComponent(
-       "https://joincanvart.vercel.app/components/folder-sidebar",
+       "/components/folder-sidebar",
        "artworkSidebar",
      );
    }
 
   // 2. Load sidebar HTML
   await loadComponent(
-    "https://joincanvart.vercel.app/components/sidebar",
+    "/components/sidebar",
     "sidebar",
   );
 
