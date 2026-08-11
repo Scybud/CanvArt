@@ -51,7 +51,7 @@ export function handleArtworkLike({ likeBtn, artworkId, likeCount, likeIcon }) {
     const user = await sessionState.user;
     if (!user) {
       await loadComponent(
-        "https://joincanvart.vercel.app/components/modals/request-auth",
+        "/components/modals/request-auth",
         "modalContainer",
       );
       return;

@@ -38,7 +38,7 @@ export async function initAddToCollectionModal(artworkId) {
           onAction: async () => {
                 // Open modal
                 await loadComponent(
-                  "https://joincanvart.vercel.app/components/modals/create/create-collection",
+                  "/components/modals/create/create-collection",
                   "modalContainer",
                 );
                 // Wire up the createCollection behavior for that modal

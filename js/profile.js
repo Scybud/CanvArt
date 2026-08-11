@@ -91,7 +91,7 @@ async function showArtworks(content) {
         ? async () => {
             // Open modal
     await loadComponent(
-          "https://joincanvart.vercel.app/components/modals/create/upload-artwork",
+          "/components/modals/create/upload-artwork",
           "modalContainer",
         );
 
@@ -143,7 +143,7 @@ async function showCollections(content) {
         ? async () => {
             // Open modal
             await loadComponent(
-              "https://joincanvart.vercel.app/components/modals/create/create-collection",
+              "/components/modals/create/create-collection",
               "modalContainer",
             );
             // Wire up the createCollection behavior for that modal
@@ -194,7 +194,7 @@ async function handleProfileEdit() {
           return;
         }
         await loadComponent(
-          "https://joincanvart.vercel.app/components/modals/edit/edit-profile.html",
+          "/components/modals/edit/edit-profile.html",
           "modalContainer",
         );
         await updateProfile(

@@ -15,7 +15,7 @@ async function isUsernameTaken(username) {
     return;
   }
   return !!data; // true if exists
-
+}
 
 //Signup funtion
 async function signup(username, name, email, password) {

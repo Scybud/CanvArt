@@ -82,7 +82,7 @@ async function handleArtworkUploadToCollection(addToCollectionArtworkBtn, collec
 
   addArtworkBtn.addEventListener("click", async () => {
     await loadComponent(
-      "https://joincanvart.vercel.app/components/modals/create/upload-artwork",
+      "/components/modals/create/upload-artwork",
       "modalContainer",
     );
 
@@ -108,7 +108,7 @@ async function handleCollectionEdit() {
           return;
         }
         await loadComponent(
-          "https://joincanvart.vercel.app/components/modals/edit/edit-collection.html",
+          "/components/modals/edit/edit-collection.html",
           "modalContainer",
         );
         await updateCollection(

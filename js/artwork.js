@@ -121,7 +121,7 @@ function getArtworkId() {
 
     reportOrDeleteBtn.addEventListener("click", async () => {
       await loadComponent(
-        "../components/modals/report-content.html",
+        "/components/modals/report-content.html",
         "modalContainer",
       );
 

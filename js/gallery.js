@@ -32,7 +32,7 @@ async function initExplore() {
   if (showArtistsListModalBtn) {
     showArtistsListModalBtn.addEventListener("click", async () => {
       await loadComponent(
-        "https://joincanvart.vercel.app/components/modals/artists-list",
+        "/components/modals/artists-list",
         "modalContainer",
       );
 
@@ -50,14 +50,14 @@ async function handleArtworkUpload() {
       btn.addEventListener("click", async () => {
         if (!sessionState.user) {
           await loadComponent(
-            "https://joincanvart.vercel.app/components/modals/request-auth",
+            "/components/modals/request-auth",
             "modalContainer",
           );
 
           return;
         }
         await loadComponent(
-          "https://joincanvart.vercel.app/components/modals/create/upload-artwork",
+          "/components/modals/create/upload-artwork",
           "modalContainer",
         );
         await uploadArtwork(

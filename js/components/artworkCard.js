@@ -247,7 +247,7 @@ ${
     if(addToCollectionBtn) {
       addToCollectionBtn.addEventListener("click", async () => {
         await loadComponent(
-          "../components/modals/create/add-to-collection.html",
+          "/components/modals/create/add-to-collection.html",
           "modalContainer",
         );
 
@@ -265,7 +265,7 @@ ${
 
         await handleContentReport(
           artwork,
-          `https://joincanvart.vercel.app/artwork/${artwork?.id}`,
+          `/artwork/${artwork?.id}`,
           "contentUrl",
           "reporterUsername",
           "reasonForReport",
