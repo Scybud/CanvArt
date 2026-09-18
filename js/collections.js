@@ -66,7 +66,7 @@ async function renderFeaturedArtists() {
   const container = document.getElementById("featuredArtists");
   container.innerHTML = ""; // clear
 
-  const artists = await fetchFeaturedArtists(10);
+  const artists = await fetchFeaturedArtists(5);
 
   if (!artists || artists.length === 0) {
     container.innerHTML = "<p>No featured artists this week.</p>";
