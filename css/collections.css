@@ -24,7 +24,9 @@
 .featured-artist-card {
   display: flex;
   flex-direction: column;
-
+min-width: 150px;
+padding: var(--space-sm) var(--space-md);
+border-radius: var(--radius-md);
   align-items: center;
   text-align: center;
   cursor: pointer;
@@ -33,6 +35,9 @@
 .featured-artist-card:hover {
     margin: 0 var(--space-md);
     transform: scale(1.1);
+    background: var(--hover-bg);
+    text-decoration: none;
+    color: var(--text-primary);
 }
 
 .featured-artist-avatar {

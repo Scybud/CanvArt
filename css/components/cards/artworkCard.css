@@ -63,8 +63,10 @@ transition: background var(--transition-fast);
   right: var(--space-sm);
   max-width: 200px;
   width: 200px;
-  padding: var(--space-md) 0;
+  /*
   background: var(--surface-secondary);
+  */
+  backdrop-filter: var(--filter) brightness(60%);
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
