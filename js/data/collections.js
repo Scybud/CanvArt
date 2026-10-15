@@ -79,3 +79,27 @@ export async function fetchCollectionsByUserId(userId) {
 
   return data;
 }
+
+export async function fetchCollectionsByCount(limit) {
+      const { data: collections, error } = await supabase
+        .from("collections")
+        .select(
+          `
+      id, thumbnail_url, name, description,
+      profiles (
+        id,
+        username,
+        name,
+        avatar_url
+      )`,
+        )
+        .limit(limit);
+
+      if (error) {
+        toastMsg("Error loading collections", "error");
+        console.log("error");
+        return
+      }
+
+      return collections;
+}

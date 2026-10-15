@@ -8,7 +8,7 @@ import { fetchAllArtworks } from "./data/artworks.js";
 import { createArtworkCard } from "./components/artworkCard.js";
 import { fetchFeaturedArtists, fetchAllArtists } from "./data/artists.js"; // adjust path if needed
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
-import { fetchAllCollections } from "./data/collections.js";
+import { fetchAllCollections, fetchCollectionsByCount } from "./data/collections.js";
 import { createCollectionCard } from "./components/collectionCard.js";
 
 async function initExplore() {
@@ -77,7 +77,7 @@ async function renderTrendingCollections() {
 
   container.innerHTML = "";
 
-  const collections = await fetchAllCollections();
+  const collections = await fetchCollectionsByCount(3);
 
   if (!collections || collections.length === 0) {
     container.innerHTML = "<p>No trending collections this week.</p>";
