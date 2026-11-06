@@ -1,46 +1,122 @@
 import {
   loadComponent,
-  closeModal
 } from "https://scybud.github.io/scybud-ui/js/ui.js";
 import { sessionReady, sessionState } from "./session.js";
 import { uploadArtwork } from "./create/uploadArtwork.js";
-import { fetchAllArtworks } from "./data/artworks.js";
+import { fetchArtworks } from "./data/artworks.js"; 
 import { createArtworkCard } from "./components/artworkCard.js";
-import { fetchFeaturedArtists, fetchAllArtists } from "./data/artists.js"; // adjust path if needed
+import { fetchFeaturedArtists } from "./data/artists.js";
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
-import { fetchAllCollections, fetchCollectionsByCount } from "./data/collections.js";
+import { fetchCollectionsByCount } from "./data/collections.js";
 import { createCollectionCard } from "./components/collectionCard.js";
 
-async function initExplore() {
+const LIMIT = 10; // how many cards per batch
+let currentPage = 1;
+let isLoading = false;
+let hasMore = true;
+let allLoadedArtworks = []; // track of what we've already rendered
+
+async function initGallery() {
   await sessionReady;
   const user = sessionState.user;
 
   await handleArtworkUpload();
 
-  const artworks = await fetchAllArtworks();
+  // Initial load
+  await loadMoreArtworks(user);
 
-  const artworksData = await enrichArtworksWithLikes(artworks, user?.id);
-
-  const exploreContainer = document.getElementById("gallery");
-  await createArtworkCard(exploreContainer, artworksData, user);
+  // Infinite scroll listener
+  setupInfiniteScroll(user);
 
   await renderFeaturedArtists();
+  await renderTrendingCollections();
 
+  // Artists modal button
   const showArtistsListModalBtn = document.getElementById(
     "showArtistsListModal",
   );
   if (showArtistsListModalBtn) {
     showArtistsListModalBtn.addEventListener("click", async () => {
-      await loadComponent(
-        "/components/modals/artists-list",
-        "modalContainer",
-      );
-
+      await loadComponent("/components/modals/artists-list", "modalContainer");
       await renderFeaturedArtistsList();
     });
   }
+}
 
-  await renderTrendingCollections();
+async function loadMoreArtworks(user) {
+  if (isLoading || !hasMore) return;
+
+  isLoading = true;
+  showLoader(true); 
+
+  try {
+    const newArtworks = await fetchArtworks({
+      page: currentPage,
+      limit: LIMIT,
+    });
+
+    if (!newArtworks || newArtworks.length === 0) {
+      hasMore = false;
+      showLoader(false);
+      return;
+    }
+
+    // Enrich only the new batch
+    const enriched = await enrichArtworksWithLikes(newArtworks, user?.id);
+
+    const exploreContainer = document.getElementById("gallery");
+    await createArtworkCard(exploreContainer, enriched, user); // appends, doesn't replace
+
+    allLoadedArtworks = [...allLoadedArtworks, ...enriched];
+    currentPage += 1;
+
+    // If we got fewer than LIMIT, we've reached the end
+    if (newArtworks.length < LIMIT) {
+      hasMore = false;
+    }
+  } catch (err) {
+    console.error("Failed to load more artworks:", err);
+  } finally {
+    isLoading = false;
+    showLoader(false);
+  }
+}
+
+function setupInfiniteScroll(user) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting && hasMore && !isLoading) {
+        loadMoreArtworks(user);
+      }
+    },
+    {
+      rootMargin: "300px", // start loading a bit before the user hits the bottom
+    },
+  );
+
+  // Create a sentinel element at the bottom of the gallery
+  let sentinel = document.getElementById("scroll-sentinel");
+  if (!sentinel) {
+    sentinel = document.createElement("div");
+    sentinel.id = "scroll-sentinel";
+    sentinel.style.height = "1px";
+    document.getElementById("gallery").after(sentinel);
+  }
+
+  observer.observe(sentinel);
+}
+
+// loader
+function showLoader(show) {
+  let loader = document.getElementById("gallery-loader");
+  if (!loader) {
+    loader = document.createElement("div");
+    loader.id = "gallery-loader";
+    loader.className = "gallery-loader";
+    loader.innerHTML = `<div class="spinner"></div>`;
+    document.getElementById("gallery").after(loader);
+  }
+  loader.style.display = show ? "flex" : "none";
 }
 
 async function handleArtworkUpload() {
@@ -136,4 +212,4 @@ async function renderFeaturedArtistsList() {
   });
 }
 
-initExplore();
+initGallery();

@@ -7,7 +7,6 @@ import { handleArtworkLike } from "../utils/button.js";
 import { initShareButton } from "../utils/shareItem.js";
 import {
   loadComponent,
-  closeModal,
   magnifyImg,
 } from "https://scybud.github.io/scybud-ui/js/ui.js";
 import {linkify} from "../utils/linkify.js"

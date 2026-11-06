@@ -225,3 +225,22 @@ height: 250px;
   opacity: 0.7;
   font-size: 0.85rem;
 }
+
+.gallery-loader {
+  display: none;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.gallery-loader .spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5e5e5;
+  border-top-color: var(--accent, #0d9488);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
