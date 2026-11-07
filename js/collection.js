@@ -9,6 +9,7 @@ import { addArtworkToCollection } from "./create/uploadArtwork.js";
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
 import { sessionReady, sessionState } from "./session.js";
 import { updateCollection } from "./edit/editCollection.js";
+import { linkify } from "./utils/linkify.js";
 
 let collection = null;
 
@@ -33,8 +34,10 @@ function renderCollection(collection) {
   document.getElementById("collectionName").textContent =
     collection.name || "Untitled Collection";
 
-  document.getElementById("collectionDescription").textContent =
-    collection.description || "No description";
+    const linkifyed = linkify(collection.description);
+
+  document.getElementById("collectionDescription").innerHTML =
+    linkifyed || "No description";
 
   document.getElementById("collectionThumbnail").src =
     collection.thumbnail_url || "../assets/images/default-avatar.png";
