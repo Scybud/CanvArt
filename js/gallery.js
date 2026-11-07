@@ -1,9 +1,7 @@
-import {
-  loadComponent,
-} from "https://scybud.github.io/scybud-ui/js/ui.js";
+import { loadComponent } from "https://scybud.github.io/scybud-ui/js/ui.js";
 import { sessionReady, sessionState } from "./session.js";
 import { uploadArtwork } from "./create/uploadArtwork.js";
-import { fetchArtworks } from "./data/artworks.js"; 
+import { fetchArtworks } from "./data/artworks.js";
 import { createArtworkCard } from "./components/artworkCard.js";
 import { fetchFeaturedArtists } from "./data/artists.js";
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
@@ -47,7 +45,7 @@ async function loadMoreArtworks(user) {
   if (isLoading || !hasMore) return;
 
   isLoading = true;
-  showLoader(true); 
+  showLoader(true);
 
   try {
     const newArtworks = await fetchArtworks({
@@ -64,8 +62,10 @@ async function loadMoreArtworks(user) {
     // Enrich only the new batch
     const enriched = await enrichArtworksWithLikes(newArtworks, user?.id);
 
+    const shuffled = shuffleArray(enriched);
+
     const exploreContainer = document.getElementById("gallery");
-    await createArtworkCard(exploreContainer, enriched, user); // appends, doesn't replace
+    await createArtworkCard(exploreContainer, shuffled, user); // appends, doesn't replace
 
     allLoadedArtworks = [...allLoadedArtworks, ...enriched];
     currentPage += 1;
@@ -213,3 +213,14 @@ async function renderFeaturedArtistsList() {
 }
 
 initGallery();
+
+function shuffleArray(array) {
+  const shuffled = [...array];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
+}

@@ -127,7 +127,7 @@ function getArtworkId() {
 
       await handleContentReport(
         artwork,
-        `https://joincanvart.vercel.app/artwork/${artwork?.id}`,
+        `https://canvart.scybud.com/artwork/${artwork?.id}`,
         "contentUrl",
         "reporterUsername",
         "reasonForReport",

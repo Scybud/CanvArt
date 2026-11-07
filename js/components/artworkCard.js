@@ -52,16 +52,14 @@ View
   <circle cx="14" cy="11" r="0.8" fill="currentColor"/>
 </svg> Artist</a>
 
-${
-  user?.id === artwork?.user_id ? `<button class="btn addToCollectionBtn">
+<button class="btn addToCollectionBtn">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 8v8M8 12h8"/>
   </svg>
   Add to Collection
 </button>
-` : ""
-}
+
 
 ${
   user?.id !== artwork?.user_id
