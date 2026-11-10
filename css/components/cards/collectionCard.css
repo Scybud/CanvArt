@@ -1,6 +1,5 @@
 
 .collections-grid {
-  overflow: hidden;
     column-count: 4;
     padding-bottom: var(--space-lg);
 }
@@ -11,8 +10,11 @@
 @media (max-width: 1000px) {
   .collections-grid { column-count: 2; }
 }
+@media (max-width: 600px) {
+  .collections-grid { column-count: 1; }
+}
 .collectionItem {
-  border: 4px solid var(--border);
+  border: 4px solid var(--border-primary);
   margin-bottom: 1.5rem;
   background: #111;
   border-radius: 12px;
@@ -21,6 +23,7 @@
 flex: 0 0 auto;
   padding: var(--space-sm);
   gap: 0;
+  box-shadow: -5px 5px 0 var(--muted);
   border-radius: var(--radius-md);
 }
 .collectionItem:hover {

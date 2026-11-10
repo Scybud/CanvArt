@@ -1,6 +1,6 @@
-/* =========================
+/* 
    COLLECTION PAGE
-========================= */
+ */
 
 .collection-header {
   position: relative;
@@ -11,9 +11,9 @@
   margin-bottom: 2rem;
 }
 
-/* =========================
+/* 
    COVER
-========================= */
+ */
 
 .collection-cover {
   position: relative;
@@ -44,9 +44,9 @@ background-position: center;
   opacity: 0.8;
 }
 
-  /* =========================
+  /* 
   COLLECTION INFO
-  ========================= */
+   */
   
   .collection-data {
     display: flex;
@@ -63,9 +63,9 @@ background-position: center;
     -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
     mask-image: linear-gradient(to right, black 60%, transparent 100%);}
 
-/* =========================
+/* 
    THUMBNAIL
-========================= */
+ */
 
 .collection-thumbnail {
   width: 100%;
@@ -97,17 +97,17 @@ text-align: center;
   font-size: 0.97rem;
 }
 
-/* =========================
+/* 
    BODY
-========================= */
+ */
 
 .collection-body {
   padding: var(--space-md);
 }
 
-/* =========================
+/* 
    SECTION HEADER
-========================= */
+ */
 
 .section-header {
   display: flex;
@@ -220,9 +220,9 @@ text-align: center;
 }
 
 
-/* =========================
+/* 
    EMPTY STATE
-========================= */
+ */
 
 .empty-collection {
   display: flex;
@@ -254,9 +254,9 @@ text-align: center;
   line-height: 1.6;
 }
 
-/* =========================
+/* 
    RESPONSIVE
-========================= */
+ */
 
 @media (max-width: 768px) {
   .collection-cover {
