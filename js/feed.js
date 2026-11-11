@@ -329,6 +329,33 @@ const step = (dir) =>
 document.getElementById("feedUp").addEventListener("click", () => step(-1));
 document.getElementById("feedDown").addEventListener("click", () => step(1));
 
+// Wheel paging: one gesture moves exactly one artwork.
+let wheelLocked = false;
+let lockUntil = 0;
+let lockTimer;
+
+function unlockSoon() {
+  clearTimeout(lockTimer);
+  const wait = Math.max(150, lockUntil - performance.now());
+  lockTimer = setTimeout(() => (wheelLocked = false), wait);
+}
+
+feed.addEventListener(
+  "wheel",
+  (e) => {
+    if (!sheet.hidden) return;
+    e.preventDefault();
+    // Trackpad inertia keeps firing, so each event extends the lock.
+    if (wheelLocked) return unlockSoon();
+    if (Math.abs(e.deltaY) < 10) return;
+    wheelLocked = true;
+    lockUntil = performance.now() + 600;
+    step(e.deltaY > 0 ? 1 : -1);
+    unlockSoon();
+  },
+  { passive: false },
+);
+
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeSheet();
   if (!sheet.hidden) return;
