@@ -129,7 +129,12 @@ function addSlide(art) {
     `${window.location.origin}/artwork/${art.id}`,
   );
 
-  collectBtn.addEventListener("click", () => openCollectSheet(art));
+  const collectionCount = document.createElement("span");
+  collectBtn.addEventListener("click", () => openCollectSheet(art, collectionCount));
+collectionCount.className = "collectionCount";
+collectionCount.textContent = art.collection_artworks?.[0]?.count || 0;
+collectBtn.append(collectionCount);
+
 
   // Double tap likes the artwork if it isn't liked yet.
   slide.media.addEventListener("dblclick", () => {
@@ -221,7 +226,7 @@ async function loadMore() {
 }
 
 // ADD TO COLLECTION SHEET
-async function openCollectSheet(art) {
+async function openCollectSheet(art, countEl) {
   if (!user) {
     await loadComponent("/components/modals/request-auth", "modalContainer");
     return;
@@ -283,13 +288,17 @@ async function openCollectSheet(art) {
     paint();
 
     row.addEventListener("click", async () => {
+      if (row.disabled) return;
+      row.disabled = true;
+
       const had = inSet.has(c.id);
-      const { error } = had
+      const { data, error } = had
         ? await supabase
             .from("collection_artworks")
             .delete()
             .eq("collection_id", c.id)
             .eq("artwork_id", art.id)
+            .select()
         : await supabase
             .from("collection_artworks")
             .upsert(
@@ -297,13 +306,18 @@ async function openCollectSheet(art) {
               { onConflict: "collection_id,artwork_id" },
             );
 
-      if (error) {
+      row.disabled = false;
+
+      // A blocked delete returns no error, so check that a row was removed.
+      if (error || (had && !data?.length)) {
         console.error(error);
         toastMsg("Couldn't update collection", "error");
         return;
       }
       had ? inSet.delete(c.id) : inSet.add(c.id);
       paint();
+      countEl.textContent = Number(countEl.textContent) + (had ? -1 : 1);
+
       toastMsg(
         had ? `Removed from ${c.name}` : `Added to ${c.name}`,
         "success",
