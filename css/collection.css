@@ -34,7 +34,7 @@ background-position: center;
   }
   
   .editBtn {
-  position: absolute;
+  position: fixed;
   right: 10px;
   top: 10px;
   background: var(--surface-primary);
