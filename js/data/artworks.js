@@ -52,7 +52,7 @@ export async function fetchArtworksByUserId(viewerId, profileUserId) {
       *,
       profiles (
         id, username, name, avatar_url
-      ),
+      )
     `,
     )
     .eq("user_id", profileUserId);
