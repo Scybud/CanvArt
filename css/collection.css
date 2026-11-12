@@ -37,6 +37,7 @@ background-position: center;
   position: fixed;
   right: 10px;
   top: 10px;
+  z-index: 1;
   background: var(--surface-primary);
 }
 .editBtn:hover {
