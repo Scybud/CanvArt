@@ -64,15 +64,19 @@ async function showArtworks(collectionId, user) {
   sectionHeader.classList.add("section-header");
 
   sectionHeader.innerHTML = `
-    <h3>Collection Artworks</h3>
+  <h3>Collection Artworks</h3>
+  <div style="display:flex;gap:var(--space-sm)">
+    <a class="btn btn-no-bg" href="/feed?c=${encodeURIComponent(collectionId)}">Feed view</a>
     <button id="addArtworkBtn" class="btn btn-primary" type="button">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 5v14" />
-  <path d="M5 12h14" />
-</svg>
-Add Artwork</button>
-  `;
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14" />
+        <path d="M5 12h14" />
+      </svg>
+      Add Artwork
+    </button>
+  </div>
+`;
 
   content.append(sectionHeader);
   content.append(artworkContainer);

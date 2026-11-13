@@ -2,7 +2,6 @@ import { supabase } from "./supabase.js";
 import { sessionReady, sessionState } from "./session.js";
 import { fetchArtworks } from "./data/artworks.js";
 import { enrichArtworksWithLikes } from "./data/artworkLikes.js";
-import { fetchCollectionsByUserId } from "./data/collections.js";
 import { handleArtworkLike } from "./utils/button.js";
 import { initShareButton } from "./utils/shareItem.js";
 import { toastMsg } from "./components/toast.js";
@@ -11,6 +10,12 @@ import {
   loadComponent,
   createEmptyState,
 } from "https://scybud.github.io/scybud-ui/js/ui.js";
+import {
+  fetchCollectionsByUserId,
+  fetchCollectionById,
+} from "./data/collections.js";
+
+const collectionId = new URLSearchParams(location.search).get("c");
 
 const LIMIT = 10; // artworks per fetch
 const KEEP = 2; // slides kept mounted on each side of the active one
@@ -192,12 +197,36 @@ function showEnd() {
   }
   const end = document.createElement("section");
   end.className = "feedEnd";
-  end.innerHTML = `<p>You are all caught up.</p><a href="gallery" class="btn btn-primary">Back to Gallery</a>`;
-  feed.append(end);
+const back = collectionId
+  ? `/collection/${encodeURIComponent(collectionId)}`
+  : "gallery";
+const label = collectionId ? "Back to Collection" : "Back to Gallery";
+end.innerHTML = `<p>You are all caught up.</p><a href="${back}" class="btn btn-primary">${label}</a>`;  feed.append(end);
+}
+
+// Collection mode: load every artwork once, in collection order.
+async function loadCollection() {
+  loading = true;
+  hasMore = false;
+  try {
+    const collection = await fetchCollectionById(collectionId);
+    const arts = (collection?.collection_artworks || [])
+      .map((item) => item.artworks)
+      .filter(Boolean);
+    const enriched = await enrichArtworksWithLikes(arts, user?.id);
+    enriched.forEach(addSlide);
+  } catch (err) {
+    console.error("Collection feed failed to load:", err);
+    toastMsg("Couldn't load collection", "error");
+  } finally {
+    loading = false;
+    showEnd();
+  }
 }
 
 async function loadMore() {
   if (loading || !hasMore) return;
+  if (collectionId) return loadCollection();
   loading = true;
 
   try {

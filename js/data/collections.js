@@ -40,7 +40,8 @@ export async function fetchCollectionById(collectionId) {
             username,
             name,
             avatar_url
-          )
+          ),
+          collection_artworks(count)
         )
       )
     `,
