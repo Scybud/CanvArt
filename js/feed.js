@@ -215,6 +215,7 @@ async function loadCollection() {
       .filter(Boolean);
     const enriched = await enrichArtworksWithLikes(arts, user?.id);
     enriched.forEach(addSlide);
+    document.title = `${collection.name} | CanvArt`
   } catch (err) {
     console.error("Collection feed failed to load:", err);
     toastMsg("Couldn't load collection", "error");
