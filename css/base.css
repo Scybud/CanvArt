@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
 
 /*RESET*/
 * {
@@ -18,7 +17,7 @@
   
   --accent: #ff751f;
   --accent-dark: #ff6201;
---font-chewy: "Chewy", sans-serif;
+--font-chewy: "Comic Sans MS", "Chalkboard SE", "Comic Neue", "Marker Felt", cursive;
 --font-poppins: "Poppins", sans-serif;
   --gradient: linear-gradient(to right, var(--primary), var(--accent));
 }

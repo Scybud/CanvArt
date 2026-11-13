@@ -29,6 +29,7 @@ body {
 
 .hero-banner {
     font-family: var(--font-chewy);
+    font-weight: 800;
     overflow: hidden;
     display: flex;
     justify-content: space-between;
@@ -63,6 +64,7 @@ img.logo-img {
 
 .hero-content {
     font-family: var(--font-chewy);
+    font-weight: 800;
     background: url("../assets/images/hero-img.png");
     background-size: cover;
     background-repeat: no-repeat;
